@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+	<meta charset="utf-8" />
+	<title>会员中心登陆</title>
+	<!-- IE最新兼容 -->
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<!-- 国产浏览器高速 -->
+	<meta name="renderer" content="webkit">
+	<!-- 移动设备禁止缩放 -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+	<!-- No Baidu Siteapp-->
+	<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+	<link rel="icon" type="image/png" href="__ROOT__/Static/Common/img/favicon.png">
+
+	<!-- Add to homescreen for Chrome on Android -->
+	<meta name="mobile-web-app-capable" content="yes">
+	<link rel="icon" sizes="192x192" href="__ROOT__/Static/Common/img/app.png">
+
+	<!-- Add to homescreen for Safari on iOS -->
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="apple-mobile-web-app-title" content="李" />
+	<link rel="apple-touch-icon-precomposed" href="__ROOT__/Static/Common/img/app.png">
+
+	<!-- Tile icon for Win8 (144x144 + tile color) -->
+	<meta name="msapplication-TileImage" content="__ROOT__/Static/Common/img/app.png">
+	<meta name="msapplication-TileColor" content="#0e90d2">
+	<!--[if gt IE 9]>
+	<script src="__ROOT__/Static/Common/js/html5.js"></script>
+	<script src="__ROOT__/Static/Common/js/respond.js"></script>
+	<![endif]-->
+	<link rel="stylesheet" type="text/css" href="__ROOT__/Static/Index/images/reset.css" />
+</head>
+
+<body>
+	<!--logo+login-->
+	<section class="login_top m_a clearfix">
+		<!--logo-->
+		<h1 class="logo h_img f_l"><a href="{$SITE['1']['siteurl']}"><img src="__ROOT__/Static/Index/images/logo.png" width="100" height="100"/></a></h1>
+		<a href="{$SITE['1']['siteurl']}" class="f_r backhome">返回首页</a>
+	</section>
+	<!--wrap_one-->
+	<div class="login_con">
+		<section class="overh mt15 m_a clearfix">
+			<div class="form_group login_form">
+			<h2 class="login_h2">登陆</h2>
+				<form action="{:U()}" method="post">
+					<div class="form-group">
+						<label for="uname" class="item-label">用户名：</label>
+						<input type="text" value="" name="uname" class="input-text">
+					</div>
+					<div class="form-group">
+						<label for="password" class="item-label">密码：</label>
+						<input type="password" value="" name="password" class="input-text">
+					</div>
+					<div class="form-group">
+						<label for="rolename" class="item-label">验证码：</label>
+						<input type="text" value="" name="verify" class="input-text input-small">
+						<img src="{:U('verify')}" width="240" height="60" class="verify_img f_r" onclick="this.src=this.src+'?'+Math.random()" alt="">
+					</div>
+					<div class="form-group tc-r">
+						<button type="submit" name="dosubmit" class="">提交</button>&nbsp;&nbsp;&nbsp;<button type="reset" name="reset" class="">重填</button>
+					</div>
+				</form>
+			</div>
+		</section>
+	</div>
+	<!--footer-->
+	<footer class="m_a overh clearfix login_foot">
+			©2013-2015 网贷门户(http://www.wangdaisky.com) 版权所有 All Rights Reserved.<br />
+Powered by 上海东讯金融信息服务有限公司 备案号：沪ICP备15012931号-2<br /> 
+	</footer>
+</body>
+</html>

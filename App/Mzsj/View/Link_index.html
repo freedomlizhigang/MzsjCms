@@ -1,0 +1,30 @@
+<extend name="Common:index" />
+<block name="main">
+	<form action="{:U('dellink')}" method="post">
+	<table class="table-form">
+		<tr class="tr-header">
+			<th width="1"><input type="checkbox" value="" class="checkall"></th>
+			<th width="40">ID</th>
+			<th width="60">排序</th>
+			<th width="150">名称</th>
+			<th width="300">url</th>
+			<th>操作</th>
+		</tr>
+		<volist name="lists" id="link">
+		<tr>
+			<td><input type="checkbox" name="linkids[]" value="{$link.linkid}" class="subcheck" ></td>
+			<td>{$link.linkid}</td>
+			<td>{$link.listorder}</td>
+			<td>{$link.name}</td>
+			<td>{$link.url}</td>
+			<td><a href="{:U('editlink',array('linkid'=>$link['linkid']))}">修改</a> | <a href="{:U('dellink',array('linkid'=>$link['linkid']))}" class="confirm">删除</a></td>
+		</tr>
+		</volist>
+		<tr class="tr-btn">
+			<td><input type="checkbox" value="" class="checkall"></td>
+			<td colspan="2"><input type="submit" value="删除" class="btn-del confirm" /></td>
+			<td colspan="5"><div class="pages">{$page}</div></td>
+		</tr>
+	</table>
+	</form>
+</block>

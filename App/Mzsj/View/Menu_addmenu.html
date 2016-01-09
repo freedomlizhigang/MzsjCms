@@ -1,0 +1,26 @@
+<extend name="Common:index" />
+<block name="main">
+	<form action="{:U()}" class="form-box" method="post">
+		<input type="hidden" name="parentid" value="{$pid}">
+		<div class="form-group">
+			<label for="name" class="item-label">菜单名称：</label>
+			<input type="text" name="name" class="input-text">
+		</div>
+		<div class="form-group">
+			<label for="url" class="item-label">URL：</label>
+			<input type="text" name="url" class="input-text">
+		</div>
+		<div class="form-group">
+			<label for="listorder" class="item-label">排序：</label>
+			<input type="text" name="listorder" value="0" class="input-sm input-text">
+		</div>
+		<div class="form-group">
+			<label for="display" class="item-label">是否显示：</label>
+			<input type="radio" name="display" checked="checked" class="input-radio" value="1"> 是
+			<input type="radio" name="display" class="input-radio" value="0"> 否
+		</div>
+		<div class="form-group">
+			<button type="submit" name="dosubmit" class="btn-success">提交</button><button type="reset" name="reset" class="btn-error">重填</button>
+		</div>
+	</form>
+</block>

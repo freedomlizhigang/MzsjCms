@@ -1,0 +1,52 @@
+<extend name="Common:index" />
+<block name="main">
+	<form action="{:U()}" class="form-box" method="post">
+	<input type="hidden" name="linkid" value="{$info.linkid}" >
+		<div class="form-group">
+			<label for="name" class="item-label">链接名称：<span class="color_9"> 必须填写</span></label>
+			<input type="text" name="name" value="{$info.name}" class="input-text">
+		</div>
+		<div class="form-group">
+			<label for="url" class="item-label">URL：<span class="color_9"> 请以一个http://开头</span></label>
+			<input type="text" name="url" value="{$info.url}" class="input-text">
+		</div>
+		<div class="form-group">
+			<label for="image" class="item-label">图片：<span class="color_9"> 最好是90*35px大小的</span></label>
+			<div class="clearfix">
+				<input type="text" name="image" id="url3" value="{$info.image}" class="input-text f_l">
+				<input type="button" class="btn-upload f_l ml10" id="image3" value="选择图片" />
+			</div>
+			<img src="{$info.image}" width="90" height="35" alt="">
+		</div>
+		<div class="form-group">
+			<label for="listorder" class="item-label">排序：</label>
+			<input type="text" name="listorder" value="{$info.listorder}" class="input-sm">
+		</div>
+		<div class="form-group">
+			<button type="submit" name="dosubmit" class="btn-success">提交</button><button type="reset" name="reset" class="btn-error">重填</button>
+		</div>
+	</form>
+	<script>
+		KindEditor.ready(function(K) {
+                var editor = K.editor({
+					allowFileManager : false,
+					uploadJson : "{:U('Mzsj/Content/kindupload')}",
+	                extraFileUploadParams: {
+						session_id : '{:session_id()}'
+                    }
+				});
+				K('#image3').click(function() {
+					editor.loadPlugin('image', function() {
+						editor.plugin.imageDialog({
+							showRemote : false,
+							imageUrl : K('#url3').val(),
+							clickFn : function(url, title, width, height, border, align) {
+								K('#url3').val(url);
+								editor.hideDialog();
+							}
+						});
+					});
+				});
+        });
+	</script>
+</block>

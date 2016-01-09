@@ -1,0 +1,54 @@
+<extend name="User:index"/>
+<block name="main_user">
+	<form action="{:U()}" method="post" class="form_user">
+		<input type="hidden" name="userid" value="{$info.userid}">
+		<div class="form-group">
+			<label for="nickname" class="form-label f_l">昵称：</label>
+			<input type="text" class="input-text" value="{$info.nickname}" name="nickname">
+		</div>
+		<div class="form-group">
+			<label for="email" class="form-label f_l">邮箱：</label>
+			<input type="text" class="input-text" value="{$info.email}" name="email">
+		</div>
+		<div class="form-group">
+			<label for="tel" class="form-label f_l">电话：</label>
+			<input type="text" class="input-text" value="{$info.tel}" name="tel">
+		</div>
+		<div class="form-group clearfix">
+			<label for="thumb" class="form-label f_l">头像：</label>
+			<div class="clearfix f_l">
+				<input type="text" name="thumb" id="url3" value="{$info.thumb}" class="input-text f_l">
+				<input type="button" class="btn-upload f_l ml10" id="image3" value="选择图片" />&nbsp;&nbsp;&nbsp;大小不要超过100K
+			</div>
+			<img src="{$info.thumb}" width="100" height="100" alt="">
+		</div>
+		<div class="form-group">
+			<button type="submit" name="dosubmit" class="btn-success">提交</button><button type="reset" name="reset" class="btn-error">重填</button>
+		</div>
+	</form>
+	<link rel="stylesheet" href="__ROOT__/static/Common/kindeditor/themes/default/default.css">
+	<script charset="utf-8" src="__ROOT__/static/Common/kindeditor/kindeditor-all-min.js"></script>
+	<script>
+		KindEditor.ready(function(K) {
+                var editor = K.editor({
+					allowFileManager : false,
+					uploadJson : "{:U('Public/kinduploadthumb')}",
+	                extraFileUploadParams: {
+						session_id : '{:session_id()}'
+                    }
+				});
+				K('#image3').click(function() {
+					editor.loadPlugin('image', function() {
+						editor.plugin.imageDialog({
+							showRemote : false,
+							imageUrl : K('#url3').val(),
+							clickFn : function(url, title, width, height, border, align) {
+								K('#url3').val(url);
+								editor.hideDialog();
+							}
+						});
+					});
+				});
+        });
+	</script>
+</block>

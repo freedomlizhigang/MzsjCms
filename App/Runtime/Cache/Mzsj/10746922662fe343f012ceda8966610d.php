@@ -1,0 +1,4 @@
+<?php if (!defined('THINK_PATH')) exit(); if(is_array($two_menu)): $i = 0; $__LIST__ = $two_menu;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$menu): $mod = ($i % 2 );++$i;?><h3 class="left_h3"> <i class="icon"></i><?php echo ($menu["name"]); ?></h3>
+	<ul class="left_list">
+		<?php if(is_array($menu["submenu"])): $i = 0; $__LIST__ = $menu["submenu"];if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$submenu): $mod = ($i % 2 );++$i;?><li class="sub_menu" id="left_menu<?php echo ($submenu["menuid"]); ?>"><a href="javascript:_LM(<?php echo ($submenu["menuid"]); ?>,'<?php echo U($submenu[url]);?>')" class="sub_menu"><?php echo ($submenu["name"]); ?></a></li><?php endforeach; endif; else: echo "" ;endif; ?>
+	</ul><?php endforeach; endif; else: echo "" ;endif; ?>

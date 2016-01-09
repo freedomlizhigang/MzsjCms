@@ -1,0 +1,5 @@
+<volist name="menulist" id="mlist">
+<li><a <if condition="$mlist.islink == 0">href="{:U('Index/lists',array('catdir'=>$mlist['catdir']))}"<else />href="{$mlist.url}"</if>>{$mlist.catname}</a>
+<!-- 可以添加二级菜单 -->
+</li>
+</volist>

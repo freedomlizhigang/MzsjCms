@@ -1,0 +1,4 @@
+<volist name="artlist" id="alist">
+<li><a <if condition="$alist.islink == 0">href="{:U('Index/show',array('artid'=>$alist['artid']))}"<else />href="{$alist.url}"</if>>{$alist.title}</a>
+</li>
+</volist>

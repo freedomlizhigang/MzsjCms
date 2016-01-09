@@ -1,0 +1,17 @@
+<extend name="Common:index" />
+<block name="main">
+	<form action="{:U()}" class="form-box" method="post">
+		<input type="hidden" name="hdid" value="{$info.hdid}">
+		<div class="form-group">
+			<label for="name" class="item-label">姓名：</label>
+			{$info.name}
+		</div>
+		<div class="form-group">
+			<label for="zan" class="item-label">赞数：</label>
+			<input type="text" name="zan" class="input-sm input-text" value="{$info.zan}">
+		</div>
+		<div class="form-group">
+			<button type="submit" name="dosubmit" class="btn-success">提交</button><button type="reset" name="reset" class="btn-error">重填</button>
+		</div>
+	</form>
+</block>

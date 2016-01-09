@@ -1,0 +1,35 @@
+<extend name="Common:index" />
+<block name="main">
+	<form action="{:U()}" class="form-box" method="post">
+		<input type="hidden" name="menuid" value="{$info.menuid}">
+		<input type="hidden" name="parentid" value="{$info.parentid}">
+		<div class="form-group">
+			<label for="type" class="item-label">类型：</label>
+			<select name="type" id="">
+				<option value="">请选择类型</option>
+				<foreach name="selfmenu" item="smenu">
+				<option value="{$key}"<if condition="$key == $info[type]"> selected="selected"</if>>{$smenu}</option>
+				</foreach>
+			</select>
+		</div>
+		<div class="form-group">
+			<label for="name" class="item-label">菜单名称：<span class="color_9">必填，不要写太多字，手机显不出来！</span></label>
+			<input type="text" name="name" value="{$info.name}" class="input-text">
+		</div>
+		<div class="form-group">
+			<label for="key" class="item-label">KEY：<span class="color_9">点击类型时必填，跟自动回复里有一样的才对！</span></label>
+			<input type="text" name="key" value="{$info.key}" class="input-text">
+		</div>
+		<div class="form-group">
+			<label for="url" class="item-label">URL：<span class="color_9">跳转类型时必填</span></label>
+			<input type="text" name="url" value="{$info.url}" class="input-text">
+		</div>
+		<div class="form-group">
+			<label for="listorder" class="item-label">排序：</label>
+			<input type="text" name="listorder" value="{$info.listorder}" class="input-sm input-text">
+		</div>
+		<div class="form-group">
+			<button type="submit" name="dosubmit" class="btn-success">提交</button><button type="reset" name="reset" class="btn-error">重填</button>
+		</div>
+	</form>
+</block>

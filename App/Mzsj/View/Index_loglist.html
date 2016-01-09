@@ -1,0 +1,28 @@
+<extend name="Common:index" />
+<block name="main">
+	<table class="table-form">
+		<tr class="tr-header">
+			<th width="40">ID</th>
+			<th width="80">用户ID</th>
+			<th width="60">用户名</th>
+			<th width="400">URL</th>
+			<th width="150">DATA</th>
+			<th width="150">IP</th>
+			<th width="170">时间</th>
+		</tr>
+		<volist name="list" id="log">
+		<tr>
+			<td>{$log.logid}</td>
+			<td>{$log.adminid}</td>
+			<td>{$log.adminname}</td>
+			<td>{$log.url}</td>
+			<td>{$log.data}</td>
+			<td>{$log.ip}</td>
+			<td>{$log.time|date='Y-m-d H:i:s',###}</td>
+		</tr>
+		</volist>
+		<tr class="tr-btn">
+			<td colspan="7"><div class="pages">{$pages}</div></td>
+		</tr>
+	</table>
+</block>

@@ -1,0 +1,38 @@
+<extend name="Common:index" />
+<block name="main">
+	<form action="{:U('deladmin')}" method="post">
+	<table class="table-form">
+		<tr class="tr-header">
+			<th width="1"><input type="checkbox" value="" class="checkall"></th>
+			<th width="50">ID</th>
+			<th width="120">用户名</th>
+			<th width="120">姓名</th>
+			<th width="100">角色</th>
+			<th width="160">电话</th>
+			<th width="160">最后登陆IP</th>
+			<th width="200">最后登陆时间</th>
+			<th width="100">状态</th>
+			<th>操作</th>
+		</tr>
+		<volist name="lists" id="admin">
+		<tr>
+			<td><input type="checkbox" name="adminids[]" class="subcheck"<if condition="$admin['adminid'] == 1">value="" disabled="true"<else /> value="{$admin.adminid}"</if>></td>
+			<td>{$admin.adminid}</td>
+			<td><a href="{:U('editadmin',array('adminid'=>$admin['adminid']))}">{$admin.adminname}</a></td>
+			<td>{$admin.realname}</td>
+			<td>{$rolename[$admin['roleid']]}</td>
+			<td>{$admin.tel}</td>
+			<td>{$admin.lastip}</td>
+			<td>{$admin.lasttime|date='Y-m-d H:i:s',###}</td>
+			<td>{$admin.statusname}</td>
+			<td><a href="{:U('editpassword',array('adminid'=>$admin['adminid']))}">修改密码</a> | <if condition="$admin['adminid'] != 1"><a href="{:U('deladmin',array('adminid'=>$admin['adminid']))}" class="confirm">删除</a><else />删除</if></td>
+		</tr>
+		</volist>
+		<tr class="tr-btn">
+			<td><input type="checkbox" value="" class="checkall"></td>
+			<td colspan="2"><input type="submit" value="删除" class="btn-del confirm" /></td>
+			<td colspan="7"><div class="pages">{$page}</div></td>
+		</tr>
+	</table>
+	</form>
+</block>

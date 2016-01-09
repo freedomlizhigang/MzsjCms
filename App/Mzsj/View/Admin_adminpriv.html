@@ -1,0 +1,38 @@
+<extend name="Common:index" />
+<block name="main">
+	<form action="{:U()}" method="post">
+	<div class="allmenu clearfix">
+	<input type="hidden" name="roleid" value="{$_GET['roleid']}">
+		<volist name="tree" id="menu">
+			<if condition="$menu['level'] == 1">
+			<h3 class="priv_h3"><input type="checkbox" name="urls[]" class="priv" value="{$menu.url}">{$menu.name}</h3>
+			</if>
+			<if condition="$menu['level'] == 2">
+			<h4 class="priv_h4"><input type="checkbox" name="urls[]" class="priv" value="{$menu.url}">{$menu.name}</h4>
+			</if>
+			<if condition="$menu['level'] == 3">
+			<h4 class="priv_h4_2"><input type="checkbox" name="urls[]" class="priv" value="{$menu.url}">{$menu.name}</h4>
+			</if>
+			<if condition="$menu['level'] == 4">
+			<span><input type="checkbox" name="urls[]" class="priv" value="{$menu.url}">{$menu.name}</span>
+			</if>
+		</volist>
+	</div>
+	<div class="priv_btn">
+	<input type="submit" value="授权" class="btn-del" />
+	</div>
+	</form>
+	<script>
+		$(function(){
+			var urlArr = [{$privstr}];
+			$(".priv").each(function(s){
+				var thisVal = $(this).val();
+				$.each(urlArr,function(i){
+					if(urlArr[i] == thisVal){
+						$(".priv").eq(s).attr("checked","true");
+					}
+				});
+			});
+		});
+	</script>
+</block>

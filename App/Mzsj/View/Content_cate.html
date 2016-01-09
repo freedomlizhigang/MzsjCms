@@ -1,0 +1,33 @@
+<extend name="Common:index" />
+<block name="main">
+	<form action="{:U('delcate')}" method="post">
+	<table class="table-form">
+		<tr class="tr-header">
+			<th width="1"><input type="checkbox" value="" class="checkall"></th>
+			<th width="50">ID</th>
+			<th width="60">排序</th>
+			<th>栏目名称</th>
+			<th>栏目目录</th>
+			<th>导航</th>
+			<th>单页</th>
+			<th>操作</th>
+		</tr>
+		<volist name="cate" id="cat">
+		<tr>
+			<td><input type="checkbox" name="catids[]" value="{$cat.catid}" class="subcheck"></td>
+			<td>{$cat.catid}</td>
+			<td>{$cat.listorder}</td>
+			<td><span class="f_l">{$cat.nbsp}{$cat.catname}</span><if condition="$cat['level'] lt 4"><a href="{:U('addcate',array('parentid'=>$cat['catid']))}" class="addsub"></a></if></td>
+			<td>{$cat.catdir}</td>
+			<td>{$cat.ismenuname}</td>
+			<td>{$cat.ispagename}</td>
+			<td><a href="{:U('editcate',array('catid'=>$cat['catid']))}">修改</a> | <a href="{:U('delcate',array('catid'=>$cat['catid']))}" class="confirm">删除</a></td>
+		</tr>
+		</volist>
+		<tr class="tr-btn">
+			<td><input type="checkbox" value="" class="checkall"></td>
+			<td colspan="7"><input type="submit" value="删除" class="btn-del confirm" /></td>
+		</tr>
+	</table>
+	</form>
+</block>

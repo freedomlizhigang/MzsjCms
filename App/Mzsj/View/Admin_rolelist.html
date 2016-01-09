@@ -1,0 +1,28 @@
+<extend name="Common:index" />
+<block name="main">
+	<form action="{:U('delrole')}" method="post">
+	<table class="table-form">
+		<tr class="tr-header">
+			<th width="1"><input type="checkbox" value="" class="checkall"></th>
+			<th width="50">ID</th>
+			<th width="160">名称</th>
+			<th width="160">状态</th>
+			<th>操作</th>
+		</tr>
+		<volist name="lists" id="role">
+		<tr>
+			<td><input type="checkbox" name="roleids[]" class="subcheck"<if condition="$role['roleid'] == 1">disabled="true"<else /> value="{$role.roleid}"</if>/></td>
+			<td>{$role.roleid}</td>
+			<td>{$role.rolename}</td>
+			<td>{$role.statusname}</td>
+			<td><a href="{:U('editrole',array('roleid'=>$role['roleid']))}">修改</a> | <if condition="$role['roleid'] != 1"><a href="{:U('delrole',array('roleid'=>$role['roleid']))}" class="confirm">删除</a><else />删除</if> | <if condition="$role['roleid'] != 1"><a href="{:U('adminpriv',array('roleid'=>$role['roleid']))}">权限管理</a><else />权限管理</if></td>
+		</tr>
+		</volist>
+		<tr class="tr-btn">
+			<td><input type="checkbox" value="" class="checkall"></td>
+			<td colspan="2"><input type="submit" value="删除" class="btn-del confirm" /></td>
+			<td colspan="2"><div class="pages">{$page}</div></td>
+		</tr>
+	</table>
+	</form>
+</block>

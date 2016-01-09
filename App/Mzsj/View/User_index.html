@@ -1,0 +1,36 @@
+<extend name="Common:index" />
+<block name="main">
+	<form action="{:U('deluser')}" method="post">
+	<table class="table-form">
+		<tr class="tr-header">
+			<th width="1"><input type="checkbox" value="" class="checkall"></th>
+			<th width="50">ID</th>
+			<th width="120">用户名</th>
+			<th width="120">所在组</th>
+			<th width="120">昵称</th>
+			<th width="100">积分</th>
+			<th width="160">状态</th>
+			<th width="200">最后登陆时间</th>
+			<th>操作</th>
+		</tr>
+		<volist name="list" id="user">
+		<tr>
+			<td><input type="checkbox" name="userids[]" value="{$user.userid}" class="subcheck" /></td>
+			<td>{$user.userid}</td>
+			<td><a href="{:U('showuser',array('userid'=>$user['userid']))}">{$user.username}</a></td>
+			<td>{$gname[$user[groupid]]}</td>
+			<td>{$user.nickname}</td>
+			<td>{$user.point}</td>
+			<td>{$user.statusname}</td>
+			<td>{$user.lasttime|date='Y-m-d H:i:s',###}</td>
+			<td><a href="{:U('userinfo',array('userid'=>$user['userid']))}">修改资料</a> | <a href="{:U('edituser',array('userid'=>$user['userid']))}">修改密码</a> | <a href="{:U('deluser',array('userid'=>$user['userid']))}" class="confirm">删除</a></td>
+		</tr>
+		</volist>
+		<tr class="tr-btn">
+			<td><input type="checkbox" value="" class="checkall"></td>
+			<td colspan="2"><input type="submit" value="删除" class="btn-del confirm" /></td>
+			<td colspan="7"><div class="pages">{$page}</div></td>
+		</tr>
+	</table>
+	</form>
+</block>

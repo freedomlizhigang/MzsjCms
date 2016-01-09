@@ -1,0 +1,32 @@
+<extend name="Common:index" />
+<block name="main">
+	<form action="{:U()}" method="post">
+	<div class="allmenu clearfix">
+	<input type="hidden" name="groupid" value="{$groupid}">
+		<volist name="tree" id="menu">
+			<if condition="$menu['level'] == 1">
+			<h3 class="priv_h3"><input type="checkbox" name="menuids[]" class="priv" value="{$menu.menuid}">{$menu.name}</h3>
+			</if>
+			<if condition="$menu['level'] == 2">
+			<span><input type="checkbox" name="menuids[]" class="priv" value="{$menu.menuid}">{$menu.name}</span>
+			</if>
+		</volist>
+	</div>
+	<div class="priv_btn">
+	<input type="submit" value="授权" class="btn-del" />
+	</div>
+	</form>
+	<script>
+		$(function(){
+			var menuidArr = [{$menuids}];
+			$(".priv").each(function(s){
+				var thisVal = $(this).val();
+				$.each(menuidArr,function(i){
+					if(menuidArr[i] == thisVal){
+						$(".priv").eq(s).attr("checked","true");
+					}
+				});
+			});
+		});
+	</script>
+</block>

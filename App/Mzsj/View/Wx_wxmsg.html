@@ -1,0 +1,28 @@
+<extend name="Common:index" />
+<block name="main">
+	<form action="{:U('delmsg')}" method="post">
+	<table class="table-form">
+		<tr class="tr-header">
+			<th width="1"><input type="checkbox" value="" class="checkall"></th>
+			<th width="50">ID</th>
+			<th width="100">消息类型</th>
+			<th width="200">消息内容</th>
+			<th>操作</th>
+		</tr>
+		<volist name="lists" id="wxmsg">
+		<tr>
+			<td><input type="checkbox" name="msgids[]" class="subcheck" value="{$wxmsg.msgid}" ></td>
+			<td>{$wxmsg.msgid}</td>
+			<td>{$typename[$wxmsg[msgtype]]}</td>
+			<td>{$wxmsg.msgcon}</td>
+			<td><a href="{:U('editmsg',array('msgid'=>$wxmsg[msgid]))}">修改</a> | <a href="{:U('delmsg',array('msgid'=>$wxmsg[msgid]))}" class="confirm">删除</a></td>
+		</tr>
+		</volist>
+		<tr class="tr-btn">
+			<td><input type="checkbox" value="" class="checkall"></td>
+			<td colspan="2"><input type="submit" value="删除" class="btn-del confirm" /></td>
+			<td colspan="2"><div class="pages">{$page}</div></td>
+		</tr>
+	</table>
+	</form>
+</block>

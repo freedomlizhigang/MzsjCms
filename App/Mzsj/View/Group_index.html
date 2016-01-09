@@ -1,0 +1,30 @@
+<extend name="Common:index" />
+<block name="main">
+	<form action="{:U('delgroup')}" method="post">
+	<table class="table-form">
+		<tr class="tr-header">
+			<th width="1"><input type="checkbox" value="" class="checkall"></th>
+			<th width="50">ID</th>
+			<th width="60">排序</th>
+			<th width="160">名称</th>
+			<th width="160">状态</th>
+			<th>操作</th>
+		</tr>
+		<volist name="list" id="group">
+		<tr>
+			<td><input type="checkbox" name="groupids[]" class="subcheck"/></td>
+			<td>{$group.groupid}</td>
+			<td>{$group.listorder}</td>
+			<td>{$group.groupname}</td>
+			<td>{$group.statusname}</td>
+			<td><a href="{:U('editgroup',array('groupid'=>$group[groupid]))}">修改</a> | <a href="{:U('delgroup',array('groupid'=>$group[groupid]))}" class="confirm">删除</a> | <a href="{:U('grouppriv',array('groupid'=>$group[groupid]))}">权限管理</a></td>
+		</tr>
+		</volist>
+		<tr class="tr-btn">
+			<td><input type="checkbox" value="" class="checkall"></td>
+			<td colspan="2"><input type="submit" value="删除" class="btn-del confirm" /></td>
+			<td colspan="3"><div class="pages">{$page}</div></td>
+		</tr>
+	</table>
+	</form>
+</block>

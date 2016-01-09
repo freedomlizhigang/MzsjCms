@@ -1,0 +1,30 @@
+<extend name="Common:index" />
+<block name="main">
+	<form action="{:U('dellinkage')}" method="post">
+	<table class="table-form">
+		<tr class="tr-header">
+			<th width="1"><input type="checkbox" value="" class="checkall"></th>
+			<th width="40">ID</th>
+			<th width="60">排序</th>
+			<th width="200">名称</th>
+			<th width="200">值</th>
+			<th>操作</th>
+		</tr>
+		<volist name="lists" id="link">
+		<tr>
+			<td><input type="checkbox" name="linkageids[]" value="{$link.linkageid}" class="subcheck" ></td>
+			<td>{$link.linkageid}</td>
+			<td>{$link.listorder}</td>
+			<td><a class="f_l" href="{:U('',array('pid'=>$link[linkageid]))}">{$link.name}</a><a href="{:U('addlinkage',array('pid'=>$link[linkageid]))}" class="addsub"></a></td>
+			<td>{$link.val}</td>
+			<td><a href="{:U('editlinkage',array('linkageid'=>$link[linkageid]))}">修改</a> | <a href="{:U('dellinkage',array('linkageid'=>$link[linkageid]))}" class="confirm">删除</a></td>
+		</tr>
+		</volist>
+		<tr class="tr-btn">
+			<td><input type="checkbox" value="" class="checkall"></td>
+			<td colspan="2"><input type="submit" value="删除" class="btn-del confirm" /></td>
+			<td colspan="5"><div class="pages">{$page}</div></td>
+		</tr>
+	</table>
+	</form>
+</block>

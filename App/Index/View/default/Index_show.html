@@ -1,0 +1,7 @@
+<extend name="Index:index"/>
+<block name="seotitle">{$artinfo.title}-{$SITE['1']['sitename']}</block>
+<block name="catname">{$CATEGORYS[$artinfo['catid']]['catname']}</block>
+<block name="articlecontent">
+	<h2>{$artinfo.title}</h2>
+	{$artinfo['content']}
+</block>

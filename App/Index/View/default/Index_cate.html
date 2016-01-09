@@ -1,0 +1,11 @@
+<extend name="Index:index"/>
+<block name="seotitle">{$catinfo['catname']}</block>
+<block name="catname">{$catinfo['catname']}</block>
+<block name="articlecontent">
+	<ul class="list_art">
+		<volist name="artlist" id="art">
+			<li><a href="{:U('show',array('artid'=>$art['artid']))}">{$art.title}</a></li>
+		</volist>
+	</ul>
+	<div class="pages">{$page}</div>
+</block>

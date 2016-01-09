@@ -1,0 +1,65 @@
+<extend name="Common:index" />
+<block name="main">
+	<form action="{:U()}" class="form-box" method="post">
+		<input type="hidden" name="msgid" value="{$info.msgid}">
+		<div class="form-group">
+			<label for="msgtype" class="item-label">消息类型：<span class="color_9"> 必须填写</span></label>
+			<select name="msgtype" id="">
+				<option value="">消息类型</option>
+				<foreach name="typelist" item="tname">
+					<option value="{$key}"<if condition="$key == $info[msgtype]"> selected="selected"</if>>{$tname}</option>
+				</foreach>
+			</select>
+		</div>
+		<div class="form-group">
+			<label for="msgcon" class="item-label">消息内容：<span class="color_9"> 必须填写</span></label>
+			<input type="text" name="msgcon" value="{$info.msgcon}" class="input-text">
+		</div>
+		<div class="form-group">
+			<label for="title" class="item-label">回复标题：<span class="color_9"> 必须填写</span></label>
+			<input type="text" name="title" value="{$info.title}" class="input-text">
+		</div>
+		<div class="form-group">
+			<label for="thumb" class="item-label">消息图片：<span class="color_9"> 图文消息时，必须填写</span></label>
+			<div class="clearfix">
+				<input type="text" name="thumb" id="url3" value="{$info.thumb}" class="input-text f_l">
+				<input type="button" class="btn-upload f_l ml10" id="image3" value="选择图片" />
+			</div>
+			<img src="{$info.thumb}" width="360" height="200" alt="">
+		</div>
+		<div class="form-group">
+			<label for="content" class="item-label">回复内容：<span class="color_9"> 当普通文本框用，只能加个链接，别的都显示不出来，必须填写</span></label>
+			<textarea name="content" id="content_edit" style="width:56%" rows="10">{$info.content}</textarea>
+		</div>
+		<div class="form-group">
+			<label for="url" class="item-label">消息链接：<span class="color_9"> url，必须填写</span></label>
+			<input type="text" name="url" value="{$info.url}" class="input-text">
+		</div>
+		<div class="form-group">
+			<button type="submit" name="dosubmit" class="btn-success">提交</button><button type="reset" name="reset" class="btn-error">重填</button>
+		</div>
+	</form>
+	<script>
+		KindEditor.ready(function(K) {
+                window.editor = K.create('#content_edit', {
+                	items : ['source','link', 'unlink'],
+	                uploadJson : "{:U('Mzsj/Content/kindupload')}",
+	                extraFileUploadParams: {
+						session_id : '{:session_id()}'
+                    }
+	       		});
+	       		K('#image3').click(function() {
+					editor.loadPlugin('image', function() {
+						editor.plugin.imageDialog({
+							showRemote : false,
+							imageUrl : K('#url3').val(),
+							clickFn : function(url, title, width, height, border, align) {
+								K('#url3').val(url);
+								editor.hideDialog();
+							}
+						});
+					});
+				});
+        });
+	</script>
+</block>

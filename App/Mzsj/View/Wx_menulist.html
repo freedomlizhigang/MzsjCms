@@ -1,0 +1,25 @@
+<extend name="Common:index" />
+<block name="main">
+	<table class="table-form">
+		<tr class="tr-header">
+			<th width="50">ID</th>
+			<th width="60">排序</th>
+			<th width="160">菜单名称</th>
+			<th width="100">类型</th>
+			<th width="100">key</th>
+			<th>URL</th>
+			<th>操作</th>
+		</tr>
+		<volist name="tree" id="menu">
+		<tr>
+			<td>{$menu.menuid}</td>
+			<td>{$menu.listorder}</td>
+			<td><span class="f_l"><if condition="$menu[parentid] != 0">|-</if>{$menu.name}</span><if condition="$menu[parentid] == 0"><a href="{:U('addmenu',array('parentid'=>$menu[menuid]))}" class="addsub"></a></if></td>
+			<td>{$selfmenu[$menu[type]]}</td>
+			<td>{$menu.key}</td>
+			<td>{$menu.url}</td>
+			<td><a href="{:U('editmenu',array('mid'=>$menu[menuid]))}">修改</a> | <a href="{:U('delmenu',array('mid'=>$menu[menuid]))}" class="confirm">删除</a></td>
+		</tr>
+		</volist>
+	</table>
+</block>

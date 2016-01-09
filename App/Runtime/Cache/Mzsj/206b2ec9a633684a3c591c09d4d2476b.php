@@ -1,0 +1,1 @@
+<?php if (!defined('THINK_PATH')) exit();?><p>更新站点缓存成功...</p>

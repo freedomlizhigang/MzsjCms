@@ -1,0 +1,43 @@
+<extend name="Common:index" />
+<block name="main">
+		<div class="form-group">
+			<label for="username" class="item-label">用户名：</label>
+			{$info.username}
+		</div>
+		<div class="form-group">
+			<label for="groupid" class="item-label">用户组：</label>
+			{$gname[$info[groupid]]}
+		</div>
+		<div class="form-group">
+			<label for="nickname" class="item-label">昵称：</label>
+			{$info.nickname}
+		</div>
+		<div class="form-group">
+			<label for="email" class="item-label">邮箱：</label>
+			{$info.email}
+		</div>
+		<div class="form-group">
+			<label for="tel" class="item-label">电话：</label>
+			{$info.tel}
+		</div>
+		<div class="form-group">
+			<label for="point" class="item-label">积分：</label>
+			{$info.point}
+		</div>
+		<div class="form-group">
+			<label for="lasttime" class="item-label">最后登陆时间：</label>
+			{$info.lasttime|date="Y-m-d H:i:s",###}
+		</div>
+		<div class="form-group">
+			<label for="lastip" class="item-label">最后登陆IP：</label>
+			{$info.lastip}
+		</div>
+		<div class="form-group">
+			<label for="regtime" class="item-label">注册时间：</label>
+			{$info.regtime|date="Y-m-d H:i:s",###}
+		</div>
+		<div class="form-group">
+			<label for="status" class="item-label">状态：</label>
+			<if condition="$info[status] == 1">启用<else />禁用</if>
+		</div>
+</block>

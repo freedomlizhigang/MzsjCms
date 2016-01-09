@@ -1,0 +1,1 @@
+<?php if (!defined('THINK_PATH')) exit();?>更新用户缓存成功...<br />

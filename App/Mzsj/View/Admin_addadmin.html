@@ -1,0 +1,46 @@
+<extend name="Common:index" />
+<block name="main">
+	<form action="{:U()}" class="form-box" method="post">
+		<div class="form-group">
+			<label for="adminname" class="item-label">用户组：<span class="color_9"> 必须填写</span></label>
+			<select name="roleid" id="">
+				<option value="">请选择用户组</option>
+				<volist name="rolelist" id="rlist">
+					<option value="{$rlist.roleid}">{$rlist.rolename}</option>
+				</volist>
+			</select>
+		</div>
+		<div class="form-group">
+			<label for="adminname" class="item-label">用户名：<span class="color_9"> 必须填写</span></label>
+			<input type="text" name="adminname" class="input-text">
+		</div>
+		<div class="form-group">
+			<label for="realname" class="item-label">真实姓名：<span class="color_9"> 必须填写</span></label>
+			<input type="text" name="realname" class="input-text">
+		</div>
+		<div class="form-group">
+			<label for="password" class="item-label">密码：<span class="color_9"> 必须填写</span></label>
+			<input type="password" name="password" class="input-text">
+		</div>
+		<div class="form-group">
+			<label for="repassword" class="item-label">确认密码：<span class="color_9"> 必须填写</span></label>
+			<input type="password" name="repassword" class="input-text">
+		</div>
+		<div class="form-group">
+			<label for="email" class="item-label">邮箱：<span class="color_9"> 必须填写</span></label>
+			<input type="text" name="email" class="input-text">
+		</div>
+		<div class="form-group">
+			<label for="tel" class="item-label">电话：<span class="color_9"> 必须填写</span></label>
+			<input type="text" name="tel" class="input-text">
+		</div>
+		<div class="form-group">
+			<label for="status" class="item-label">状态：</label>
+			<input type="radio" name="status" checked="checked" class="input-radio" value="1"> 启用
+			<input type="radio" name="status" class="input-radio" value="0"> 禁用
+		</div>
+		<div class="form-group">
+			<button type="submit" name="dosubmit" class="btn-success">提交</button><button type="reset" name="reset" class="btn-error">重填</button>
+		</div>
+	</form>
+</block>

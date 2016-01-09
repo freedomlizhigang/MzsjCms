@@ -1,0 +1,1 @@
+<?php if (!defined('THINK_PATH')) exit();?>更新推荐位缓存成功...<br />

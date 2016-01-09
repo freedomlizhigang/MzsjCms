@@ -1,0 +1,52 @@
+<extend name="Common:index" />
+<block name="main">
+		<div class="form-group">
+			<label for="catname" class="item-label">栏目：</label>
+			{$catname[$infos['catid']].catname}
+		</div>
+		<div class="form-group">
+			<label for="title" class="item-label">文章标题：</label>
+			{$infos.title}
+		</div>
+		<div class="form-group">
+			<label for="keyword" class="item-label">文章关键字：</label>
+			{$infos.keyword}
+		</div>
+		<div class="form-group">
+			<label for="description" class="item-label">文章描述：</label>
+			{$infos.description}
+		</div>
+		<div class="form-group">
+			<label for="thumb" class="item-label">文章图片：</label>
+			<if condition="$infos.thumb != ''">
+				<img src="{$infos.thumb}" width="120" height="90" alt="">
+			</if>
+		</div>
+		<div class="form-group">
+			<label for="content" class="item-label">文章内容：</label>
+			{$infos.content}
+		</div>
+		<div class="form-group">
+			<label for="listorder" class="item-label">排序：</label>
+			{$infos.listorder}
+		</div>
+		<div class="form-group">
+			<label for="islink" class="item-label">是否外链接：</label>
+			<if condition="$infos['islink'] == 1">是<else />否</if>
+		</div>
+		<div class="form-group">
+			<label for="url" class="item-label">链接地址：</label>
+			{$infos.url}
+		</div>
+		<div class="form-group">
+			<label for="posid" class="item-label">推荐位：</label>
+			<if condition="$infos['posid'] != 0">
+				{$posname[$infos['posid']]}
+			</if>
+		</div>
+		<!-- <div class="form-group">
+			<label for="status" class="item-label">状态：</label>
+			<input type="radio" name="status" <if condition="$infos['status'] == 1">checked="checked" </if>class="input-radio" value="1"> 正常
+			<input type="radio" name="status" <if condition="$infos['status'] == 0">checked="checked" </if>class="input-radio" value="0"> 隐藏
+		</div> -->
+</block>

@@ -1,0 +1,86 @@
+@charset "utf-8";
+/*作者(Author): 李潇喃    Website: www.muzisheji.com   QQ: 854378082*/
+*, *:before, *:after {box-sizing: border-box; -webkit-box-sizing: border-box; -moz-box-sizing: border-box;}
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, audio, canvas, details, figcaption, figure, footer, header, hgroup, mark, menu, meter, nav, output, progress, section, summary, time, video {border:0;background:transparent;margin:0;padding:0;}
+article, aside, dialog, figure, footer, header, hgroup, nav, section, blockquote {display:block;}
+nav ,ul {list-style:none;}
+ol {list-style:decimal;}
+blockquote:before, blockquote:after, q:before, q:after {content:none;}
+table {border-collapse:collapse;border-spacing:0;}
+hr {display:block;height:0px;border:0;border-top:1px solid #ccc;overflow:hidden; line-height:0px;}
+input ,select ,a img {vertical-align:middle;}
+.clearfix:after {content: ""; clear: both; height: 0px; overflow: hidden; display:block; visibility: hidden;}
+.clearfix { !zoom:1;}
+.overh {overflow: hidden;}
+.h_img {line-height: 0px; font-size: 0px;}
+.f_l {float: left;}
+.f_r {float: right;}
+a {color: #333; text-decoration: none;}
+a:hover {text-decoration: underline;}
+body {font-family:"微软雅黑","宋体","Arial","Verdana","sans-serif"; font-size: 0.88em; line-height: 2em; color: #232323; background: #FFF;}
+/*common*/
+.m_a {width: 1000px; margin: 0 auto;}
+.mt20 {margin-top: 20px;}
+.mt15 {margin-top: 15px;}
+.mt10 {margin-top: 10px;}
+.ml10 {margin-left: 10px;}
+.tc-r {text-align: right;}
+.ti {text-indent: 2em;}
+.h3_bg_2 {background: url(h3_bg_2.png) left bottom no-repeat; height: 2em; line-height: 2em; color: #008EE1; font-size: 1.2em; font-weight: normal; margin-bottom: 0.5em;}
+.h3_bg_3 {background:#008EE0 url(h3_bg_3.png) left top no-repeat; line-height: 30px; height: 30px; font-size: 1em; color: #FFF; font-weight: normal; text-indent: 1em;}
+.border_1 {border: #CCCCCC solid 1px; padding: 1em; border-top: none;}
+.color_red {color: red;}
+.list_1 > li {background: url(list_1.png) left center no-repeat; height: 2em; line-height: 2em; position: relative; text-indent: 0.6em;}
+.list_1 > li:hover {background: url(list_1_hover.png) left center no-repeat;}
+.list_1 > li:hover > a {color: #008EE1;}
+.color_bule {color: #008EE0;}
+.color_45 {color: #454545;}
+/*header*/
+.top_bg {background-color: #E6E6E6; line-height: 2.2em; font-size: 1em; padding: 1em; color: #4D4D4D;}
+.foot_bg {background-color: #F1F1F1; margin-top: 2em; padding-bottom: 3em; text-align: center; padding-top: 1em; color: #6B6B6B;font-size: 12px; line-height: 1.8em;}
+.menu {background-color: #008EE1; font-size: 1em; height: 2.6em; line-height: 2.6em;}
+.menu {color: #FFF;}
+.menu > ul > li {float: left; padding: 0 1em; text-align: center;}
+.menu > ul > li > a {color: #FFF;}
+.menu > ul > li > a:hover {text-decoration: none;}
+.menu > ul > li:hover {background: #007AC0 none repeat scroll 0% 0%}
+/*wrap_one*/
+.wrap_left {width: 765px;}
+.wrap_right {width: 310px;}
+/*pages*/
+.pages a ,.pages span {background-color: #DDDDDD; padding: 0.3em 0.8em; margin: 0 0.5em 0 0;}
+.pages span {background-color: #86DB00; color: #FFF;}
+/*用户中心*/
+/*logo_search*/
+.login_top {margin-top:3em;}
+.login_con {background: #929292 url(login.jpg) 60% center no-repeat; height: 450px;}
+.login_foot {text-align: center; margin-top: 2em; color: #666666; font-size: 0.88em; line-height: 1.8em;}
+.login_form {float: right; margin-top:40px; background-color: #fff; padding: 1em; border-radius: 8px; font-size: 1.2em;}
+.login_h2 {color: #008EE1; font-weight: normal; font-size: 1.6em; border-left: #ccc solid 3px; padding-left: 5px; margin-bottom: 15px;}
+.form-group {margin: 1em 0; vertical-align: middle;}
+.item-label {width: 4em; text-align: right; display: inline-block; color: #666;}
+.form_input {width: 220px;}
+.verify_img {width: 100px; height: 36px; display: inline-block; background: #ddd; margin-left: 10px; cursor: pointer;}
+.input-text {border: #DADADA solid 1px; height: 2.4em; width: 210px; border-radius: 3px;box-shadow: 2px 2px 2px #F6F6F6 inset;}
+.input-small {width: 100px;}
+.input-big {width: 90%;}
+.tips {font-size: 0.8em; line-height: 1.4em; margin-top: 0.6em; color: #666;}
+/*login end*/
+.usercenter {border: #D9D9D9 solid 1px;;}
+.user_left {background-color: #F8F8F8; border-right: #008EE0 solid 1px; width:26%; min-height: 650px;-moz-box-sizing:border-box;-ms-box-sizing:border-box;-webkit-box-sizing:border-box;box-sizing:border-box;}
+.userthumb { padding: 1em;}
+.user_thumb {width:80px; height: 80px; background-color: #ddd; margin-right: 10px;}
+.user_title { width: 140px; float: left; overflow: hidden; line-height: 1.8em;}
+.user_title h2 a {display: inline; font-weight: normal; font-size:0.88em; color: #008EE0;}
+.list_usermenu > dt {background-color: #008EE0; color: #FFF; font-size: 1.2em; height: 2.2em; line-height: 2.2em; text-indent: 0.5em;}
+.list_usermenu > dd > a {display: block; background-color: #FFF; font-size: 1em; line-height:3em; height: 3em; margin-bottom: 2px; text-indent: 1em;}
+.list_usermenu > dd > a:hover {background-color: #eee; text-decoration: none;}
+.user_right {width: 74%; padding:1em;-moz-box-sizing:border-box;-ms-box-sizing:border-box;-webkit-box-sizing:border-box;box-sizing:border-box;}
+.user_h3_title {font-size: 1.6em;}
+.table_user {width: 100%;background: #F5F5F5;}
+.table_user td ,.tr-header > th {padding: 0.5em 0.5em; line-height: 2.4em; text-align: left;}
+.table_user tr:nth-child(2n) {background-color: #FFF;}
+.form-label {margin-right: 5px;}
+.btn-upload {background: #4ABBF6; border: #4ABBF6 solid 1px; height: 2em; color: #FFF; cursor: pointer; border-radius: 5px; margin-top: 3px;}
+.btn-upload:hover {background-color: #1697DA; border: #1697DA solid 1px;}
+.ask_a {width: 270px; overflow: hidden;text-overflow:ellipsis; white-space: nowrap;}

@@ -1,0 +1,31 @@
+<extend name="Common:index" />
+<block name="main">
+	<form action="{:U('deltype')}" method="post">
+	<table class="table-form">
+		<tr class="tr-header">
+			<th width="1"><input type="checkbox" value="" class="checkall"></th>
+			<th width="50">ID</th>
+			<th width="60">排序</th>
+			<th>菜单名称</th>
+			<th width="100">类别目录</th>
+			<th width="100">是否显示</th>
+			<th>操作</th>
+		</tr>
+		<volist name="tree" id="type">
+		<tr>
+			<td><input type="checkbox" name="tids[]" value="{$type.typeid}" class="subcheck"></td>
+			<td>{$type.typeid}</td>
+			<td>{$type.listorder}</td>
+			<td><span class="f_l">{$type.nbsp}{$type.typename}</span><if condition="$type['level'] lt 4"><a href="{:U('addtype',array('parentid'=>$type['typeid']))}" class="addsub"></a></if></td>
+			<td>{$type.typedir}</td>
+			<td>{$type.displayname}</td>
+			<td><a href="{:U('edittype',array('tid'=>$type['typeid']))}">修改</a> | <a href="{:U('deltype',array('tid'=>$type['typeid']))}" class="confirm">删除</a></td>
+		</tr>
+		</volist>
+		<tr class="tr-btn">
+			<td><input type="checkbox" value="" class="checkall"></td>
+			<td colspan="6"><input type="submit" value="删除" class="btn-del confirm" /></td>
+		</tr>
+	</table>
+	</form>
+</block>

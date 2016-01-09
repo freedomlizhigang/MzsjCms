@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="zh-cn">
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+		<title>{$title}-用户管理中心</title>
+		<meta name="author" content="李潇喃：www.muzisheji.com" />
+		<!-- IE最新兼容 -->
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<!-- 国产浏览器高速 -->
+		<meta name="renderer" content="webkit">
+		<!-- 移动设备禁止缩放 -->
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+		<!-- No Baidu Siteapp-->
+		<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+		<link rel="icon" type="image/png" href="__ROOT__/Static/Index/images/favicon.png">
+
+		<!-- Add to homescreen for Chrome on Android -->
+		<meta name="mobile-web-app-capable" content="yes">
+		<link rel="icon" sizes="192x192" href="__ROOT__/Static/Index/images/app.png">
+
+		<!-- Add to homescreen for Safari on iOS -->
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="apple-mobile-web-app-title" content="Mzsj" />
+		<link rel="apple-touch-icon-precomposed" href="__ROOT__/Static/Index/images/app.png">
+
+		<!-- Tile icon for Win8 (144x144 + tile color) -->
+		<meta name="msapplication-TileImage" content="__ROOT__/Static/Index/images/app.png">
+		<meta name="msapplication-TileColor" content="#0e90d2">
+		<!--[if gt IE 9]>
+		<script src="__ROOT__/Static/Common/js/html5.js"></script>
+		<script src="__ROOT__/Static/Common/js/respond.js"></script>
+		<![endif]-->
+		<link rel="stylesheet" href="__ROOT__/Static/Index/images/reset.css">
+		<script src="__ROOT__/Static/Common/js/jquery.js"></script>
+	</head>
+
+	<body>
+	<!--header-->
+	<header class="top_bg overh m_a mt20 clearfix">
+	<h1 class="logo f_l"><a href="{$SITE['1']['siteurl']}">木子设计</a></h1>
+	</header>
+	<!--menu-->
+	<nav class="menu m_a overh mt20">
+		<ul>
+			<li><a href="http://www.wangdaisky.com/">门户</a></li>
+			{:W('Tag/menutag',array('pid'=>'0'))}
+		</ul>
+	</nav>
+	<!--wrap_one-->
+	<section class="wrap_one overh mt15 m_a clearfix">
+		<div class="usercenter clearfix">
+			<div class="user_left f_l overh">
+				<div class="userthumb clearfix">
+					<a href="{:U('User/index')}" class="h_img user_thumb f_l"><notempty name="thumb"><img src="{$USER['thumb']}" width="100" height="100" alt="{$USER['nickname']}"><else /><img src="" width="100" height="100" alt="网贷门户"></notempty></a>
+					<div class="user_title">
+						<h2><a href="{:U('User/index')}"><notempty name="$USER['nickname']">{$USER['nickname']}<else />{$USER['username']}</notempty></a></h2>
+						<p>{$gname[$USER['groupid']]}</p>
+						<a href="{:U('Index/Public/logout')}" class="exit">退出登陆</a>
+					</div>
+				</div>
+				<dl class="list_usermenu">
+					<volist name="menu" id="menu">
+					<dt>{$menu.name}</dt>
+					<notempty name="menu.child">
+						<volist name="menu.child" id="submenu">
+						<dd><a href="{:U($submenu['url'])}">{$submenu.name}</a></dd>
+						</volist>
+					</notempty>
+					</volist>
+				</dl>
+			</div>
+			<div class="user_right f_r">
+				<h3 class="h3_bg_2 user_h3_title">{$title}</h3>
+				<div class="shows overh">
+				<block name="main_user">
+					<table class="table_user">
+						<tr>
+							<td width="100">用户名：</td>
+							<td>{$info.username}</td>
+						</tr>
+						<tr>
+							<td>所在组：</td>
+							<td>{$gname[$info['groupid']]}</td>
+						</tr>
+						<tr>
+							<td>昵称：</td>
+							<td>{$info.nickname}</td>
+						</tr>
+						<tr>
+							<td>积分：</td>
+							<td>{$info.point}</td>
+						</tr>
+						<tr>
+							<td>电话：</td>
+							<td>{$info.tel}</td>
+						</tr>
+						<tr>
+							<td>邮箱：</td>
+							<td>{$info.email}</td>
+						</tr>
+						<tr>
+							<td>注册时间：</td>
+							<td>{$info.email}</td>
+						</tr>
+						<tr>
+							<td>状态：</td>
+							<td><if condition="$info['status'] == 1">正常<else />禁用</if></td>
+						</tr>
+					</table>
+				</block>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!--footer-->
+	<footer class="foot_bg m_a overh">
+		copyright @ 2015-2017 木子设计
+	</footer>
+
+	</body>
+
+</html>

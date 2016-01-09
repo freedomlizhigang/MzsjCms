@@ -1,0 +1,28 @@
+<extend name="Common:index" />
+<block name="main">
+	<table class="table-form">
+		<tr class="tr-header">
+			<th width="40">ID</th>
+			<th width="150">站点名</th>
+			<th width="300">域名</th>
+			<th width="150">模板目录</th>
+			<th width="150">联系人</th>
+			<th width="150">联系电话</th>
+			<th>操作</th>
+		</tr>
+		<volist name="listinfo" id="site">
+		<tr>
+			<td>{$site.siteid}</td>
+			<td>{$site.name}</td>
+			<td>{$site.siteurl}</td>
+			<td>{$site.template}</td>
+			<td>{$site.linkman}</td>
+			<td>{$site.tel}</td>
+			<td><a href="{:U('editsite',array('siteid'=>$site['siteid']))}">修改</a><!--  | <a href="{:U('delsite',array('siteid'=>$site['siteid']))}">删除</a> --></td>
+		</tr>
+		</volist>
+		<tr class="tr-btn">
+			<td colspan="7"><div class="pages">{$pages}</div></td>
+		</tr>
+	</table>
+</block>

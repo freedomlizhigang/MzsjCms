@@ -1,0 +1,15 @@
+[ 2015-08-22T08:57:55+08:00 ] 127.0.0.1 /Static/Index/images/favicon.png
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000031s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000458s ]
+
+[ 2015-08-22T08:57:55+08:00 ] 127.0.0.1 /Static/Index/images/favicon.png
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000035s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000634s ]
+
+[ 2015-08-22T08:57:55+08:00 ] 127.0.0.1 /Static/Index/images/app.png
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000057s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000710s ]
+

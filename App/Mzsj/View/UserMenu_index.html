@@ -1,0 +1,31 @@
+<extend name="Common:index" />
+<block name="main">
+	<form action="{:U('delusermenu')}" method="post">
+	<table class="table-form">
+		<tr class="tr-header">
+			<th width="1"><input type="checkbox" value="" class="checkall"></th>
+			<th width="50">ID</th>
+			<th width="60">排序</th>
+			<th>菜单名称</th>
+			<th>URL</th>
+			<th>是否显示</th>
+			<th>操作</th>
+		</tr>
+		<volist name="tree" id="menu">
+		<tr>
+			<td><input type="checkbox" name="mids[]" value="{$menu.menuid}" class="subcheck"></td>
+			<td>{$menu.menuid}</td>
+			<td>{$menu.listorder}</td>
+			<td><span class="f_l">{$menu.nbsp}{$menu.name}</span><if condition="$menu[level] == 1"><a href="{:U('addusermenu',array('parentid'=>$menu[menuid]))}" class="addsub"></a></if></td>
+			<td>{$menu.module}/{$menu.controller}/{$menu.action}<notempty name="$menu.data">/{$menu.data}</notempty>.html</td>
+			<td>{$menu.displayname}</td>
+			<td><a href="{:U('editusermenu',array('mid'=>$menu[menuid]))}">修改</a> | <a href="{:U('delusermenu',array('mid'=>$menu[menuid]))}" class="confirm">删除</a></td>
+		</tr>
+		</volist>
+		<tr class="tr-btn">
+			<td><input type="checkbox" value="" class="checkall"></td>
+			<td colspan="6"><input type="submit" value="删除" class="btn-del confirm" /></td>
+		</tr>
+	</table>
+	</form>
+</block>

@@ -1,0 +1,8 @@
+<volist name='two_menu' id='menu'>
+	<h3 class="left_h3"> <i class="icon"></i>{$menu.name}</h3>
+	<ul class="left_list">
+		<volist name='menu.submenu' id='submenu'>
+		<li class="sub_menu" id="left_menu{$submenu.menuid}"><a href="javascript:_LM({$submenu.menuid},'{:U($submenu[url])}')" class="sub_menu">{$submenu.name}</a></li>
+		</volist>
+	</ul>
+</volist>

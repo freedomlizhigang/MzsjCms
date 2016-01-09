@@ -1,0 +1,26 @@
+<extend name="Common:index" />
+<block name="main">
+	<form action="{:U('delpos')}" method="post">
+	<table class="table-form">
+		<tr class="tr-header">
+			<th width="1"><input type="checkbox" value="" class="checkall"></th>
+			<th width="40">ID</th>
+			<th width="150">名称</th>
+			<th>操作</th>
+		</tr>
+		<volist name="lists" id="pos">
+		<tr>
+			<td><input type="checkbox" name="posids[]" value="{$pos.posid}" class="subcheck" ></td>
+			<td>{$pos.posid}</td>
+			<td>{$pos.name}</td>
+			<td><a href="{:U('editpos',array('posid'=>$pos['posid']))}">修改</a> | <a href="{:U('delpos',array('posid'=>$pos['posid']))}" class="confirm">删除</a></td>
+		</tr>
+		</volist>
+		<tr class="tr-btn">
+			<td><input type="checkbox" value="" class="checkall"></td>
+			<td colspan="2"><input type="submit" value="删除" class="btn-del confirm" /></td>
+			<td colspan="5"><div class="pages">{$page}</div></td>
+		</tr>
+	</table>
+	</form>
+</block>

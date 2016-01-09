@@ -1,0 +1,5 @@
+<if condition="$cate['islink'] != '0'">
+<a href="{$cate['url']}">{$cate['catname']}</a>
+<else />
+<a href="{:U('Index/lists',array('catid'=>$cate['catid']))}">{$cate['catname']}</a>
+</if>

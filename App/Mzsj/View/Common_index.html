@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+	<meta charset="utf-8" />
+	<title>{$title}-木子设计后台管理程序</title>
+	<meta name="author" content="李潇喃：www.muzisheji.com" />
+	<!-- IE最新兼容 -->
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<!-- 国产浏览器高速 -->
+	<meta name="renderer" content="webkit">
+	<!-- 移动设备禁止缩放 -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+	<!-- No Baidu Siteapp-->
+	<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+	<link rel="icon" type="image/png" href="__ROOT__/Static/Common/img/favicon.png">
+
+	<!-- Add to homescreen for Chrome on Android -->
+	<meta name="mobile-web-app-capable" content="yes">
+	<link rel="icon" sizes="192x192" href="__ROOT__/Static/Common/img/app.png">
+
+	<!-- Add to homescreen for Safari on iOS -->
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="apple-mobile-web-app-title" content="Mzsj" />
+	<link rel="apple-touch-icon-precomposed" href="__ROOT__/Static/Common/img/app.png">
+
+	<!-- Tile icon for Win8 (144x144 + tile color) -->
+	<meta name="msapplication-TileImage" content="__ROOT__/Static/Common/img/app.png">
+	<meta name="msapplication-TileColor" content="#0e90d2">
+	<!--[if lt IE 9]>
+	<script src="__ROOT__/Static/Common/js/html5.js"></script>
+	<script src="__ROOT__/Static/Common/js/respond.js"></script>
+	<![endif]-->
+	<script src="__ROOT__/Static/Common/js/jquery.js"></script>
+	<script src="__ROOT__/Static/Mzsj/js/common.js"></script>
+	<script charset="utf-8" src="__ROOT__/static/Common/kindeditor/kindeditor-all-min.js"></script>
+	<link rel="stylesheet" href="__ROOT__/static/Common/kindeditor/themes/default/default.css">
+	<link rel="stylesheet" type="text/css" href="__ROOT__/Static/Mzsj/images/reset.css" />
+</head>
+
+<body>
+	<div class="right_con">
+		<!-- 右侧标题 -->
+		<div class="clearfix">
+			<block name="main_title"><h2 class="main_title f_l">{$title}</h2></block>
+			<div class="btn-group f_l">
+				<block name="rightmenu">
+				<volist name="rightmenu" id="subml">
+					<a href="{:U($subml['url'])}" class="btn-green">[ {$subml.name} ]</a>
+				</volist>
+				</block>
+			</div>
+		</div>
+		<block name="main">
+			主内容区
+		</block>
+	</div>
+</body>
+
+</html>

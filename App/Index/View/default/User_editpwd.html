@@ -1,0 +1,26 @@
+<extend name="User:index"/>
+<block name="main_user">
+	<form action="{:U()}" method="post" class="form_user">
+		<input type="hidden" name="userid" value="{$userid}">
+		<div class="form-group">
+			<label for="nickname" class="form-label">用户名：</label>
+			{$username}
+			<input type="hidden" name="uname" value="{$username}">
+		</div>
+		<div class="form-group">
+			<label for="oldpassword" class="form-label">旧密码：</label>
+			<input type="password" class="input-text" name="oldpassword">
+		</div>
+		<div class="form-group">
+			<label for="password" class="form-label">新密码：</label>
+			<input type="password" class="input-text" name="password">
+		</div>
+		<div class="form-group">
+			<label for="repassword" class="form-label">重复密码：</label>
+			<input type="password" class="input-text" name="repassword">
+		</div>
+		<div class="form-group">
+			<button type="submit" name="dosubmit" class="btn-success">提交</button><button type="reset" name="reset" class="btn-error">重填</button>
+		</div>
+	</form>
+</block>

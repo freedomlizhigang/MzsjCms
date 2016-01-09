@@ -1,0 +1,1 @@
+<?php if (!defined('THINK_PATH')) exit();?><p>更新会员组缓存成功...</p>

@@ -1,0 +1,35 @@
+<extend name="Common:index" />
+<block name="main">
+	<form action="{:U()}" class="form-box" method="post">
+		<input type="hidden" name="typeid" value="{$info.typeid}">
+		<div class="form-group">
+			<label for="parentid" class="item-label">父菜单：</label>
+			<select name="parentid" id="">
+				<option value="0">一级菜单</option>
+				<volist name="list" id="list">
+					<option value="{$list.typeid}"<if condition="$list['typeid'] == $info['parentid']"> selected</if>>{$list.nbsp}{$list.typename}</option>
+				</volist>
+			</select>
+		</div>
+		<div class="form-group">
+			<label for="typename" class="item-label">菜单名称：</label>
+			<input type="text" name="typename" class="input-text" value="{$info.typename}">
+		</div>
+		<div class="form-group">
+			<label for="typedir" class="item-label">URL：</label>
+			<input type="text" name="typedir" class="input-text" value="{$info.typedir}">
+		</div>
+		<div class="form-group">
+			<label for="listorder" class="item-label">排序：</label>
+			<input type="text" name="listorder" class="input-sm input-text" value="{$info.listorder}">
+		</div>
+		<div class="form-group">
+			<label for="display" class="item-label">是否显示：</label>
+			<input type="radio" name="display"<if condition="$info['display'] == 1"> checked="checked"</if> class="input-radio" value="1"> 是
+			<input type="radio" name="display"<if condition="$info['display'] == 0"> checked="checked"</if> class="input-radio" value="0"> 否
+		</div>
+		<div class="form-group">
+			<button type="submit" name="dosubmit" class="btn-success">提交</button><button type="reset" name="reset" class="btn-error">重填</button>
+		</div>
+	</form>
+</block>

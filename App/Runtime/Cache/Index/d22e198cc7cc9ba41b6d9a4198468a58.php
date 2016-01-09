@@ -1,0 +1,3 @@
+<?php if (!defined('THINK_PATH')) exit(); if(is_array($menulist)): $i = 0; $__LIST__ = $menulist;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$mlist): $mod = ($i % 2 );++$i;?><li><a <?php if($mlist["islink"] == 0): ?>href="<?php echo U('Index/lists',array('catdir'=>$mlist['catdir']));?>"<?php else: ?>href="<?php echo ($mlist["url"]); ?>"<?php endif; ?>><?php echo ($mlist["catname"]); ?></a>
+<!-- 可以添加二级菜单 -->
+</li><?php endforeach; endif; else: echo "" ;endif; ?>

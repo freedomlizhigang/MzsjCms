@@ -1,0 +1,104 @@
+<extend name="Common:index" />
+<block name="main">
+	<form action="{:U()}" class="form-box" method="post">
+		<input type="hidden" name="catid" value="{$info.catid}">
+		<input type="hidden" name="level" value="{$info.level}">
+		<div class="form-group">
+			<label for="parentid" class="item-label">父栏目：<span class="color_9"> 必须填写</span></label>
+			<select name="parentid" id="parentid">
+				<option value="">请选择</option>
+				<volist name="cate" id="ca">
+				<option value="{$ca.catid}"<if condition="$ca['catid'] == $info['parentid']"> selected="selected"</if>>{$ca.nbsp}{$ca.catname}</option>
+				</volist>
+			</select>
+		</div>
+		<div class="form-group">
+			<label for="catname" class="item-label">栏目名：<span class="color_9"> 必须填写</span></label>
+			<input type="text" name="catname" value="{$info.catname}" class="input-text">
+		</div>
+		<div class="form-group">
+			<label for="catdir" class="item-label">栏目目录：<span class="color_9"> 必须填写</span></label>
+			<input type="text" name="catdir" value="{$info.catdir}" class="input-text">
+		</div>
+		<div class="form-group">
+			<label for="keyword" class="item-label">栏目关键字：</label>
+			<input type="text" name="keyword" value="{$info.keyword}" class="input-text">
+		</div>
+		<div class="form-group">
+			<label for="description" class="item-label">描述：</label>
+			<textarea name="description" cols="60" rows="4">{$info.description}</textarea>
+		</div>
+		<div class="form-group">
+			<label for="image" class="item-label">栏目图片：</label>
+			<div class="clearfix">
+				<input type="text" name="image" id="url3" value="{$info.image}" class="input-text f_l">
+				<input type="button" class="btn-upload f_l ml10" id="image3" value="选择图片" />
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="content" class="item-label">内容：<span class="color_9"> 必须填写</span></label>
+			<textarea name="content" id="content_edit" style="width:96%" rows="20">{$info.content}</textarea>
+		</div>
+		<div class="form-group">
+			<label for="listorder" class="item-label">排序：</label>
+			<input type="text" name="listorder" value="{$info.listorder}" class="input-sm">
+		</div>
+		<div class="form-group">
+			<label for="ismenu" class="item-label">是否在导航显示：</label>
+			<input type="radio" name="ismenu"<if condition="$info['ismenu'] == 1"> checked="checked"</if> class="input-radio" value="1"> 显示
+			<input type="radio" name="ismenu"<if condition="$info['ismenu'] == 0"> checked="checked"</if> class="input-radio" value="0"> 不显示
+		</div>
+		<div class="form-group">
+			<label for="islink" class="item-label">是否外部链接：</label>
+			<input type="radio" name="islink"<if condition="$info['islink'] == 1"> checked="checked"</if> class="input-radio" value="1"> 是
+			<input type="radio" name="islink"<if condition="$info['islink'] == 0"> checked="checked"</if> class="input-radio" value="0"> 否
+		</div>
+		<div class="form-group">
+			<label for="url" class="item-label">外链接地址：</label>
+			<input type="text" name="url" value="{$info.url}" class="input-text">
+		</div>
+		<div class="form-group">
+			<label for="ispage" class="item-label">是否单网页：</label>
+			<input type="radio" name="ispage"<if condition="$info['ispage'] == 1"> checked="checked"</if> class="input-radio" value="1"> 是
+			<input type="radio" name="ispage"<if condition="$info['ispage'] == 0"> checked="checked"</if> class="input-radio" value="0" /> 否
+		</div>
+		<div class="form-group">
+			<label for="shenhe" class="item-label">文章是否需要审核：</label>
+			<input type="radio" name="shenhe" class="input-radio"<if condition="$info['shenhe'] == 1"> checked="checked"</if> value="1"> 是
+			<input type="radio" name="shenhe" class="input-radio"<if condition="$info['shenhe'] == 0"> checked="checked"</if> value="0"> 否
+		</div>
+		<div class="form-group">
+			<label for="cattpl" class="item-label">栏目模板：<span class="color_9"> 如果为单网页，请修改为page</span></label>
+			<input type="text" name="cattpl" value="{$info.cattpl}" class="input-text">
+		</div>
+		<div class="form-group">
+			<label for="arttpl" class="item-label">文章模板：</label>
+			<input type="text" name="arttpl" value="{$info.arttpl}" class="input-text">
+		</div>
+		<div class="form-group">
+			<button type="submit" name="dosubmit" class="btn-success">提交</button><button type="reset" name="reset" class="btn-error">重填</button>
+		</div>
+	</form>
+	<script>
+		KindEditor.ready(function(K) {
+                window.editor = K.create('#content_edit', {
+	                uploadJson : "{:U('Mzsj/Content/kindupload')}",
+	                extraFileUploadParams: {
+						session_id : '{:session_id()}'
+                    }
+	       		});
+                K('#image3').click(function() {
+					editor.loadPlugin('image', function() {
+						editor.plugin.imageDialog({
+							showRemote : false,
+							imageUrl : K('#url3').val(),
+							clickFn : function(url, title, width, height, border, align) {
+								K('#url3').val(url);
+								editor.hideDialog();
+							}
+						});
+					});
+				});
+        });
+	</script>
+</block>

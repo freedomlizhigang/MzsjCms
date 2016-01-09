@@ -1,0 +1,54 @@
+<extend name="Common:index" />
+<block name="main">
+	<div class="subcat clearfix">
+		<div class="f_l subcat_list">
+			<form action="{:U('')}" method="get" class="clearfix">
+				<select name="catid" id="catid">
+					<option value="">按栏目查看</option>
+					<foreach item="catname" name="catlist">
+					<option value="{$key}"<if condition="$key == $catid"> selected="selected"</if>>{$catname.catname}</option>>
+					</foreach>
+				</select>
+				<input type="submit" value="查看">
+			</form>
+		</div>
+		<div class="f_r search">
+			<form action="{:U('')}" method="post" class="clearfix">
+				<notempty name="catid"><input type="hidden" name="catid" value="{$catid}" /></notempty>
+				<input type="text" name="q" placeholder="输入要搜索的标题关键字" />
+				<input type="submit" value="搜索" >
+			</form>
+		</div>
+	</div>
+	<form action="{:U('delarticle')}" method="post">
+	<table class="table-form">
+		<tr class="tr-header">
+			<th width="1"><input type="checkbox" value="" class="checkall"></th>
+			<th width="40">ID</th>
+			<th width="60">排序</th>
+			<th>标题</th>
+			<th width="70">状态</th>
+			<th width="60">外链</th>
+			<th width="170">修改时间</th>
+			<th>操作</th>
+		</tr>
+		<volist name="lists" id="art">
+		<tr>
+			<td><input type="checkbox" name="artids[]" value="{$art.artid}" class="subcheck" ></td>
+			<td>{$art.artid}</td>
+			<td>{$art.listorder}</td>
+			<td><span class="color_9">[ <span class="color_green">{$catlist[$art['catid']]['catname']|substr=0,12}</span> ]</span> <a href="{:U('showart',array('artid'=>$art['artid']))}">{$art.title}</a></td>
+			<td>{$art.statusname}</td>
+			<td>{$art.islinkname}</td>
+			<td>{$art.updatetime|date='Y-m-d H:i:s',###}</td>
+			<td><a href="{:U('shenheart',array('artid'=>$art['artid'],'status'=>$art['status']))}"><if condition="$art.status == 0"><span class="color_green">通过审核</span><else/><span class="color_9">撤消审核</span></if></a> | <a href="{:U('editarticle',array('artid'=>$art['artid']))}">修改</a> | <a href="{:U('delarticle',array('artid'=>$art['artid']))}" class="confirm">删除</a></td>
+		</tr>
+		</volist>
+		<tr class="tr-btn">
+			<td width="1"><input type="checkbox" value="" class="checkall"></td>
+			<td colspan="3"><input type="submit" value="删除" class="btn-del confirm" /></td>
+			<td colspan="5"><div class="pages">{$page}</div></td>
+		</tr>
+	</table>
+	</form>
+</block>
