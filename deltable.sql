@@ -1,1 +1,1 @@
-DROP TABLE mzsj_admin,mzsj_admin_priv,mzsj_article,mzsj_category,mzsj_group,mzsj_link,mzsj_linkage,mzsj_log,mzsj_menu,mzsj_position,mzsj_role,mzsj_site,mzsj_type,mzsj_user,mzsj_user_menu,mzsj_user_priv,mzsj_wxconfig,mzsj_wxlinkage,mzsj_wxmenu,mzsj_wxmsg,mzsj_wxuser,mzsj_session
+DROP TABLE mzsj_admin,mzsj_admin_priv,mzsj_article,mzsj_attr,mzsj_category,mzsj_group,mzsj_link,mzsj_linkage,mzsj_log,mzsj_menu,mzsj_position,mzsj_role,mzsj_session,mzsj_site,mzsj_type,mzsj_user,mzsj_user_menu,mzsj_user_priv,mzsj_wxconfig,mzsj_wxlinkage,mzsj_wxmenu,mzsj_wxmsg,mzsj_wxuser

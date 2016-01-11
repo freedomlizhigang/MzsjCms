@@ -1,9 +1,8 @@
 /*
 SQLyog Ultimate v12.09 (64 bit)
-MySQL - 5.6.17 : Database - tpcms
+MySQL - 5.1.69 : Database - xs118267
 *********************************************************************
-*/
-
+*/
 
 /*!40101 SET NAMES utf8 */;
 
@@ -13,8 +12,6 @@ MySQL - 5.6.17 : Database - tpcms
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-
-
 /*Table structure for table `mzsj_admin` */
 
 DROP TABLE IF EXISTS `mzsj_admin`;
@@ -38,7 +35,7 @@ CREATE TABLE `mzsj_admin` (
 
 /*Data for the table `mzsj_admin` */
 
-insert  into `mzsj_admin`(`adminid`,`roleid`,`adminname`,`password`,`encrypt`,`realname`,`email`,`tel`,`lastip`,`lasttime`,`status`) values (1,1,'mzadmin','1a4dccbb454db37a39dedb0d71ed98e9','ynTJUj','李','dasf@qq.com','123222122','192.168.10.42',1452321451,1),(4,2,'adminss','7e3c0d5f20c1c5024b0c6b494c398e7d',NULL,'adminss','fsad@qq.com','13221321234','192.168.10.42',1452310427,1);
+insert  into `mzsj_admin`(`adminid`,`roleid`,`adminname`,`password`,`encrypt`,`realname`,`email`,`tel`,`lastip`,`lasttime`,`status`) values (1,1,'mzadmin','1a4dccbb454db37a39dedb0d71ed98e9','ynTJUj','李','dasf@qq.com','123222122','116.255.247.105',1452492064,1),(4,2,'adminss','7e3c0d5f20c1c5024b0c6b494c398e7d',NULL,'adminss','fsad@qq.com','13221321234','192.168.10.42',1452310427,1);
 
 /*Table structure for table `mzsj_admin_priv` */
 
@@ -82,6 +79,25 @@ CREATE TABLE `mzsj_article` (
 
 insert  into `mzsj_article`(`artid`,`catid`,`title`,`thumb`,`keyword`,`description`,`content`,`listorder`,`islink`,`url`,`posid`,`inputtime`,`updatetime`,`status`) values (1,2,'fdsadddddsss','','木子设计,网站建设,系统开发','','fadsadfdsa',0,0,'','2',NULL,1425002560,1),(2,2,'fdsa','/mzsj/Upload/2015-02-26/54ee83dd88065.jpg','','ddddd','faddddddddddss&lt;img src=&quot;/mzsj/Upload/2015-02-26/54ee840ddbb2c.jpg&quot; alt=&quot;&quot; /&gt;',0,0,'','1',1424917402,1424917523,1),(3,2,'323432432','','','','fdsafdsa',0,0,'','0',NULL,NULL,1),(4,2,'fdsadddd','','','das','fdasd',0,0,'','0',NULL,NULL,0),(5,2,'2222222222222222','','','','dddd',0,0,'','0',NULL,NULL,1);
 
+/*Table structure for table `mzsj_attr` */
+
+DROP TABLE IF EXISTS `mzsj_attr`;
+
+CREATE TABLE `mzsj_attr` (
+  `attid` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `type` char(10) DEFAULT NULL COMMENT '素材类型',
+  `localurl` varchar(150) NOT NULL COMMENT '本地url',
+  `media_id` varchar(100) DEFAULT NULL COMMENT '微信的ID',
+  `url` varchar(200) DEFAULT NULL COMMENT '下载下来后的url',
+  `inputtime` int(10) unsigned NOT NULL COMMENT '上传时间',
+  `islocal` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '是否是微信永久素材：0否',
+  PRIMARY KEY (`attid`)
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+
+/*Data for the table `mzsj_attr` */
+
+insert  into `mzsj_attr`(`attid`,`type`,`localurl`,`media_id`,`url`,`inputtime`,`islocal`) values (1,'image','/Upload/wx/2016-01-10/5691fdf311c7c.jpg','zy_YJtr2WaMMEooLyd1DNJ0LGRi244fuSAb7ZeiwinQ','https://mmbiz.qlogo.cn/mmbiz/x9rmG7ic6DTPEsAFwWD7QyOqS1Oa5OV6w8Mjru4DfCfd8TVFZgN8JoajibeGjg574VGMOAyJxGd5kAODtLVDEmDg/0?wx_fmt=jpeg',1452408365,1),(3,'video','/Upload/wx/2016-01-10/569215f5312df.mp4','zy_YJtr2WaMMEooLyd1DNLPKer1l9SVr7Kz1zjS2d8g',NULL,1452414464,1),(4,'video','/Upload/wx/2016-01-10/569215f5312df.mp4','zy_YJtr2WaMMEooLyd1DNPWWAzol376MGhmsEaAHJyw',NULL,1452415180,1),(7,'image','/Upload/2016-01-11/5693540a18496.png',NULL,NULL,1452495882,0),(6,'image','/Upload/2016-01-11/569353225cb5c.png',NULL,NULL,1452495650,0),(8,'image','/Upload/2016-01-11/5693540a805bd.png',NULL,NULL,1452495882,0);
+
 /*Table structure for table `mzsj_category` */
 
 DROP TABLE IF EXISTS `mzsj_category`;
@@ -114,7 +130,7 @@ CREATE TABLE `mzsj_category` (
 
 /*Data for the table `mzsj_category` */
 
-insert  into `mzsj_category`(`catid`,`parentid`,`arrparentid`,`child`,`arrchildid`,`catname`,`catdir`,`image`,`keyword`,`description`,`content`,`listorder`,`ismenu`,`islink`,`url`,`ispage`,`cattpl`,`arttpl`,`shenhe`) values (1,0,'0',0,'1','关于我们','about','','','','这就是个测试的栏目',0,1,0,'',0,'cate','show',0),(2,6,'0,6',0,'2','加个二级试试','subnav','','','','f二级一个',0,1,0,'',0,'cate','show',0),(3,0,'0',0,'3','联系我们','contact','','','f','<h2>\r\n	fda fdsass<span style=\"color:#4C33E5;\"></span> \r\n</h2>\r\n<h2>\r\n	<span style=\"color:#4C33E5;\">dsaffdassss</span> \r\n</h2>',3,1,0,'',1,'page','show',1),(6,0,'0',1,'6,2','主营业务','case','','业务','业务们','压根',0,1,0,'',0,'cate','show',0);
+insert  into `mzsj_category`(`catid`,`parentid`,`arrparentid`,`child`,`arrchildid`,`catname`,`catdir`,`image`,`keyword`,`description`,`content`,`listorder`,`ismenu`,`islink`,`url`,`ispage`,`cattpl`,`arttpl`,`shenhe`) values (1,0,'0',0,'1','关于我们','about','','','','这就是个测试的栏目',0,1,0,'',0,'cate','show',0),(2,6,'0,6',0,'2','加个二级试试','subnav','','','','f二级一个',0,1,0,'',0,'cate','show',0),(3,0,'0',0,'3','联系我们','contact','/Upload/2016-01-11/569353225cb5c.png','','f','<p>\r\n	<img src=\"/Upload/2016-01-11/5693540a18496.png\" alt=\"\" />\r\n</p>\r\n<p>\r\n	<br />\r\n</p>\r\n<p>\r\n	<img src=\"/Upload/2016-01-11/5693540a805bd.png\" alt=\"\" />\r\n</p>\r\n<h2>\r\n	fda fdsass<span style=\"color:#4C33E5;\"></span> \r\n</h2>\r\n<h2>\r\n	<span style=\"color:#4C33E5;\">dsaffdassss</span> \r\n</h2>',3,1,0,'',1,'page','show',1),(6,0,'0',1,'6,2','主营业务','case','','业务','业务们','压根',0,1,0,'',0,'cate','show',0);
 
 /*Table structure for table `mzsj_group` */
 
@@ -181,11 +197,11 @@ CREATE TABLE `mzsj_log` (
   `ip` char(15) DEFAULT NULL,
   `time` int(10) unsigned DEFAULT NULL,
   PRIMARY KEY (`logid`)
-) ENGINE=MyISAM AUTO_INCREMENT=245 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=281 DEFAULT CHARSET=utf8;
 
 /*Data for the table `mzsj_log` */
 
-insert  into `mzsj_log`(`logid`,`url`,`data`,`adminid`,`adminname`,`ip`,`time`) values (244,'/Mzsj/Menu/editmenu/','menuid=1',1,'mzadmin','192.168.10.42',1452322999),(243,'/Mzsj/Menu/editmenu/','menuid=1',1,'mzadmin','192.168.10.42',1452322979),(242,'/Mzsj/Menu/editmenu/','menuid=1',1,'mzadmin','192.168.10.42',1452322942),(241,'/Mzsj/Menu/editmenu/','menuid=1',1,'mzadmin','192.168.10.42',1452322676),(208,'/Mzsj/Public/login/','',1,'mzadmin','192.168.10.42',1452300204),(209,'/Mzsj/Adminedit/editpassword/','adminid=1',1,'mzadmin','192.168.10.42',1452302193),(210,'/Mzsj/Adminedit/editadmin/','adminid=1',1,'mzadmin','192.168.10.42',1452302461),(211,'/Mzsj/Adminedit/editadmin/','adminid=1',1,'mzadmin','192.168.10.42',1452302474),(212,'/Mzsj/Admin/editpassword/','adminid=1',1,'mzadmin','192.168.10.42',1452303193),(213,'/Mzsj/Admin/editpassword/','adminid=1',1,'mzadmin','192.168.10.42',1452303334),(214,'/Mzsj/Admin/editpassword/','adminid=1',1,'mzadmin','192.168.10.42',1452303459),(215,'/Mzsj/Admin/editpassword/','adminid=1',1,'mzadmin','192.168.10.42',1452303626),(216,'/Mzsj/Admin/editpassword/','adminid=1',1,'mzadmin','192.168.10.42',1452303638),(217,'/Mzsj/Public/login/','',1,'mzadmin','192.168.10.42',1452303869),(218,'/Mzsj/Public/login/','',1,'mzadmin','192.168.10.42',1452306317),(219,'/Mzsj/Menu/editmenu/','menuid=1',1,'mzadmin','192.168.10.42',1452308733),(220,'/Mzsj/Admin/addadmin/','adminid=4',1,'mzadmin','192.168.10.42',1452310399),(221,'/Mzsj/Public/login/','',4,'adminss','192.168.10.42',1452310427),(222,'/Mzsj/Admin/adminpriv/','roleid=2',1,'mzadmin','192.168.10.42',1452310454),(223,'/Mzsj/Public/login/','',1,'mzadmin','192.168.10.42',1452311522),(224,'/Mzsj/Public/login/','',1,'mzadmin','192.168.10.42',1452311858),(225,'/Mzsj/Public/login/','',1,'mzadmin','192.168.10.42',1452311907),(226,'/Mzsj/Public/login/','',1,'mzadmin','192.168.10.42',1452311994),(227,'/Mzsj/Public/login/','',1,'mzadmin','192.168.10.42',1452318719),(228,'/Mzsj/Public/login/','',1,'mzadmin','192.168.10.42',1452318782),(229,'/Mzsj/Public/login/','',1,'mzadmin','192.168.10.42',1452318900),(230,'/Mzsj/Public/login/','',1,'mzadmin','192.168.10.42',1452318963),(231,'/Mzsj/Public/login/','',1,'mzadmin','192.168.10.42',1452319297),(232,'/Mzsj/Public/login/','',1,'mzadmin','192.168.10.42',1452319435),(233,'/Mzsj/Public/login/','',1,'mzadmin','192.168.10.42',1452319948),(234,'/Mzsj/Public/login/','',1,'mzadmin','192.168.10.42',1452320368),(235,'/Mzsj/Public/login/','',1,'mzadmin','192.168.10.42',1452320442),(236,'/Mzsj/Public/login/','',1,'mzadmin','192.168.10.42',1452320475),(237,'/Mzsj/Public/login/','',1,'mzadmin','192.168.10.42',1452320508),(238,'/Mzsj/Public/login/','',1,'mzadmin','192.168.10.42',1452320528),(239,'/Mzsj/Public/login/','',1,'mzadmin','192.168.10.42',1452320794),(240,'/Mzsj/Public/login/','',1,'mzadmin','192.168.10.42',1452321451);
+insert  into `mzsj_log`(`logid`,`url`,`data`,`adminid`,`adminname`,`ip`,`time`) values (244,'/Mzsj/Menu/editmenu/','menuid=1',1,'mzadmin','192.168.10.42',1452322999),(243,'/Mzsj/Menu/editmenu/','menuid=1',1,'mzadmin','192.168.10.42',1452322979),(242,'/Mzsj/Menu/editmenu/','menuid=1',1,'mzadmin','192.168.10.42',1452322942),(241,'/Mzsj/Menu/editmenu/','menuid=1',1,'mzadmin','192.168.10.42',1452322676),(208,'/Mzsj/Public/login/','',1,'mzadmin','192.168.10.42',1452300204),(209,'/Mzsj/Adminedit/editpassword/','adminid=1',1,'mzadmin','192.168.10.42',1452302193),(210,'/Mzsj/Adminedit/editadmin/','adminid=1',1,'mzadmin','192.168.10.42',1452302461),(211,'/Mzsj/Adminedit/editadmin/','adminid=1',1,'mzadmin','192.168.10.42',1452302474),(212,'/Mzsj/Admin/editpassword/','adminid=1',1,'mzadmin','192.168.10.42',1452303193),(213,'/Mzsj/Admin/editpassword/','adminid=1',1,'mzadmin','192.168.10.42',1452303334),(214,'/Mzsj/Admin/editpassword/','adminid=1',1,'mzadmin','192.168.10.42',1452303459),(215,'/Mzsj/Admin/editpassword/','adminid=1',1,'mzadmin','192.168.10.42',1452303626),(216,'/Mzsj/Admin/editpassword/','adminid=1',1,'mzadmin','192.168.10.42',1452303638),(217,'/Mzsj/Public/login/','',1,'mzadmin','192.168.10.42',1452303869),(218,'/Mzsj/Public/login/','',1,'mzadmin','192.168.10.42',1452306317),(219,'/Mzsj/Menu/editmenu/','menuid=1',1,'mzadmin','192.168.10.42',1452308733),(220,'/Mzsj/Admin/addadmin/','adminid=4',1,'mzadmin','192.168.10.42',1452310399),(221,'/Mzsj/Public/login/','',4,'adminss','192.168.10.42',1452310427),(222,'/Mzsj/Admin/adminpriv/','roleid=2',1,'mzadmin','192.168.10.42',1452310454),(223,'/Mzsj/Public/login/','',1,'mzadmin','192.168.10.42',1452311522),(224,'/Mzsj/Public/login/','',1,'mzadmin','192.168.10.42',1452311858),(225,'/Mzsj/Public/login/','',1,'mzadmin','192.168.10.42',1452311907),(226,'/Mzsj/Public/login/','',1,'mzadmin','192.168.10.42',1452311994),(227,'/Mzsj/Public/login/','',1,'mzadmin','192.168.10.42',1452318719),(228,'/Mzsj/Public/login/','',1,'mzadmin','192.168.10.42',1452318782),(229,'/Mzsj/Public/login/','',1,'mzadmin','192.168.10.42',1452318900),(230,'/Mzsj/Public/login/','',1,'mzadmin','192.168.10.42',1452318963),(231,'/Mzsj/Public/login/','',1,'mzadmin','192.168.10.42',1452319297),(232,'/Mzsj/Public/login/','',1,'mzadmin','192.168.10.42',1452319435),(233,'/Mzsj/Public/login/','',1,'mzadmin','192.168.10.42',1452319948),(234,'/Mzsj/Public/login/','',1,'mzadmin','192.168.10.42',1452320368),(235,'/Mzsj/Public/login/','',1,'mzadmin','192.168.10.42',1452320442),(236,'/Mzsj/Public/login/','',1,'mzadmin','192.168.10.42',1452320475),(237,'/Mzsj/Public/login/','',1,'mzadmin','192.168.10.42',1452320508),(238,'/Mzsj/Public/login/','',1,'mzadmin','192.168.10.42',1452320528),(239,'/Mzsj/Public/login/','',1,'mzadmin','192.168.10.42',1452320794),(240,'/Mzsj/Public/login/','',1,'mzadmin','192.168.10.42',1452321451),(245,'/Mzsj/Public/login/','',1,'mzadmin','116.255.233.170',1452385800),(246,'/Mzsj/Wx/wxconfig/','',1,'mzadmin','116.255.233.172',1452386017),(247,'/Mzsj/Wx/editmsg/','msgid=1',1,'mzadmin','116.255.233.170',1452386628),(248,'/Mzsj/Wx/editmenu/','menuid=1',1,'mzadmin','116.255.233.170',1452386866),(249,'/Mzsj/Wx/editmenu/','menuid=1',1,'mzadmin','116.255.233.172',1452388950),(250,'/Mzsj/Menu/addmenu/','menuid=142',1,'mzadmin','116.255.233.172',1452389304),(251,'/Mzsj/Menu/addmenu/','menuid=143',1,'mzadmin','116.255.233.170',1452389650),(252,'/Mzsj/Menu/addmenu/','menuid=144',1,'mzadmin','116.255.233.170',1452389680),(253,'/Mzsj/Index/editsite/','',1,'mzadmin','116.255.233.172',1452392783),(254,'/Mzsj/Index/editsite/','',1,'mzadmin','116.255.233.172',1452392850),(255,'/Mzsj/Public/login/','',1,'mzadmin','116.255.233.170',1452393000),(256,'/Mzsj/Public/login/','',1,'mzadmin','116.255.233.170',1452405831),(257,'/Mzsj/Public/login/','',1,'mzadmin','116.255.233.170',1452413529),(258,'/Mzsj/Wx/addmsg/','msgid=9',1,'mzadmin','116.255.233.170',1452415777),(259,'/Mzsj/Wx/addmenu/','menuid=8',1,'mzadmin','116.255.233.172',1452417639),(260,'/Mzsj/Wx/editmsg/','msgid=1',1,'mzadmin','116.255.233.172',1452417988),(261,'/Mzsj/Wx/editmsg/','msgid=1',1,'mzadmin','116.255.233.172',1452418051),(262,'/Mzsj/Public/login/','',1,'mzadmin','116.255.233.172',1452472070),(263,'/Mzsj/Wx/addmenu/','menuid=9',1,'mzadmin','116.255.233.172',1452472957),(264,'/Mzsj/Wx/addmenu/','menuid=10',1,'mzadmin','116.255.233.172',1452473134),(265,'/Mzsj/Wx/editlinkage/','wxlinkageid=1',1,'mzadmin','116.255.233.172',1452474819),(266,'/Mzsj/Wx/editlinkage/','wxlinkageid=1',1,'mzadmin','116.255.233.172',1452474940),(267,'/Mzsj/Wx/editlinkage/','wxlinkageid=1',1,'mzadmin','116.255.233.172',1452474955),(268,'/Mzsj/Wx/editlinkage/','wxlinkageid=1',1,'mzadmin','116.255.233.172',1452474960),(269,'/Mzsj/Wx/editlinkage/','wxlinkageid=1',1,'mzadmin','116.255.233.172',1452474970),(270,'/Mzsj/Wx/editlinkage/','wxlinkageid=1',1,'mzadmin','116.255.233.172',1452474976),(271,'/Mzsj/Wx/editlinkage/','wxlinkageid=1',1,'mzadmin','116.255.233.172',1452475002),(272,'/Mzsj/Menu/editmenu/','menuid=1',1,'mzadmin','116.255.233.172',1452475842),(273,'/Mzsj/Wx/dellinkage/','wxlinkageid=7',1,'mzadmin','116.255.233.172',1452476158),(274,'/Mzsj/Wx/dellinkage/','wxlinkageid=6',1,'mzadmin','116.255.233.172',1452476165),(275,'/Mzsj/Public/login/','',1,'mzadmin','116.255.247.105',1452483185),(276,'/Mzsj/Public/login/','',1,'mzadmin','116.255.247.105',1452492064),(277,'/Mzsj/Menu/addmenu/','menuid=145',1,'mzadmin','116.255.247.105',1452495291),(278,'/Mzsj/Menu/addmenu/','menuid=146',1,'mzadmin','116.255.247.105',1452495315),(279,'/Mzsj/Content/editcate/','catid=1',1,'mzadmin','116.255.233.172',1452495652),(280,'/Mzsj/Content/editcate/','catid=1',1,'mzadmin','116.255.247.105',1452495903);
 
 /*Table structure for table `mzsj_menu` */
 
@@ -202,11 +218,11 @@ CREATE TABLE `mzsj_menu` (
   KEY `menuid` (`menuid`),
   KEY `parentid` (`parentid`),
   KEY `module` (`url`)
-) ENGINE=MyISAM AUTO_INCREMENT=142 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=147 DEFAULT CHARSET=utf8;
 
 /*Data for the table `mzsj_menu` */
 
-insert  into `mzsj_menu`(`menuid`,`name`,`parentid`,`url`,`listorder`,`display`) values (52,'内容管理',51,'Mzsj/Content/mamange',0,1),(46,'用户管理',42,'Mzsj/Admin/manage',2,1),(45,'菜单管理',43,'Mzsj/Menu/index',0,1),(51,'内容',0,'Mzsj/Content/manage',0,1),(50,'删除',45,'Mzsj/Menu/delmenu',0,0),(49,'修改',45,'Mzsj/Menu/editmenu',0,0),(48,'新增',45,'Mzsj/Menu/addmenu',0,1),(47,'用户列表',46,'Mzsj/Admin/index',0,1),(44,'站点列表',43,'Mzsj/Index/sitelist',0,1),(43,'系统管理',42,'Mzsj/Index/index',1,1),(42,'系统',0,'Mzsj/Index/index',0,1),(53,'文章管理',52,'Mzsj/Content/index',0,1),(54,'栏目管理',52,'Mzsj/Content/cate',0,1),(55,'角色列表',46,'Mzsj/Admin/rolelist',0,1),(56,'添加角色',55,'Mzsj/Admin/addrole',0,1),(57,'修改角色',55,'Mzsj/Admin/editrole',0,0),(58,'删除角色',55,'Mzsj/Admin/delrole',0,0),(59,'新增用户',47,'Mzsj/Admin/addadmin',0,1),(60,'修改用户',47,'Mzsj/Admin/editadmin',0,0),(61,'删除用户',47,'Mzsj/Admin/deladmin',0,0),(62,'权限管理',55,'Mzsj/Admin/adminpriv',0,0),(63,'编辑',44,'Mzsj/Index/editsite',0,0),(64,'添加',54,'Mzsj/Content/addcate',0,1),(65,'修改',54,'Mzsj/Content/editcate',0,0),(66,'删除菜单',54,'Mzsj/Content/delcate',0,0),(67,'添加文章',53,'Mzsj/Content/addarticle',0,1),(68,'修改文章',53,'Mzsj/Content/editarticle',0,0),(69,'删除文章',53,'Mzsj/Content/delarticle',0,0),(70,'其它内容',51,'Mzsj/Content/other',0,1),(71,'友情链接',70,'Mzsj/Link/index',0,1),(72,'关联菜单',70,'Mzsj/Linkage/index',0,1),(73,'添加友链',71,'Mzsj/Link/addlink',0,1),(74,'修改友链',71,'Mzsj/Link/editlink',0,0),(75,'删除友链',71,'Mzsj/Link/dellink',0,0),(76,'添加关联',72,'Mzsj/Linkage/addlinkage',0,1),(77,'修改关联',72,'Mzsj/Linkage/editlinkage',0,0),(78,'删除关联',72,'Mzsj/Linkage/dellinkage',0,0),(79,'推荐位管理',70,'Mzsj/Position/index',0,1),(80,'添加推荐位',79,'Mzsj/Position/addpos',0,1),(81,'修改推荐位',79,'Mzsj/Position/editpos',0,0),(82,'删除推荐位',79,'Mzsj/Position/delpos',0,0),(86,'用户日志',43,'Mzsj/Index/loglist',0,1),(87,'清除7天前日志',86,'Mzsj/Index/clear',0,1),(88,'添加站点',44,'Mzsj/Index/addsite',0,0),(89,'删除站点',44,'Mzsj/Index/delsite',0,0),(90,'更新全站缓存',43,'Mzsj/Index/updatecache',0,1),(91,'查看文章',53,'Mzsj/Content/showart',0,0),(92,'审核文章',53,'Mzsj/Content/shenheart',0,0),(93,'个人信息',42,'Mzsj/Adminedit/admininfo',3,1),(94,'修改个人信息',93,'Mzsj/Adminedit/editadmin',0,1),(95,'修改密码',93,'Mzsj/Adminedit/editpassword',0,1),(96,'修改密码',47,'Mzsj/Admin/editpassword',0,0),(97,'用户',0,'Mzsj/User/index',0,1),(98,'用户管理',97,'Mzsj/User/index',0,1),(99,'用户列表',98,'Mzsj/User/index',0,1),(100,'添加用户',99,'Mzsj/User/adduser',0,1),(101,'修改用户信息',99,'Mzsj/User/editinfo',0,0),(102,'用户密码修改',99,'Mzsj/User/edituser',0,0),(103,'查看用户信息',99,'Mzsj/User/showuser',0,0),(104,'删除用户',99,'Mzsj/User/deluser',0,0),(105,'用户组管理',98,'Mzsj/Group/index',0,1),(106,'添加用户组',105,'Mzsj/Group/addgroup',0,1),(107,'修改用户组',105,'Mzsj/Group/editgroup',0,0),(108,'删除用户组',105,'Mzsj/Group/delgroup',0,0),(109,'更新组权限',105,'Mzsj/Group/grouppriv',0,0),(110,'用户菜单管理',98,'Mzsj/UserMenu/index',0,1),(111,'添加菜单',110,'Mzsj/UserMenu/addusermenu',0,1),(112,'修改用户菜单',110,'Mzsj/UserMenu/editusermenu',0,0),(113,'删除用户菜单',110,'Mzsj/UserMenu/delusermenu',0,0),(122,'微信',0,'Mzsj/Wx/wxmanage',0,1),(118,'类别列表',70,'Mzsj/Type/index',0,1),(119,'添加类别',118,'Mzsj/Type/addtype',0,1),(120,'修改类别',118,'Mzsj/Type/edittype',0,0),(121,'删除类别',118,'Mzsj/Type/deltype',0,0),(123,'微信管理',122,'Mzsj/Wx/wxmanages',0,1),(124,'基本设置',123,'Mzsj/Wx/wxconfig',0,1),(125,'回复设置',123,'Mzsj/Wx/wxmsg',0,1),(126,'添加回复',125,'Mzsj/Wx/addmsg',0,1),(127,'修改回复',125,'Mzsj/Wx/editmsg',0,0),(128,'删除回复',125,'Mzsj/Wx/delmsg',0,0),(129,'自定义菜单',123,'Mzsj/Wx/menulist',0,1),(130,'添加菜单',129,'Mzsj/Wx/addmenu',0,1),(131,'修改菜单',129,'Mzsj/Wx/editmenu',0,0),(132,'删除菜单',129,'Mzsj/Wx/delmenu',0,0),(133,'更新菜单',129,'Mzsj/Wx/updatemenu',0,1),(134,'关注者们',123,'Mzsj/Wx/wxuser',0,1),(135,'清理数据',122,'Mzsj/Wx/clearwx',0,1),(136,'清理缓存',135,'Mzsj/Wx/clearcache',0,1),(137,'清理用户',135,'Mzsj/Wx/clearwx',0,0),(138,'微信菜单',123,'Mzsj/Wx/wxlinkage',0,1),(139,'添加菜单',138,'Mzsj/Wx/addlinkage',0,1),(140,'修改菜单',138,'Mzsj/Wx/editlinkage',0,0),(141,'删除菜单',138,'Mzsj/Wx/dellinkage',0,0);
+insert  into `mzsj_menu`(`menuid`,`name`,`parentid`,`url`,`listorder`,`display`) values (52,'内容管理',51,'Mzsj/Content/mamange',0,1),(46,'用户管理',42,'Mzsj/Admin/manage',2,1),(45,'菜单管理',43,'Mzsj/Menu/index',0,1),(51,'内容',0,'Mzsj/Content/manage',0,1),(50,'删除',45,'Mzsj/Menu/delmenu',0,0),(49,'修改',45,'Mzsj/Menu/editmenu',0,0),(48,'新增',45,'Mzsj/Menu/addmenu',0,1),(47,'用户列表',46,'Mzsj/Admin/index',0,1),(44,'站点列表',43,'Mzsj/Index/sitelist',0,1),(43,'系统管理',42,'Mzsj/Index/index',1,1),(42,'系统',0,'Mzsj/Index/index',0,1),(53,'文章管理',52,'Mzsj/Content/index',0,1),(54,'栏目管理',52,'Mzsj/Content/cate',0,1),(55,'角色列表',46,'Mzsj/Admin/rolelist',0,1),(56,'添加角色',55,'Mzsj/Admin/addrole',0,1),(57,'修改角色',55,'Mzsj/Admin/editrole',0,0),(58,'删除角色',55,'Mzsj/Admin/delrole',0,0),(59,'新增用户',47,'Mzsj/Admin/addadmin',0,1),(60,'修改用户',47,'Mzsj/Admin/editadmin',0,0),(61,'删除用户',47,'Mzsj/Admin/deladmin',0,0),(62,'权限管理',55,'Mzsj/Admin/adminpriv',0,0),(63,'编辑',44,'Mzsj/Index/editsite',0,0),(64,'添加',54,'Mzsj/Content/addcate',0,1),(65,'修改',54,'Mzsj/Content/editcate',0,0),(66,'删除菜单',54,'Mzsj/Content/delcate',0,0),(67,'添加文章',53,'Mzsj/Content/addarticle',0,1),(68,'修改文章',53,'Mzsj/Content/editarticle',0,0),(69,'删除文章',53,'Mzsj/Content/delarticle',0,0),(70,'其它内容',51,'Mzsj/Content/other',0,1),(71,'友情链接',70,'Mzsj/Link/index',0,1),(72,'关联菜单',70,'Mzsj/Linkage/index',0,1),(73,'添加友链',71,'Mzsj/Link/addlink',0,1),(74,'修改友链',71,'Mzsj/Link/editlink',0,0),(75,'删除友链',71,'Mzsj/Link/dellink',0,0),(76,'添加关联',72,'Mzsj/Linkage/addlinkage',0,1),(77,'修改关联',72,'Mzsj/Linkage/editlinkage',0,0),(78,'删除关联',72,'Mzsj/Linkage/dellinkage',0,0),(79,'推荐位管理',70,'Mzsj/Position/index',0,1),(80,'添加推荐位',79,'Mzsj/Position/addpos',0,1),(81,'修改推荐位',79,'Mzsj/Position/editpos',0,0),(82,'删除推荐位',79,'Mzsj/Position/delpos',0,0),(86,'用户日志',43,'Mzsj/Index/loglist',0,1),(87,'清除7天前日志',86,'Mzsj/Index/clear',0,1),(88,'添加站点',44,'Mzsj/Index/addsite',0,0),(89,'删除站点',44,'Mzsj/Index/delsite',0,0),(90,'更新全站缓存',43,'Mzsj/Index/updatecache',0,1),(91,'查看文章',53,'Mzsj/Content/showart',0,0),(92,'审核文章',53,'Mzsj/Content/shenheart',0,0),(93,'个人信息',42,'Mzsj/Adminedit/admininfo',3,1),(94,'修改个人信息',93,'Mzsj/Adminedit/editadmin',0,1),(95,'修改密码',93,'Mzsj/Adminedit/editpassword',0,1),(96,'修改密码',47,'Mzsj/Admin/editpassword',0,0),(97,'用户',0,'Mzsj/User/index',0,1),(98,'用户管理',97,'Mzsj/User/index',0,1),(99,'用户列表',98,'Mzsj/User/index',0,1),(100,'添加用户',99,'Mzsj/User/adduser',0,1),(101,'修改用户信息',99,'Mzsj/User/editinfo',0,0),(102,'用户密码修改',99,'Mzsj/User/edituser',0,0),(103,'查看用户信息',99,'Mzsj/User/showuser',0,0),(104,'删除用户',99,'Mzsj/User/deluser',0,0),(105,'用户组管理',98,'Mzsj/Group/index',0,1),(106,'添加用户组',105,'Mzsj/Group/addgroup',0,1),(107,'修改用户组',105,'Mzsj/Group/editgroup',0,0),(108,'删除用户组',105,'Mzsj/Group/delgroup',0,0),(109,'更新组权限',105,'Mzsj/Group/grouppriv',0,0),(110,'用户菜单管理',98,'Mzsj/UserMenu/index',0,1),(111,'添加菜单',110,'Mzsj/UserMenu/addusermenu',0,1),(112,'修改用户菜单',110,'Mzsj/UserMenu/editusermenu',0,0),(113,'删除用户菜单',110,'Mzsj/UserMenu/delusermenu',0,0),(122,'微信',0,'Mzsj/Wx/wxmanage',0,1),(118,'类别列表',70,'Mzsj/Type/index',0,1),(119,'添加类别',118,'Mzsj/Type/addtype',0,1),(120,'修改类别',118,'Mzsj/Type/edittype',0,0),(121,'删除类别',118,'Mzsj/Type/deltype',0,0),(123,'微信管理',122,'Mzsj/Wx/wxmanages',0,1),(124,'基本设置',123,'Mzsj/Wx/wxconfig',0,1),(125,'关键字回复',123,'Mzsj/Wx/wxmsg',0,1),(126,'添加回复',125,'Mzsj/Wx/addmsg',0,1),(127,'修改回复',125,'Mzsj/Wx/editmsg',0,0),(128,'删除回复',125,'Mzsj/Wx/delmsg',0,0),(129,'自定义菜单',123,'Mzsj/Wx/menulist',0,1),(130,'添加菜单',129,'Mzsj/Wx/addmenu',0,1),(131,'修改菜单',129,'Mzsj/Wx/editmenu',0,0),(132,'删除菜单',129,'Mzsj/Wx/delmenu',0,0),(133,'更新菜单',129,'Mzsj/Wx/updatemenu',0,1),(134,'关注者们',123,'Mzsj/Wx/wxuser',0,1),(135,'清理数据',122,'Mzsj/Wx/clearwx',0,1),(136,'清理缓存',135,'Mzsj/Wx/clearcache',0,1),(137,'清理用户',135,'Mzsj/Wx/clearwx',0,0),(138,'微信菜单',123,'Mzsj/Wx/wxlinkage',0,1),(139,'添加菜单',138,'Mzsj/Wx/addlinkage',0,1),(140,'修改菜单',138,'Mzsj/Wx/editlinkage',0,0),(141,'删除菜单',138,'Mzsj/Wx/dellinkage',0,0),(142,'素材管理',123,'Mzsj/Wxattr/index',0,1),(143,'添加素材',142,'Mzsj/Wxattr/addattr',0,1),(144,'删除素材',142,'Mzsj/Wxattr/delattr',0,0),(145,'附件管理',70,'Mzsj/Attr/index',0,1),(146,'删除附件',145,'Mzsj/Attr/delattr',0,0);
 
 /*Table structure for table `mzsj_position` */
 
@@ -251,7 +267,7 @@ CREATE TABLE `mzsj_session` (
 
 /*Data for the table `mzsj_session` */
 
-insert  into `mzsj_session`(`session_id`,`session_expire`,`session_data`) values ('r6naphheijgss13stdtskfiqd3',1452331045,'mzsj_|a:3:{s:10:\"mz_adminid\";s:1:\"1\";s:12:\"mz_adminname\";s:7:\"mzadmin\";s:9:\"mz_roleid\";s:1:\"1\";}');
+insert  into `mzsj_session`(`session_id`,`session_expire`,`session_data`) values ('pn1f2dbuitoht0c4b3rb454jo7',1452503204,'mzsj_|a:3:{s:10:\"mz_adminid\";s:1:\"1\";s:12:\"mz_adminname\";s:7:\"mzadmin\";s:9:\"mz_roleid\";s:1:\"1\";}');
 
 /*Table structure for table `mzsj_site` */
 
@@ -276,7 +292,7 @@ CREATE TABLE `mzsj_site` (
 
 /*Data for the table `mzsj_site` */
 
-insert  into `mzsj_site`(`siteid`,`name`,`siteurl`,`sitedir`,`sitename`,`keyword`,`description`,`linkman`,`tel`,`qq`,`address`,`contact`,`template`) values (1,'木子设计','http://www.mzsj.com','/','木子设计cms','fdsa','fdsa','222','213','3222','ddd','fdsa','default');
+insert  into `mzsj_site`(`siteid`,`name`,`siteurl`,`sitedir`,`sitename`,`keyword`,`description`,`linkman`,`tel`,`qq`,`address`,`contact`,`template`) values (1,'木子设计','http://xs118267.gotoip2.com','/','木子设计cms','fdsa','fdsa','222','213','3222','ddd','fdsa','default');
 
 /*Table structure for table `mzsj_type` */
 
@@ -386,7 +402,7 @@ CREATE TABLE `mzsj_wxconfig` (
 
 /*Data for the table `mzsj_wxconfig` */
 
-insert  into `mzsj_wxconfig`(`wxid`,`appid`,`appsecret`,`rzurl`,`token`) values (1,'wx1bb03278d5d74909','d8f9f0b33a89b1b78038c9fbe9b9d29a','http://www.muzisheji.com/wx/index.php/wx/index.html','dddddddd');
+insert  into `mzsj_wxconfig`(`wxid`,`appid`,`appsecret`,`rzurl`,`token`) values (1,'wx1bb03278d5d74909','d8f9f0b33a89b1b78038c9fbe9b9d29a','http://xs118267.gotoip2.com/wx/index.html','dddddddd');
 
 /*Table structure for table `mzsj_wxlinkage` */
 
@@ -405,7 +421,7 @@ CREATE TABLE `mzsj_wxlinkage` (
 
 /*Data for the table `mzsj_wxlinkage` */
 
-insert  into `mzsj_wxlinkage`(`linkageid`,`name`,`val`,`parentid`,`listorder`) values (1,'消息类型','msgtype',0,0),(6,'订阅','subscribe',1,0),(7,'取消订阅','unsubscrib',1,0),(8,'文本消息','text',1,0),(9,'图片消息','image',1,0),(10,'图文消息','news',1,0),(11,'视频消息','video',1,0),(12,'地理位置消息','location',1,0),(13,'链接消息','link',1,0),(14,'自定义菜单类型','selfmenu',0,0),(15,'点击','click',14,0),(16,'跳转URL','view',14,0);
+insert  into `mzsj_wxlinkage`(`linkageid`,`name`,`val`,`parentid`,`listorder`) values (1,'回复类型','msgtype',0,0),(8,'文本','text',1,0),(9,'图片','image',1,0),(10,'图文','news',1,0),(11,'视频','video',1,0),(12,'语音','voice',1,0),(13,'音乐','music',1,0),(14,'自定义菜单类型','selfmenu',0,0),(15,'点击','click',14,0),(16,'跳转URL','view',14,0);
 
 /*Table structure for table `mzsj_wxmenu` */
 
@@ -420,11 +436,11 @@ CREATE TABLE `mzsj_wxmenu` (
   `url` varchar(300) NOT NULL,
   `listorder` smallint(5) NOT NULL DEFAULT '0',
   PRIMARY KEY (`menuid`)
-) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
 /*Data for the table `mzsj_wxmenu` */
 
-insert  into `mzsj_wxmenu`(`menuid`,`parentid`,`name`,`type`,`key`,`url`,`listorder`) values (7,0,'集赞','view','','http://www.muzisheji.com/wx/oauth/index/',0);
+insert  into `mzsj_wxmenu`(`menuid`,`parentid`,`name`,`type`,`key`,`url`,`listorder`) values (7,0,'木子','view','','http://www.muzisheji.com',0),(8,0,'视频','click','子','',0),(9,8,'子','click','视频','',0),(10,8,'集赞','click','集赞','',0);
 
 /*Table structure for table `mzsj_wxmsg` */
 
@@ -435,15 +451,17 @@ CREATE TABLE `mzsj_wxmsg` (
   `msgtype` char(10) DEFAULT NULL COMMENT '消息类型',
   `msgcon` char(150) DEFAULT NULL COMMENT '消息内容',
   `title` varchar(200) DEFAULT NULL COMMENT '回复标题',
-  `content` mediumtext COMMENT '回复内容',
-  `thumb` varchar(200) DEFAULT NULL COMMENT '图片地址',
+  `content` varbinary(500) DEFAULT NULL COMMENT '回复内容',
+  `mediaid` varchar(200) DEFAULT NULL COMMENT '多媒体素材',
   `url` varchar(200) DEFAULT NULL COMMENT '链接地址',
+  `music_url` varchar(150) DEFAULT NULL COMMENT '音乐链接',
+  `hq_music_url` varchar(150) DEFAULT NULL COMMENT '高品质音乐',
   PRIMARY KEY (`msgid`)
-) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 /*Data for the table `mzsj_wxmsg` */
 
-insert  into `mzsj_wxmsg`(`msgid`,`msgtype`,`msgcon`,`title`,`content`,`thumb`,`url`) values (7,'text','集赞','','<a href=\"http://www.muzisheji.com/wx/oauth/index/\">参与集赞</a>','',''),(8,'news','子','这是个测试的','子是子','/wx/Upload/2015-08-11/55c9520bbb59c.png','http://www.muzisheji.com');
+insert  into `mzsj_wxmsg`(`msgid`,`msgtype`,`msgcon`,`title`,`content`,`mediaid`,`url`,`music_url`,`hq_music_url`) values (7,'text','集赞','','<a href=\"http://www.muzisheji.com/wx/oauth/index/\">参与集赞</a>',NULL,'',NULL,NULL),(8,'news','子','这是个测试的','子是子','https://mmbiz.qlogo.cn/mmbiz/x9rmG7ic6DTPEsAFwWD7QyOqS1Oa5OV6w8Mjru4DfCfd8TVFZgN8JoajibeGjg574VGMOAyJxGd5kAODtLVDEmDg/0?wx_fmt=jpeg','',NULL,NULL),(9,'video','视频','看看永久素材能用不','<span>看看永久素材能用不 哈哈哈哈</span>','zy_YJtr2WaMMEooLyd1DNPWWAzol376MGhmsEaAHJyw','',NULL,NULL);
 
 /*Table structure for table `mzsj_wxuser` */
 
@@ -457,9 +475,11 @@ CREATE TABLE `mzsj_wxuser` (
   `wxthumb` varchar(100) DEFAULT NULL COMMENT '头像',
   `gztime` int(10) unsigned NOT NULL COMMENT '关注时间',
   PRIMARY KEY (`userid`)
-) ENGINE=MyISAM AUTO_INCREMENT=1159 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=1160 DEFAULT CHARSET=utf8;
 
 /*Data for the table `mzsj_wxuser` */
+
+insert  into `mzsj_wxuser`(`userid`,`openid`,`wxnick`,`wxxb`,`wxthumb`,`gztime`) values (1159,'odUCXs4hbAYe76d9456oVxX0i5JM','李志刚',0,'http://wx.qlogo.cn/mmopen/Jmznrnds3WahyHQkyRSxf7HsibomMZmfDeVNVOibaCcibiaMvjA0VDGtkTtTPfJNv8DpoXj8EB',1452417692);
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

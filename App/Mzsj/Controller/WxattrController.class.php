@@ -16,13 +16,25 @@ class WxattrController extends MzsjController{
 	{
 		$this->assign('title','管理素材');
 		$page = I('p') ? I('p') : 1;
-		$lists = M('Wxattr')->order('attid DESC')->page($page,20)->select();
-		$count = M('Wxattr')->count();
+		$lists = M('Attr')->order('attid DESC')->where(array('islocal'=>1))->page($page,20)->select();
+		$count = M('Attr')->where(array('islocal'=>1))->count();
 		$pages = new \Think\Page($count,20);
 		$show = $pages->show();
 		$this->assign('page',$show);
 		$lists = num2name($lists,'islocalname','islocal','永久','临时');
 		$this->assign('lists',$lists);
+		// 查询微信端素材各类型总数
+		$access_token = $this->wxapi->gettoken();
+		$url = "https://api.weixin.qq.com/cgi-bin/material/get_materialcount?access_token=$access_token";
+		$nums = $this->wxapi->httpGet($url);
+		$nums = json_decode($nums,true);
+		$this->assign('nums',$nums);
+		/*// 取微信端素材列表
+		$data = array('type'=>'image','offset'=>0,'count'=>20);
+		$urls = "https://api.weixin.qq.com/cgi-bin/material/batchget_material?access_token=$access_token";
+		$results = $this->wxapi->httpGet($urls,json_encode($data));
+		$results = json_decode($results,true);
+		var_dump($results);*/
 		$this->display();
 	}
 	// 新增素材
@@ -44,8 +56,24 @@ class WxattrController extends MzsjController{
 	// 删除素材
 	public function delattr()
 	{
-		$this->assign('title','删除素材');
-		$this->display();
+		$attid = I('attid');
+		$hav = M('Attr')->where(array('attid'=>$attid))->find();
+		if ($hav) {
+			// 微信端删除操作
+			$access_token = $this->wxapi->gettoken();
+			$filedata = array('media_id'=>$hav['media_id']);
+			$url = "https://api.weixin.qq.com/cgi-bin/material/del_material?access_token=$access_token";
+			$result = $this->wxapi->httpGet($url,json_encode($filedata));
+			$result = json_decode($result,true);
+			if ($result['errcode'] != 0) {$this->error('删除素材失败，'.$result['errmsg']);}
+			// 本地文件删除
+			$filepath = SERVER_PATH.$hav['localurl'];
+			if (file_exists($filepath)){unlink($filepath);}
+			M('Attr')->delete($attid);
+			$this->success('删除素材成功！');
+		}else{
+			$this->error('没有找到素材！');
+		}
 	}
 	/*
 	* 上传永久素材，图片，大小1M，格式jpg/png，数量5000张
@@ -64,7 +92,7 @@ class WxattrController extends MzsjController{
 		$data['islocal'] = 1;
 		$data['media_id'] = $result['media_id'];
 		$data['url'] = $result['url'];
-		$insert = M('Wxattr')->add($data);
+		$insert = M('Attr')->add($data);
 		if ($insert) {
 			$this->success('添加素材成功！',U('index'));
 		}else{
@@ -94,7 +122,7 @@ class WxattrController extends MzsjController{
 		$data['inputtime'] = time();
 		$data['islocal'] = 1;
 		$data['media_id'] = $result['media_id'];
-		$insert = M('Wxattr')->add($data);
+		$insert = M('Attr')->add($data);
 		if ($insert) {
 			$this->success('添加素材成功！',U('index'));
 		}else{
@@ -103,6 +131,7 @@ class WxattrController extends MzsjController{
 	}
 	// 上传永久素材到自己服务器
 	public function wx_upload(){
-		$this->upload->kindupload($size = 10240000,$path = './Upload/wx/',$exts = array('jpg','jpeg','png','amr','mp3','mp4',''));
+		$upres = $this->upload->kindupload($size = 10240000,$path = './Upload/wx/',$exts = array('jpg','jpeg','png','amr','mp3','mp4'));
+		exit($upres);
 	}
 }

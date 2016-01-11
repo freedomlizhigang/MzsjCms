@@ -33,6 +33,6 @@ class Upload {
             $return['message']   = session('upload_error');
         }
         /* 返回JSON数据 */
-        exit(json_encode($return));
+        return json_encode($return);
     }
 }

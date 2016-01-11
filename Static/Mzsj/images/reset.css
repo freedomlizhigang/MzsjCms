@@ -109,4 +109,4 @@ body.box {overflow: hidden; padding: 0;}
 textarea.noscroll {overflow:hidden;resize: none; margin-top: 10px;}
 textarea {border: #ddd solid 1px; background-color: #FFF; padding: 0 0.5em; margin-bottom: 0.5em;}
 .db {display: block;}
-.table-wxattr td {vertical-align: middle;}
+.table-wxattr td {vertical-align: middle; padding: 0.3rem 1rem;}
