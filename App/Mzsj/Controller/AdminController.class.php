@@ -13,7 +13,7 @@ class AdminController extends MzsjController {
 		$pages = new \Think\Page($count,20);
 		$show = $pages->show();
 		$this->assign('page',$show);
-		$lists = $this->statusname($lists);
+		$lists = num2name($lists,'statusname','status','正常','禁用');
 		$this->assign('lists',$lists);
 		// 将角色缓存存入数组
 		$rolelist = S('rolecache');
@@ -133,7 +133,7 @@ class AdminController extends MzsjController {
 		$pages = new \Think\Page($count,20);
 		$show = $pages->show();
 		$this->assign('page',$show);
-		$lists = $this->statusname($lists);
+		$lists = num2name($lists,'statusname','status','正常','禁用');
 		$this->assign('lists',$lists);
 		$this->title = "角色列表";
 		$this->display();

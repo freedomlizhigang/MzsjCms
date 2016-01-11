@@ -252,6 +252,10 @@ function str2arr($str = '')
 {
 	return explode(',',$str);
 }
-
-
-?>
+// 转换将状态码转换为文字
+function num2name($list,$newzd='',$oldzd='',$text1 = '是',$text2 = '否'){
+	foreach ($list as $key => $value) {
+		$list[$key][$newzd] = $value[$oldzd] ? "<span class='color_green'>".$text1."</span>" : "<span class='color_red'>".$text2."</span>";
+	}
+	return $list;
+}

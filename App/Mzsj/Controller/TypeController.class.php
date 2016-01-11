@@ -6,7 +6,7 @@ class TypeController extends MzsjController {
 	}
 	public function index(){
 		$tree = $this->list_to_tree('Type','typeid','parentid',0);
-		$tree = $this->displayname($tree,'displayname','display');
+		$tree = num2name($tree,'displayname','display');
 		$this->assign('tree',$tree);
 		$this->title = "类别管理";
 		$this->display();

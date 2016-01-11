@@ -11,7 +11,7 @@ class GroupController extends MzsjController{
 		$pages = new \Think\Page($count,20);
 		$show = $pages->show();
 		$this->assign('pages',$show);
-		$res = $this->statusname($res);
+		$res = num2name($res,'statusname','status','正常','禁用');
 		$this->assign('list',$res);
 		$this->title = "用户组管理";
 		$this->display();

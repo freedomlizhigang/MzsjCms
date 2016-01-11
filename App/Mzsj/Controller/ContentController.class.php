@@ -21,8 +21,8 @@ class ContentController extends MzsjController {
         $pages = new \Think\Page($count,20);
         $show = $pages->show();
         $this->assign('page',$show);
-        $lists = $this->displayname($lists,'islinkname','islink');
-        $lists = $this->shenhename($lists);
+        $lists = num2name($lists,'islinkname','islink');
+        $lists = num2name($lists,'statusname','status','已审核','审核中');
         // 输出栏目列表
         $this->assign('catlist',S('catcache'));
         $this->assign('lists',$lists);
@@ -146,8 +146,8 @@ class ContentController extends MzsjController {
     // 栏目列表
     public function cate(){
         $cate = $this->list_to_tree('Category','catid','parentid',0);
-        $cate = $this->displayname($cate,'ismenuname','ismenu');
-        $cate = $this->displayname($cate,'ispagename','ispage');
+        $cate = num2name($cate,'ismenuname','ismenu');
+        $cate = num2name($cate,'ispagename','ispage');
         $this->assign('cate',$cate);
         $this->title = "栏目列表";
     	$this->display();

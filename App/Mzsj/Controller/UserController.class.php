@@ -9,7 +9,7 @@ class UserController extends MzsjController {
 		$pages = new \Think\Page($count,20);
 		$show = $pages->show();
 		$this->assign('pages',$show);
-		$list = $this->statusname($list);
+		$list = num2name($list,'statusname','status','正常','禁用');
 		$this->assign('list',$list);
 		$this->assign('gname',S('groupcache'));
 		$this->title = "用户列表";

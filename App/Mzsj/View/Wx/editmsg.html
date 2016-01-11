@@ -1,0 +1,84 @@
+<extend name="Common:index" />
+<block name="main">
+	<form action="{:U()}" class="form-box" method="post">
+		<input type="hidden" name="msgid" value="{$info.msgid}">
+		<div class="form-group">
+			<label for="msgtype" class="item-label">回复类型：<span class="color_9"> 必须填写</span></label>
+			<select name="msgtype" id="">
+				<option value="">回复类型</option>
+				<foreach name="typelist" item="tname">
+					<option value="{$key}"<if condition="$key == $info[msgtype]"> selected="selected"</if>>{$tname}</option>
+				</foreach>
+			</select>
+		</div>
+		<div class="form-group">
+			<label for="msgcon" class="item-label">关键字：<span class="color_9"> 必须填写</span></label>
+			<input type="text" name="msgcon" value="{$info.msgcon}" class="input-text">
+		</div>
+		<div class="form-group">
+			<label for="title" class="item-label">回复标题：<span class="color_9"> 必须填写</span></label>
+			<input type="text" name="title" value="{$info.title}" class="input-text">
+		</div>
+		<div class="images hidden">
+			<div class="form-group">
+				<label for="mediaid" class="item-label">多媒体素材：<span class="color_9"> 回复图片消息时填写图片地址，其它消息填写微信mediaid，都可以在素材管理中找到</span></label>
+				<input type="text" name="mediaid" value="{$info.mediaid}" class="input-text">
+			</div>
+		</div>
+		<!-- 音乐 -->
+		<div class="music_div hidden">
+			<div class="form-group">
+				<label for="music_url" class="item-label">音乐链接：<span class="color_9"> 直接填写URL</span></label>
+				<input type="text" name="music_url" value="{$info.music_url}" class="input-text">
+			</div>
+			<div class="form-group">
+				<label for="hq_music_url" class="item-label">高品质音乐链接：<span class="color_9"> 直接填写URL</span></label>
+				<input type="text" name="hq_music_url" value="{$info.hq_music_url}" class="input-text">
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="content" class="item-label">回复内容：<span class="color_9"> 当普通文本框，必须填写</span></label>
+			<textarea name="content" id="content_edit" style="width:56%" rows="10">{$info.content}</textarea>
+		</div>
+		<div class="url hidden">
+			<div class="form-group">
+				<label for="url" class="item-label">回复链接：<span class="color_9"> url，必须填写</span></label>
+				<input type="text" name="url" value="{$info.url}" class="input-text">
+			</div>
+		</div>
+		<div class="form-group">
+			<button type="submit" name="dosubmit" class="btn-success">提交</button><button type="reset" name="reset" class="btn-error">重填</button>
+		</div>
+	</form>
+	<script>
+		function typechange(class1){
+			$('.music_div ,.url ,.images').hide();
+			switch(class1.val()){
+				case 'music':
+					$('.music_div ,.images').show();
+					break;
+				case 'news':
+					$('.url ,.images').show();
+					break;
+				case 'image':
+					$('.images').show();
+					break;
+				case 'voice':
+					$('.images').show();
+					break;
+				case 'video':
+					$('.images').show();
+					break;
+				default:
+					$('.music_div ,.url ,.images').hide();
+					break;
+			};
+		} 
+		$(function(){
+			typechange($('.msgtype'));
+			$('.msgtype').change(function(){
+				typechange($(this));
+			});
+		});
+	</script>
+</block>

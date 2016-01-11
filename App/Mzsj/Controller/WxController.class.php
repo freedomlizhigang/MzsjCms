@@ -1,5 +1,6 @@
 <?php
 namespace Mzsj\Controller;
+use Common\Api\WxApi;
 class WxController extends MzsjController{
 	public function wxconfig(){
 		$wxid = 1;
@@ -58,8 +59,7 @@ class WxController extends MzsjController{
 			$wxmsg = D('Wxmsg');
             $res = $wxmsg->create();
             if ($res) {
-            	$res['content'] = htmlspecialchars_decode($res['content']);
-                $msgid = $wxmsg->add($res);
+                $msgid = $wxmsg->add();
                 if ($msgid) {
                     // 记录用户行为
                     $this->addlog('msgid='.$msgid);
@@ -231,7 +231,9 @@ class WxController extends MzsjController{
 	}
 	// 更新自定义菜单
     public function updatemenu(){
-        $atoken = $this->gettoken();
+    	$wxapi = new WxApi();
+    	// 取得access_token
+        $atoken = $wxapi->gettoken();
         $delurl = "https://api.weixin.qq.com/cgi-bin/menu/delete?access_token=".$atoken;
         $url = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token=".$atoken;
         $menuarr = M('Wxmenu')->where(array('parentid'=>0))->field('menuid,name,key,type,url')->select();
@@ -243,103 +245,17 @@ class WxController extends MzsjController{
         	unset($menuarr[$k]['menuid']);
         }
         $data = '{"button":'.json_encode($menuarr,JSON_UNESCAPED_UNICODE).'}';
-	 	$del = $this->https_request($delurl);
+        // 向微信发送消息
+	 	$del = $wxapi->httpGet($delurl);
 	 	$del = json_decode($del,true);
-	 	$result = $this->https_request($url, $data);
+	 	// 向微信发送消息
+	 	$result = $wxapi->httpGet($url,$data);
 	 	$result = json_decode($result,true);
         if ($del['errmsg'] == 'ok' && $result['errmsg'] == 'ok') {
         	$this->success("更新自定义菜单成功，大概24小时后可以查看，也可以取消关注再关注直接查看更改！");
         }else{
         	$this->error("更新失败！".$del['errcode']."-".$result['errcode']);
         }
-    }
-    // 向微信发送消息
-    private function https_request($url,$data = null){
-	    $curl = curl_init();
-	    curl_setopt($curl, CURLOPT_URL, $url);
-	    curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, FALSE);
-	    curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, FALSE);
-	    if (!empty($data)){
-	        curl_setopt($curl, CURLOPT_POST, 1);
-	        curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
-	    }
-	    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-	    $output = curl_exec($curl);
-	    curl_close($curl);
-	    return $output;
-	}
-	// 取得access_token
-    private function gettoken(){
-    	// 7000秒取一次，避免过多超过2000
-        if (time() - S('token')['times'] > 7000) {
-            $wxconfig = S('wxconfigcache');
-            $appid = $wxconfig['appid'];
-            $appsecret = $wxconfig['appsecret'];
-            $access_token = file_get_contents("https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=".$appid."&secret=".$appsecret);
-            $atoken = json_decode($access_token,true);
-            $tokencache = array('access_token'=>$atoken['access_token'],'times'=>time());
-            S('token',$tokencache);
-            return $atoken['access_token'];
-        }else{
-            return S('token')['access_token'];
-        }
-    }
-    // 取得领奖列表
-    public function ljlist(){
-    	$page = I('p',1);
-		$lists = M('Fjinfo')->order('fjid DESC')->page($page,20)->select();
-		$count = M('Fjinfo')->count();
-		$pages = new \Think\Page($count,20);
-		$show = $pages->show();
-		$this->assign('page',$show);
-		$this->assign('lists',$lists);
-		$this->assign('typename',$this->typename());
-		$this->title = "领奖列表";
-		$this->display();
-    }
-    public function updatefj(){
-    	if (I('fjid')) {
-    		M('Fjinfo')->where(array('fjid'=>I('fjid')))->setfield('status',1);
-    		$this->success("发奖成功！");
-    	}else{
-    		$this->error('参数错误！');
-    	}
-    }
-    // 参与的人列表
-    public function jzlist(){
-    	$page = I('p',1);
-		$lists = M('Hduser')->order('hdid DESC')->page($page,20)->select();
-		$count = M('Hduser')->count();
-		$pages = new \Think\Page($count,20);
-		$show = $pages->show();
-		$this->assign('page',$show);
-		$this->assign('lists',$lists);
-		$this->title = "领奖列表";
-		$this->display();
-    }
-    // 修改赞数
-    public function editzan(){
-    	if (IS_POST) {
-			$Hduser = D('Hduser');
-			$res = $Hduser->create();
-			if($res){
-				$hdid = $Hduser->save();
-				if($hdid){
-					// 记录用户行为
-            		$this->addlog('hdid='.$hdid);
-					$this->success("修改赞数成功！",U('jzlist'));
-				}else{
-					$this->error("修改赞数失败，".$hdid->getError());
-				}
-			}else{
-				$this->error("修改赞数失败，".$hdid->getError());
-			}
-		}else{
-			$info = M('Hduser')->where(array('hdid'=>I('hdid')))->find();
-			$this->assign('info',$info);
-			$this->title = "修改赞数";
-			$this->display();
-		}
     }
     // 清空数据
     public function clearwx(){
@@ -371,7 +287,7 @@ class WxController extends MzsjController{
 				if ($linkageid) {
 					// 记录用户行为
             		$this->addlog('wxlinkageid='.$linkageid);
-					$this->success('添加成功！',U('index',array('pid'=>I('parentid'))));
+					$this->success('添加成功！',U('wxlinkage',array('pid'=>I('parentid'))));
 				}else{
 					$this->error("添加关联失败，".$LinkAge->geterror());
 				}
@@ -393,7 +309,7 @@ class WxController extends MzsjController{
 				if ($linkageid) {
 					// 记录用户行为
             		$this->addlog('wxlinkageid='.$linkageid);
-					$this->success('修改成功！',U('index',array('pid'=>I('parentid'))));
+					$this->success('修改成功！',U('wxlinkage',array('pid'=>I('parentid'))));
 				}else{
 					$this->error("修改关联失败，".$LinkAge->geterror());
 				}

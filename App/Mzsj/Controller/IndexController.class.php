@@ -46,7 +46,7 @@ class IndexController extends MzsjController {
                     $this->cache->sitecache();
                     // 记录用户行为
                     $this->addlog();
-                    $this->success("添加站点成功！",U('index'));
+                    $this->success("添加站点成功！",U('sitelist'));
                 }else{
                     $this->error("添加站点失败,".$this->site->getError());
                 }
@@ -69,7 +69,7 @@ class IndexController extends MzsjController {
                     $this->cache->sitecache();
                     // 记录用户行为
                     $this->addlog();
-    				$this->success("更新站点信息成功！",U('index'));
+    				$this->success("更新站点信息成功！",U('sitelist'));
     			}else{
     				$this->error("修改失败,".$this->site->getError());
     			}

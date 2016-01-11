@@ -1,0 +1,62 @@
+<extend name="Common:index" />
+<block name="main">
+	<form action="{:U()}" class="form-box" method="post">
+		<div class="form-group">
+			<p>图片（image）: 2M，支持png/jpeg/jpg格式</p>
+			<p>语音（voice）：2M，播放长度不超过60s，支持AMR\MP3格式</p>
+			<p>视频（video）：10MB，支持MP4格式</p>
+			<p>缩略图（thumb）：64KB，支持JPG格式</p>
+		</div>
+		<div class="form-group">
+			<label for="type" class="item-label">请选择类型：<span class="color_9"> 必须填写</span></label>
+			<select name="type" id="type">
+				<option value="">请选择上传的素材类型</option>
+				<option value="image">图片</option>
+				<option value="voice">语音</option>
+				<option value="video">视频</option>
+				<option value="thumb">缩略图</option>
+			</select>
+		</div>
+		<div class="form-group">
+			<label for="image" class="item-label">上传素材：</label>
+			<div class="clearfix">
+				<input type="text" name="image" id="url3" value="" class="input-text f_l">
+				<input type="button" class="btn-upload f_l ml10" id="image3" value="选择" />
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="v[title]" class="item-label">视频标题：</label>
+			<input type="text" name="v[title]" value="" class="input-text">
+		</div>
+		<div class="form-group">
+			<label for="v[introduction]" class="item-label">视频描述：</label>
+			<textarea name="v[introduction]" cols="60" rows="4"></textarea>
+		</div>
+		<div class="form-group">
+			<button type="submit" name="dosubmit" class="btn-success">提交</button><button type="reset" name="reset" class="btn-error">重填</button>
+		</div>
+	</form>
+	<script>
+		KindEditor.ready(function(K) {
+	       		window.editor = K.editor({
+	                allowFileManager : false,
+	                uploadJson : "{:U('Mzsj/Wxattr/wx_upload')}",
+	                extraFileUploadParams: {
+	                    session_id : '{:session_id()}'
+	                }
+	            });
+                K('#image3').click(function() {
+					editor.loadPlugin('image', function() {
+						editor.plugin.imageDialog({
+							showRemote : false,
+							imageUrl : K('#url3').val(),
+							clickFn : function(url, title, width, height, border, align) {
+								K('#url3').val(url);
+								editor.hideDialog();
+							}
+						});
+					});
+				});
+        });
+	</script>
+</block>

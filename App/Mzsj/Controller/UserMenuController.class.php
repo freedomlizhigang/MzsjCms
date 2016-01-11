@@ -4,7 +4,7 @@ use Think\Controller;
 class UserMenuController extends MzsjController{
 	public function index(){
 		$tree = $this->list_to_tree('UserMenu','menuid','parentid',0);
-		$tree = $this->displayname($tree,'displayname','display');
+		$tree = num2name($tree,'displayname','display');
 		$this->assign('tree',$tree);
 		$this->title = "用户菜单";
 		$this->display();

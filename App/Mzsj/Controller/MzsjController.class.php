@@ -120,27 +120,6 @@ class MzsjController extends Controller{
 		}
 		return $this->resarray;
 	}
-	// 转换是：否
-	protected function displayname($list,$newzd='',$oldzd=''){
-		foreach ($list as $key => $value) {
-			$list[$key][$newzd] = $value[$oldzd] ? "<span class='color_green'>是</span>" : "<span class='color_red'>否</span>";
-		}
-		return $list;
-	}
-	// 转换状态
-	protected function statusname($list){
-		foreach ($list as $key => $value) {
-			$list[$key]['statusname'] = $value['status'] ? "<span class='color_green'>正常</span>" : "<span class='color_red'>禁用</span>";
-		}
-		return $list;
-	}
-	// 审核状态
-	protected function shenhename($list){
-		foreach ($list as $key => $value) {
-			$list[$key]['statusname'] = $value['status'] ? "<span class='color_green'>已审核</span>" : "<span class='color_red'>审核中</span>";
-		}
-		return $list;
-	}
 	// 循环删除子菜单
 	protected function delChild($model = '',$pkname = '',$parentid = '',$pid = ''){
 		$res = M($model)->where(array($parentid=>$pid))->field($pkname)->select();

@@ -1,0 +1,15 @@
+[ 2016-01-10T08:29:30+08:00 ] 192.168.10.42 /Static/Index/images/app.png
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000023s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000408s ]
+
+[ 2016-01-10T08:29:30+08:00 ] 192.168.10.42 /Static/Index/images/favicon.png
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000022s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000335s ]
+
+[ 2016-01-10T08:29:30+08:00 ] 192.168.10.42 /Static/Index/images/favicon.png
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000020s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000309s ]
+

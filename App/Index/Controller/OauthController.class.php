@@ -3,7 +3,7 @@
 // 用户点击的页面地址，从这里（https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx1bb03278d5d74909&redirect_uri=http://www.muzisheji.com/wx/index.php/oauth/index.html&response_type=code&scope=snsapi_base&state=1#wechat_redirect）跳转到现在这个页面，然后进行openID的获取，再进行逻辑操作。
 namespace Index\Controller;
 use Think\Controller;
-use Index\Api\WxApi;
+use Common\Api\WxApi;
 class OauthController extends Controller {
     public function _initialize(){
         $this->WxApi = new WxApi();

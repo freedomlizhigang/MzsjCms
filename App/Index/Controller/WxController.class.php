@@ -1,6 +1,7 @@
 <?php
 namespace Index\Controller;
 use Think\Controller;
+use Common\Api\WxApi;
 class WxController extends Controller {
     public function _initialize(){
         if (empty($_GET['echostr'])) {
@@ -30,112 +31,41 @@ class WxController extends Controller {
             $toUsername = $postObj->ToUserName;
             $keyword = trim($postObj->Content);
             $time = time();
-            // 消息模板
-            $textTpl = "<xml>
-						<ToUserName><![CDATA[%s]]></ToUserName>
-						<FromUserName><![CDATA[%s]]></FromUserName>
-						<CreateTime>%s</CreateTime>
-						<MsgType><![CDATA[%s]]></MsgType>
-						<Content><![CDATA[%s]]></Content>
-						</xml>";
             // 判断是事件消息还是普通消息
             $MsgType = $postObj->MsgType;
-            $regmsg = M('Wxmsg');
             // 注意将取得的类型等信息转化为str类型
             if ((string)$MsgType === 'event') {
             	$msgEvent = $postObj->Event;
+                // 如果是关注事件
                 if ((string)$msgEvent === 'subscribe') {
-                    // 看是否关注过，如果没有添加到用户列表中
-                    $ishav = $this->checkuser($fromUsername);
-                    if (!$ishav) {
-                        $userinfo = $this->getuserinfo($fromUsername);
-                        if ($userinfo) {
-                            $data['openid'] = $userinfo['openid'];
-                            $data['wxnick'] = $userinfo['nickname'];
-                            $data['wxxb'] = $userinfo['sex'];
-                            $data['wxthumb'] = $userinfo['headimgurl'];
-                            $data['gztime'] = $userinfo['subscribe_time'];
-                            $userid = M('Wxuser')->add($data);
-                            if (!$userid) {
-                                return false;
-                            }
-                        }else{
-                            return false;
-                        }
-                    }
-                    $subres = $regmsg->where(array('msgtype'=>'subscribe'))->order('msgid DESC')->find();
-                    if ($subres) {
-                        $contentStr = $subres['content'];
-	                    $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, 'text', $contentStr);
-	                    echo $resultStr;
-                    }
-                }elseif((string)$msgEvent == 'unsubscribe'){
-                    $unsubres = $regmsg->where(array('msgtype'=>'unsubscribe'))->order('msgid DESC')->find();
-                    if ($unsubres) {
-                        $contentStr = $subres['content'];
-	                    $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, 'text', $contentStr);
-	                    echo $resultStr;
-                    }
+                   $this->subscribe($fromUsername,$toUsername,$time);
+                }elseif((string)$msgEvent === 'unsubscribe'){
+                    // 取消关注事件
+                    $this->unsubscribe($fromUsername,$toUsername,$time);
                 }elseif((string)$msgEvent === 'CLICK'){
                     // 自定义菜单点击事件
-                    $keyword = $postObj->EventKey;
-                    // 查看是否有输入消息的设置
-                    $res = $regmsg->where(array('msgcon'=>(string)$keyword))->find();
-                    if($res){
-                        $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, (string)$MsgType, $res['content']);
-                        echo $resultStr;
-                    }else{
-                        $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, 'text', '没有找到你要的信息啊');
-                        echo $resultStr;
-                    }
+                    $this->clickeven($postObj,$fromUsername,$toUsername,$time);
                 }
             }else{
                 // 先判断类型，目前只回复关键字的，回复类型为：文本、图文
                 if ((string)$MsgType == 'text') {
                     if(!empty($keyword)){
                         // 查看是否有输入消息的设置
-                        $res = $regmsg->where(array('msgcon'=>(string)$keyword))->find();
-                        // 如果发奖关键字与用户输入的相同，判断用户是否领过奖
-                        if($res['msgtype'] == 'text'){
-                            // 关键字回复类型为后台设置的类型，一般是图文，或文字，目前只回复关键字消息，其它消息都回复“没有找到”
-                            $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $res['msgtype'], $res['content']);
-                            echo $resultStr;
-                        }elseif($res['msgtype'] == 'news'){
-                            // 消息模板
-                            $newsTpl = "<xml>
-                                        <ToUserName><![CDATA[%s]]></ToUserName>
-                                        <FromUserName><![CDATA[%s]]></FromUserName>
-                                        <CreateTime>%s</CreateTime>
-                                        <MsgType><![CDATA[%s]]></MsgType>
-                                        <ArticleCount>1</ArticleCount>
-                                        <Articles>
-                                        %s
-                                        </Articles>
-                                        </xml>";
-                            $newscontent = "<item>
-                                        <Title><![CDATA[".$res['title']."]]></Title> 
-                                        <Description><![CDATA[".$res['content']."]]></Description>
-                                        <PicUrl><![CDATA[http://www.muzisheji.com".$res['thumb']."]]></PicUrl>
-                                        <Url><![CDATA[".$res['url']."]]></Url>
-                                        </item>";
-                            // 关键字回复类型为后台设置的类型，一般是图文，或文字，目前只回复关键字消息，其它消息都回复“没有找到”
-                            $resultStr = sprintf($newsTpl, $fromUsername, $toUsername, $time, $res['msgtype'], $newscontent);
-                            echo $resultStr;
-                        }else{
-                            $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, 'text', '没有找到你要的回复啊');
-                            echo $resultStr;
-                        }
+                        $res = M('Wxmsg')->where(array('msgcon'=>(string)$keyword))->find();
+                        // 判断回复类型
+                        $this->msgtype($fromUsername,$toUsername,$time,$res);
                     }
                 }else{
-                    $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, 'text', '没有找到你要的信息啊');
-                    echo $resultStr;
+                    // 没找到对应事件时的默认回复
+                    $this->msg_nokey($fromUsername,$toUsername,$time);
                 }
             }
         }
     }
     // 取得用户信息
     private function getuserinfo($openid){
-        $atoken = $this->gettoken();
+        $wxapi = new WxApi();
+        $atoken = $wxapi->gettoken();
         $userinfo = file_get_contents("https://api.weixin.qq.com/cgi-bin/user/info?access_token=".$atoken."&openid=".$openid."&lang=zh_CN");
         $userinfo = json_decode($userinfo,true);
         return $userinfo;
@@ -165,20 +95,227 @@ class WxController extends Controller {
 			return false;
 		}
 	}
-    // 取得access_token
-    private function gettoken(){
-        // 7000秒取一次，避免过多超过2000
-        if (time() - S('token')['times'] > 7000) {
-            $wxconfig = S('wxconfigcache');
-            $appid = $wxconfig['appid'];
-            $appsecret = $wxconfig['appsecret'];
-            $access_token = file_get_contents("https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=".$appid."&secret=".$appsecret);
-            $atoken = json_decode($access_token,true);
-            $tokencache = array('access_token'=>$atoken['access_token'],'times'=>time());
-            S('token',$tokencache);
-            return $atoken['access_token'];
-        }else{
-            return S('token')['access_token'];
+    /*
+    * 判断回复类型
+    */
+    public function msgtype($fromUsername,$toUsername,$time,$res)
+    {
+        switch ($res['msgtype']) {
+            case 'text':
+                // 文本消息
+                $this->msg_text($fromUsername,$toUsername,$time,$res);
+                break;
+
+            case 'image':
+                // 视频消息
+                $this->msg_image($fromUsername,$toUsername,$time,$res);
+                break;
+
+            case 'voice':
+                // 视频消息
+                $this->msg_voice($fromUsername,$toUsername,$time,$res);
+                break;
+
+            case 'music':
+                // 视频消息
+                $this->msg_music($fromUsername,$toUsername,$time,$res);
+                break;
+
+            case 'news':
+                // 图文消息
+                $this->msg_news($fromUsername,$toUsername,$time,$res);
+                break;
+
+            case 'video':
+                // 视频消息
+                $this->msg_video($fromUsername,$toUsername,$time,$res);
+                break;
+
+            default:
+                // 没找到关键字时的默认回复
+                $this->msg_nokey($fromUsername,$toUsername,$time);
+                break;
         }
+    }
+    /*
+    * 回复文本消息
+    */
+    public function msg_text($fromUsername,$toUsername,$time,$res){
+        // 消息模板
+        $textTpl = "<xml>
+                    <ToUserName><![CDATA[%s]]></ToUserName>
+                    <FromUserName><![CDATA[%s]]></FromUserName>
+                    <CreateTime>%s</CreateTime>
+                    <MsgType><![CDATA[%s]]></MsgType>
+                    <Content><![CDATA[%s]]></Content>
+                    </xml>";
+        // 关键字回复类型为后台设置的类型，一般是图文，或文字，目前只回复关键字消息，其它消息都回复“没有找到”
+        $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $res['msgtype'], $res['content']);
+        echo $resultStr;
+    }
+    /*
+    * 没找到关键字时默认回复
+    */
+    public function msg_nokey($fromUsername,$toUsername,$time){
+        // 消息模板
+        $textTpl = "<xml>
+                    <ToUserName><![CDATA[%s]]></ToUserName>
+                    <FromUserName><![CDATA[%s]]></FromUserName>
+                    <CreateTime>%s</CreateTime>
+                    <MsgType><![CDATA[%s]]></MsgType>
+                    <Content><![CDATA[%s]]></Content>
+                    </xml>";
+        $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, 'text', '没有找到你要的回复啊');
+        echo $resultStr;
+    }
+    /*
+    * 回复图片消息
+    */
+    public function msg_image($fromUsername,$toUsername,$time,$res){
+        // 视频消息模板
+        $newsTpl = "<xml>
+                    <ToUserName><![CDATA[%s]]></ToUserName>
+                    <FromUserName><![CDATA[%s]]></FromUserName>
+                    <CreateTime>%s</CreateTime>
+                    <MsgType><![CDATA[image]]></MsgType>
+                    <Image>
+                    <MediaId><![CDATA[%s]]></MediaId>
+                    </Image> 
+                    </xml>
+                    ";
+        // 关键字回复类型为后台设置的类型，一般是图文，或文字，目前只回复关键字消息，其它消息都回复“没有找到”
+        $resultStr = sprintf($newsTpl, $fromUsername, $toUsername, $time, $res['mediaid']);
+        echo $resultStr;
+    }
+    /*
+    * 回复语音消息
+    */
+    public function msg_voice($fromUsername,$toUsername,$time,$res){
+        // 视频消息模板
+        $newsTpl = "<xml>
+                    <ToUserName><![CDATA[%s]]></ToUserName>
+                    <FromUserName><![CDATA[%s]]></FromUserName>
+                    <CreateTime>%s</CreateTime>
+                    <MsgType><![CDATA[voice]]></MsgType>
+                    <Voice>
+                    <MediaId><![CDATA[%s]]></MediaId>
+                    </Voice> 
+                    </xml>
+                    ";
+        // 关键字回复类型为后台设置的类型，一般是图文，或文字，目前只回复关键字消息，其它消息都回复“没有找到”
+        $resultStr = sprintf($newsTpl, $fromUsername, $toUsername, $time, $res['mediaid']);
+        echo $resultStr;
+    }
+    /*
+    * 回复音乐消息
+    */
+    public function msg_music($fromUsername,$toUsername,$time,$res){
+        // 视频消息模板
+        $newsTpl = "<xml>
+                    <ToUserName><![CDATA[%s]]></ToUserName>
+                    <FromUserName><![CDATA[%s]]></FromUserName>
+                    <CreateTime>%s</CreateTime>
+                    <MsgType><![CDATA[music]]></MsgType>
+                    <Music>
+                        %s
+                    </Music>
+                    </xml>
+                    ";
+        $musiccon = "<Title><![CDATA[".$res['title']."]]></Title>
+                        <Description><![CDATA[".$res['content']."]]></Description>
+                        <MusicUrl><![CDATA[".$res['music_url']."]]></MusicUrl>
+                        <HQMusicUrl><![CDATA[".$res['hq_music_url']."]]></HQMusicUrl>
+                        <ThumbMediaId><![CDATA[".$res['mediaid']."]]></ThumbMediaId>";
+        // 关键字回复类型为后台设置的类型，一般是图文，或文字，目前只回复关键字消息，其它消息都回复“没有找到”
+        $resultStr = sprintf($newsTpl, $fromUsername, $toUsername, $time, $musiccon);
+        echo $resultStr;
+    }
+    /*
+    * 回复视频消息
+    */
+    public function msg_video($fromUsername,$toUsername,$time,$res){
+        // 视频消息模板
+        $newsTpl = "<xml>
+                    <ToUserName><![CDATA[%s]]></ToUserName>
+                    <FromUserName><![CDATA[%s]]></FromUserName>
+                    <CreateTime>%s</CreateTime>
+                    <MsgType><![CDATA[video]]></MsgType>
+                    <Video>
+                    <MediaId><![CDATA[%s]]></MediaId>
+                    <Title><![CDATA[%s]]></Title>
+                    <Description><![CDATA[%s]]></Description>
+                    </Video> 
+                    </xml>
+                    ";
+        // 关键字回复类型为后台设置的类型，一般是图文，或文字，目前只回复关键字消息，其它消息都回复“没有找到”
+        $resultStr = sprintf($newsTpl, $fromUsername, $toUsername, $time, $res['mediaid'],$res['title'],$res['content']);
+        echo $resultStr;
+    }
+    /*
+    * 回复图文消息
+    */
+    public function msg_news($fromUsername,$toUsername,$time,$res){
+        // 消息模板
+        $newsTpl = "<xml>
+                    <ToUserName><![CDATA[%s]]></ToUserName>
+                    <FromUserName><![CDATA[%s]]></FromUserName>
+                    <CreateTime>%s</CreateTime>
+                    <MsgType><![CDATA[news]]></MsgType>
+                    <ArticleCount>1</ArticleCount>
+                    <Articles>
+                    %s
+                    </Articles>
+                    </xml>";
+        $newscontent = "<item>
+                    <Title><![CDATA[".$res['title']."]]></Title> 
+                    <Description><![CDATA[".$res['content']."]]></Description>
+                    <PicUrl><![CDATA[".$res['mediaid']."]]></PicUrl>
+                    <Url><![CDATA[".$res['url']."]]></Url>
+                    </item>";
+        // 关键字回复类型为后台设置的类型，一般是图文，或文字，目前只回复关键字消息，其它消息都回复“没有找到”
+        $resultStr = sprintf($newsTpl, $fromUsername, $toUsername, $time, $newscontent);
+        echo $resultStr;
+    }
+    /*
+    * 关注事件，消息回复
+    */
+    public function subscribe($fromUsername,$toUsername,$time){
+        // 看是否关注过，如果没有添加到用户列表中
+        $ishav = $this->checkuser($fromUsername);
+        if (!$ishav) {
+            $userinfo = $this->getuserinfo($fromUsername);
+            if ($userinfo) {
+                $data['openid'] = $userinfo['openid'];
+                $data['wxnick'] = $userinfo['nickname'];
+                $data['wxxb'] = $userinfo['sex'];
+                $data['wxthumb'] = $userinfo['headimgurl'];
+                $data['gztime'] = $userinfo['subscribe_time'];
+                $userid = M('Wxuser')->add($data);
+                if (!$userid) {
+                    return false;
+                }
+            }else{
+                return false;
+            }
+        }
+        $subres = M('Wxmsg')->where(array('msgcon'=>'关注'))->order('msgid DESC')->find();
+        $this->msgtype($fromUsername,$toUsername,$time,$subres);
+    }
+    /*
+    * 取消关注事件
+    */
+    public function unsubscribe($fromUsername,$toUsername,$time){
+        $subres = M('Wxmsg')->where(array('msgcon'=>'取消关注'))->order('msgid DESC')->find();
+        $this->msgtype($fromUsername,$toUsername,$time,$subres);
+    }
+    /*
+    * 自定义菜单点击事件
+    */
+    public function clickeven($postObj,$fromUsername,$toUsername,$time){
+        $keyword = $postObj->EventKey;
+        // 查看是否有输入消息的设置
+        $havmsg = M('Wxmsg')->where(array('msgcon'=>(string)$keyword))->find();
+        // 根据回复类型进行回复
+        $this->msgtype($fromUsername,$toUsername,$time,$havmsg);
     }
 }

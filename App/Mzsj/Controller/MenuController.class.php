@@ -5,7 +5,7 @@ class MenuController extends MzsjController{
 	// 菜单列表
 	public function index(){
 		$tree = $this->list_to_tree('Menu','menuid','parentid',0);
-		$tree = $this->displayname($tree,'displayname','display');
+		$tree = num2name($tree,'displayname','display');
 		$this->assign('title','菜单列表');
 		$this->assign('tree',$tree);
 		$this->display();

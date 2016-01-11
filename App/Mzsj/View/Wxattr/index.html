@@ -1,0 +1,30 @@
+<extend name="Common:index" />
+<block name="main">
+	<table class="table-form table-wxattr">
+		<tr class="tr-header">
+			<th width="40">ID</th>
+			<th width="60">类型</th>
+			<th width="200">media_id</th>
+			<th>微信地址</th>
+			<th>本地地址</th>
+			<th>缩略图</th>
+			<th>上传时间</th>
+			<th>操作</th>
+		</tr>
+		<volist name="lists" id="attr">
+		<tr>
+			<td>{$attr.attid}</td>
+			<td>{$attr.type}</td>
+			<td><textarea cols="23" rows="3" class="noscroll" readonly="readonly">{$attr.media_id}</textarea></td>
+			<td><textarea cols="23" rows="3" class="noscroll" readonly="readonly">{$attr.url}</textarea></td>
+			<td><textarea cols="23" rows="3" class="noscroll" readonly="readonly">{$attr.localurl}</textarea></td>
+			<td><if condition="$attr[type] == 'image'"><img src="{$attr.url}" width="120" height="75" alt="" class="db"></if></td>
+			<td>{$attr.inputtime|date='Y-m-d H:i:s',###}</td>
+			<td><a href="{:U('delattr',array('attid'=>$attr[attid]))}" class="confirm">删除</a></td>
+		</tr>
+		</volist>
+		<tr class="tr-btn">
+			<td colspan="10"><div class="pages">{$page}</div></td>
+		</tr>
+	</table>
+</block>

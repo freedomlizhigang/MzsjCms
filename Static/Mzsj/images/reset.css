@@ -16,6 +16,7 @@ input ,select ,a img {vertical-align:middle;}
 .overh {overflow: hidden;}
 .h_img {line-height: 0px; font-size: 0px;}
 .mt1 {margin-top: 1em;}
+.hidden {display: none;}
 a {color: #333; text-decoration: none;}
 a:hover {text-decoration: none;}
 html {height: 100%; font-size: 14px;}
@@ -79,7 +80,7 @@ body.box {overflow: hidden; padding: 0;}
 .btn-green:hover {color: #4CDB00;}
 .color_green {color: green;}
 .color_red {color: red;}
-.color_9 {color: #999; font-size: 0.86em;}
+.color_9 {color: #999; font-size: 0.75rem; font-weight: normal;}
 .btn-upload { height: 28px; line-height: 22px; cursor: pointer;}
 .ml10 {margin-left: 10px;}
 /*end common*/
@@ -104,9 +105,8 @@ body.box {overflow: hidden; padding: 0;}
 /*pages*/
 .pages a ,.pages span {background-color: #DDDDDD; padding: 0.3em 0.8em; margin: 0 0.5em 0 0;}
 .pages span {background-color: #86DB00; color: #FFF;}
-/*问答*/
-.asktitle {background-color: #}
-.answerlist {margin-top: 1em;}
-.answerlist_h3 {background-color: #d6dfe8; height: 2em; line-height: 2em; text-indent: 0.5em;}
-.list_answer { margin:1em auto 0;}
-.list_answer > li {background: #FFF; padding: 0.5em; margin-bottom: 1em;}
+/*  */
+textarea.noscroll {overflow:hidden;resize: none; margin-top: 10px;}
+textarea {border: #ddd solid 1px; background-color: #FFF; padding: 0 0.5em; margin-bottom: 0.5em;}
+.db {display: block;}
+.table-wxattr td {vertical-align: middle;}
