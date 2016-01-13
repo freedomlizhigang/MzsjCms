@@ -327,12 +327,7 @@ class WxController extends Controller {
         if (!$ishav) {
             $userinfo = $this->getuserinfo($fromUsername);
             if ($userinfo) {
-                $data['openid'] = $userinfo['openid'];
-                $data['wxnick'] = $userinfo['nickname'];
-                $data['wxxb'] = $userinfo['sex'];
-                $data['wxthumb'] = $userinfo['headimgurl'];
-                $data['gztime'] = $userinfo['subscribe_time'];
-                $userid = M('Wxuser')->add($data);
+                $userid = M('Wxuser')->add($userinfo);
                 if (!$userid) {
                     return false;
                 }

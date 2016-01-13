@@ -22,16 +22,24 @@ class WxApi {
     }
     // 向微信发送消息
     public function httpGet($url,$data = null) {
+        // 初始化
         $curl = curl_init();
+        // 以文件流方式返回，即返回数据
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        // 设置最长执行秒数
         curl_setopt($curl, CURLOPT_TIMEOUT, 500);
+        // 终止从服务端进行验证
         curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
+        // 对应的url
         curl_setopt($curl, CURLOPT_URL, $url);
         if (!empty($data)){
+            // 发送一个常规的POST请求
             curl_setopt($curl, CURLOPT_POST, 1);
+            // 全部数据使用HTTP协议中的"POST"操作来发送
             curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
         }
+        // 执行
         $res = curl_exec($curl);
         curl_close($curl);
         return $res;

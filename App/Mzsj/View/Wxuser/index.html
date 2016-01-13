@@ -2,26 +2,44 @@
 <block name="main">
 	<p>新绑定的微信号，请先获取用户列表！其它时候不要操作这个功能，会导致数据库内容丢失！</p>
 	<table class="table-form">
+		<form action="{:U('togroup')}" method="post">
 		<tr class="tr-header">
+			<th><input type="checkbox" value="" class="checkall"></th>
 			<th width="50">ID</th>
 			<th width="70">用户组</th>
-			<th width="200">用户昵称</th>
+			<th width="150">用户昵称</th>
+			<th width="120">备注</th>
 			<th width="350">openid</th>
 			<th width="60">性别</th>
 			<th>关注时间</th>
+			<td>操作</td>
 		</tr>
 		<volist name="lists" id="wxuser">
 		<tr>
+			<td><input type="checkbox" name="uids[]" value="{$wxuser.userid}" class="subcheck" ></td>
 			<td>{$wxuser.userid}</td>
 			<td>{$groupname[$wxuser[groupid]][name]}</td>
 			<td>{$wxuser.nickname}</td>
+			<td>{$wxuser.remark}</td>
 			<td>{$wxuser.openid}</td>
 			<td><if condition="$wxuser[sex] == 1"><span class="color_green">男</span></if><if condition="$wxuser[sex] == 2"><span class="color_red">女</span></if><if condition="$wxuser[sex] == 0"><span>未知</span></if></td>
 			<td>{$wxuser.subscribe_time|date="Y-m-d H:i:s",###}</td>
+			<td><a href="{:U('remark',array('uid'=>$wxuser[userid]))}">备注</a></td>
 		</tr>
 		</volist>
 		<tr class="tr-btn">
+			<td width="1"><input type="checkbox" value="" class="checkall"></td>
+			<td width="90">
+				<select name="groupid" id="">
+					<option value="">选择分组</option>
+					<volist name="groupname" id="g">
+					<option value="{$g.id}">{$g.name}</option>
+					</volist>
+				</select>
+			</td>
+			<td colspan="3"><input type="submit" value="移动分组" /></td>
 			<td colspan="6"><div class="pages">{$page}</div></td>
 		</tr>
+		</form>
 	</table>
 </block>

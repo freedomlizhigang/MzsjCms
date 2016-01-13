@@ -1,0 +1,14 @@
+<extend name="Common:index" />
+<block name="main">
+	<form action="{:U()}" class="form-box" method="post">
+		<input type="hidden" value="{$uinfo.userid}" name="userid">
+		<input type="hidden" value="{$uinfo.openid}" name="openid">
+		<div class="form-group">
+			<label for="name" class="item-label">备注名称：<span class="color_9"> 30个字符以内</span></label>
+			<input type="text" name="remark" value="{$uinfo.remark}" class="input-text">
+		</div>
+		<div class="form-group">
+			<button type="submit" name="dosubmit" class="btn-success">提交</button><button type="reset" name="reset" class="btn-error">重填</button>
+		</div>
+	</form>
+</block>

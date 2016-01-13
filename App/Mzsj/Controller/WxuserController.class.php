@@ -60,12 +60,74 @@ class WxuserController extends MzsjController
 		{
 			$this->error('操作失败！',U('index'));
 		}
-		
+	}
+	/*
+	* 设置用户备注信息
+	*/
+	public function remark()
+	{
+		$this->assign('title','设置备注');
+		$userid = I('uid');
+		if (IS_POST)
+		{
+			// 更新微信端数据
+			$wxdata = json_encode(array('openid'=>I('post.openid'),'remark'=>I('post.remark')),JSON_UNESCAPED_UNICODE);
+			$token = $this->wxapi->gettoken();
+			$url = "https://api.weixin.qq.com/cgi-bin/user/info/updateremark?access_token=$token";
+			$res = string2array($this->wxapi->httpGet($url,$wxdata));
+			if ($res['errcode'] != 0) {$this->error('设置微信备注失败，'.$res['errcode'].'-'.$res['errmsg']);}
+			// 更新本地数据
+			$data['userid'] = I('post.userid');
+			$data['remark'] = I('post.remark');
+			if (M('Wxuser')->save($data)){
+				// 记录用户行为
+        		$this->addlog('userid='.$userid);
+				$this->success('设置备注成功！',U('index'));
+			}
+			else
+			{
+				$this->error('设置备注失败 ！');
+			}
+		}
+		else
+		{
+			$uinfo = M('Wxuser')->field('openid,remark,userid')->find($userid);
+			$this->assign('uinfo',$uinfo);
+			$this->display();
+		}
+	}
+	/*
+	* 批量移动用户分组
+	*/
+	public function togroup()
+	{
+		// 判断
+		if(I('post.groupid') == null) {$this->error('请选择分组');}
+		// 查出openid
+		$map['userid'] = array('in',arr2str(I('post.uids')));
+		$opids = M('Wxuser')->where($map)->getField('openid',true);
+		// 更新微信端
+		$data = json_encode(array('openid_list'=>$opids,'to_groupid'=>I('post.groupid')));
+		$token = $this->wxapi->gettoken();
+		$url = "https://api.weixin.qq.com/cgi-bin/groups/members/batchupdate?access_token=$token";
+		$res = string2array($this->wxapi->httpGet($url,$data));
+		if ($res['errcode'] != 0){$this->error('移动用户失败，'.$res['errcode'].'-'.$res['errmsg']);}
+		// 更新本地
+		if (M('Wxuser')->where($map)->save(array('groupid'=>I('post.groupid'))))
+		{
+			// 记录用户行为
+    		$this->addlog('userid='.arr2str(I('post.uids')));
+			$this->error('移动用户成功',U('index'));
+		}
+		else
+		{
+			$this->error('移动用户失败');
+		}
 	}
 	/*
 	* 批量拉取用户信息方法
 	*/
-	public function getuserinfo($urls,$resopenid,$alldata,$i = 0,$isfor = 1)
+	private function getuserinfo($urls,$resopenid,$alldata,$i = 0,$isfor = 1)
 	{
 		$data = array();
 		// 100个openid
