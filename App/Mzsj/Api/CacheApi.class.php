@@ -13,7 +13,20 @@ class CacheApi {
 	// 缓存所有的角色
 	public function rolecache(){
 		$res = M('Role')->select();
-		S('rolecache',$res);
+		$tmp = array();
+		foreach ($res as $k => $v) {
+			$tmp[$v['roleid']] = $v;
+		}
+		S('rolecache',$tmp);
+	}
+	// 缓存微信用户组
+	public function wxgroupcache(){
+		$res = M('Wxgroup')->select();
+		$tmp = array();
+		foreach ($res as $k => $v) {
+			$tmp[$v['id']] = $v;
+		}
+		S('wxgroupcache',$tmp);
 	}
 	// 缓存用户数据
 	public function admincache(){

@@ -124,18 +124,6 @@ class WxController extends MzsjController{
 			$this->error('删除失败！');
 		}
 	}
-	// 微信关注列表
-	public function wxuser(){
-		$page = I('p',1);
-		$lists = M('Wxuser')->order('userid DESC')->page($page,20)->select();
-		$count = M('Wxuser')->count();
-		$pages = new \Think\Page($count,20);
-		$show = $pages->show();
-		$this->assign('page',$show);
-		$this->assign('lists',$lists);
-		$this->title = "关注者列表";
-		$this->display();
-	}
 	// 自定义菜单缓存
 	private function selfmenucache(){
 		if (S('selfmenucache') == ''){

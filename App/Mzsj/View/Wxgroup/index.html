@@ -1,0 +1,20 @@
+<extend name="Common:index" />
+<block name="main">
+	<p>新绑定的微信号，请先同步用户分组信息！其它时候不要操作这个功能，会导致数据库内容丢失！</p>
+	<table class="table-form">
+		<tr class="tr-header">
+			<th width="50">ID</th>
+			<th width="160">名称</th>
+			<th width="160">用户数量</th>
+			<th>操作</th>
+		</tr>
+		<volist name="lists" id="group">
+		<tr>
+			<td>{$group.id}</td>
+			<td>{$group.name}</td>
+			<td>{$group.count}</td>
+			<td><a href="{:U('editgroup',array('id'=>$group['id']))}">修改</a> | <a href="{:U('delgroup',array('id'=>$group['id']))}" class="confirm">删除</a></td>
+		</tr>
+		</volist>
+	</table>
+</block>

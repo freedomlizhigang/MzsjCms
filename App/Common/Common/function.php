@@ -107,7 +107,7 @@ function str_cut($string, $length, $dot = '...') {
 	if($strlen <= $length) return $string;
 	$string = str_replace(array(' ','&nbsp;', '&amp;', '&quot;', '&#039;', '&ldquo;', '&rdquo;', '&mdash;', '&lt;', '&gt;', '&middot;', '&hellip;'), array('∵',' ', '&', '"', "'", '“', '”', '—', '<', '>', '·', '…'), $string);
 	$strcut = '';
-	if(strtolower(config_item('charset')) == 'utf-8') {
+	if(strtolower(C('DEFAULT_CHARSET')) == 'utf-8') {
 		$length = intval($length-strlen($dot)-$length/3);
 		$n = $tn = $noc = 0;
 		while($n < strlen($string)) {
@@ -189,7 +189,7 @@ function mult_iconv($in_charset,$out_charset,$data){
 }
 
 /**
-* 将字符串转换为数组
+* 将字符串转换为数组，json格式支持
 *
 * @param	string	$data	字符串
 * @return	array	返回数组格式，如果，data为空，则返回空数组
@@ -202,14 +202,14 @@ function string2array($data) {
 	}else{
 		if(strpos($data, '{\\')===0) $data = stripslashes($data);
 		$array=json_decode($data,true);
-		if(strtolower(config_item('charset'))=='gbk'){
+		if(strtolower(C('DEFAULT_CHARSET'))=='gbk'){
 			$array = mult_iconv("UTF-8", "GBK//IGNORE", $array);
 		}
 	}
 	return $array;
 }
 /**
-* 将数组转换为字符串
+* 将数组转换为字符串，json格式支持
 *
 * @param	array	$data		数组
 * @param	bool	$isformdata	如果为0，则不使用new_stripslashes处理，可选参数，默认为1
@@ -218,7 +218,7 @@ function string2array($data) {
 function array2string($data, $isformdata = 1) {
 	if($data == '' || empty($data)) return '';
 	if($isformdata) $data = new_stripslashes($data);
-	if(strtolower(config_item('charset'))=='gbk'){
+	if(strtolower(C('DEFAULT_CHARSET'))=='gbk'){
 		$data = mult_iconv("GBK", "UTF-8", $data);
 	}
 	if (version_compare(PHP_VERSION,'5.3.0','<')){

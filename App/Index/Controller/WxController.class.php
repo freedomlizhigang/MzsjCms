@@ -29,7 +29,6 @@ class WxController extends Controller {
           	$postObj = simplexml_load_string($postStr, 'SimpleXMLElement', LIBXML_NOCDATA);
             $fromUsername = $postObj->FromUserName;
             $toUsername = $postObj->ToUserName;
-            $keyword = trim($postObj->Content);
             $time = time();
             // 判断是事件消息还是普通消息
             $MsgType = $postObj->MsgType;
@@ -47,17 +46,60 @@ class WxController extends Controller {
                     $this->clickeven($postObj,$fromUsername,$toUsername,$time);
                 }
             }else{
-                // 先判断类型，目前只回复关键字的，回复类型为：文本、图文
-                if ((string)$MsgType == 'text') {
-                    if(!empty($keyword)){
-                        // 查看是否有输入消息的设置
-                        $res = M('Wxmsg')->where(array('msgcon'=>(string)$keyword))->find();
-                        // 判断回复类型
-                        $this->msgtype($fromUsername,$toUsername,$time,$res);
-                    }
-                }else{
-                    // 没找到对应事件时的默认回复
-                    $this->msg_nokey($fromUsername,$toUsername,$time);
+                // 根据消息类型进行回复
+                switch ((string)$MsgType) {
+                    // 文本消息，根据关键字进行回复
+                    case 'text':
+                        $keyword = trim($postObj->Content);
+                        if(!empty($keyword)){
+                            // 查看是否有输入消息的设置
+                            $res = M('Wxmsg')->where(array('msgcon'=>(string)$keyword))->find();
+                            // 判断回复类型
+                            $this->msgtype($fromUsername,$toUsername,$time,$res);
+                        }else{
+                            // 空关键字的默认回复
+                            $this->msg_nokey($fromUsername,$toUsername,$time);
+                        }
+                        break;
+                    case 'image':
+                        // 反馈图片消息
+                        $res['content'] = '亲，不认识图片啊！';
+                        $this->msg_text($fromUsername,$toUsername,$time,$res);
+                        break;
+
+                    case 'voice':
+                        // 反馈语音消息
+                        $res['content'] = '亲，还没有语音识别功能哟！';
+                        $this->msg_text($fromUsername,$toUsername,$time,$res);
+                        break;
+
+                    case 'video':
+                        // 反馈视频消息
+                        $res['content'] = '亲，小机器人看不懂视频的！';
+                        $this->msg_text($fromUsername,$toUsername,$time,$res);
+                        break;
+
+                    case 'shortvideo':
+                        // 反馈小视频消息
+                        $res['content'] = '亲，小机器人看不懂小视频的！';
+                        $this->msg_text($fromUsername,$toUsername,$time,$res);
+                        break;
+
+                    case 'location':
+                        // 反馈地理位置消息
+                        $res['content'] = '亲，你所在的维度是：'.$postObj->Location_X.'，经度是：'.$postObj->Location_Y.'，位置信息是：'.$postObj->Label;
+                        $this->msg_text($fromUsername,$toUsername,$time,$res);
+                        break;
+
+                    case 'link':
+                        // 反馈链接消息
+                        $res['content'] = '亲，你发的链接是：'.$postObj->Url.'直接打开就好！';
+                        $this->msg_text($fromUsername,$toUsername,$time,$res);
+                        break;
+                    default:
+                        // 没找到对应事件时的默认回复
+                        $this->msg_nokey($fromUsername,$toUsername,$time);
+                        break;
                 }
             }
         }
@@ -146,11 +188,11 @@ class WxController extends Controller {
                     <ToUserName><![CDATA[%s]]></ToUserName>
                     <FromUserName><![CDATA[%s]]></FromUserName>
                     <CreateTime>%s</CreateTime>
-                    <MsgType><![CDATA[%s]]></MsgType>
+                    <MsgType><![CDATA[text]]></MsgType>
                     <Content><![CDATA[%s]]></Content>
                     </xml>";
         // 关键字回复类型为后台设置的类型，一般是图文，或文字，目前只回复关键字消息，其它消息都回复“没有找到”
-        $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $res['msgtype'], $res['content']);
+        $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $res['content']);
         echo $resultStr;
     }
     /*

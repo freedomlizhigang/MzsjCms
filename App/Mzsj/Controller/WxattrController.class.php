@@ -23,6 +23,11 @@ class WxattrController extends MzsjController{
 		$this->assign('page',$show);
 		$lists = num2name($lists,'islocalname','islocal','永久','临时');
 		$this->assign('lists',$lists);
+		$this->display();
+	}
+	// 查询微信素材总数，这是个坑有接口使用次数限制极低，小心
+	public function attrnums(){
+		$this->assign('title','微信素材总数');
 		// 查询微信端素材各类型总数
 		$access_token = $this->wxapi->gettoken();
 		$url = "https://api.weixin.qq.com/cgi-bin/material/get_materialcount?access_token=$access_token";
@@ -70,6 +75,8 @@ class WxattrController extends MzsjController{
 			$filepath = SERVER_PATH.$hav['localurl'];
 			if (file_exists($filepath)){unlink($filepath);}
 			M('Attr')->delete($attid);
+			// 记录用户行为
+    		$this->addlog('attid='.$attid);
 			$this->success('删除素材成功！');
 		}else{
 			$this->error('没有找到素材！');
@@ -94,6 +101,8 @@ class WxattrController extends MzsjController{
 		$data['url'] = $result['url'];
 		$insert = M('Attr')->add($data);
 		if ($insert) {
+			// 记录用户行为
+    		$this->addlog('attid='.$attid);
 			$this->success('添加素材成功！',U('index'));
 		}else{
 			$this->error('添加素材失败');
@@ -124,6 +133,8 @@ class WxattrController extends MzsjController{
 		$data['media_id'] = $result['media_id'];
 		$insert = M('Attr')->add($data);
 		if ($insert) {
+			// 记录用户行为
+    		$this->addlog('attid='.$attid);
 			$this->success('添加素材成功！',U('index'));
 		}else{
 			$this->error('添加素材失败');

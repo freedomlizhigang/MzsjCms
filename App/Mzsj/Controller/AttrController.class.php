@@ -28,6 +28,8 @@ class AttrController extends MzsjController {
 			$filepath = SERVER_PATH.$hav['localurl'];
 			if (file_exists($filepath)){unlink($filepath);}
 			M('Attr')->delete($attid);
+			// 记录用户行为
+    		$this->addlog('attid='.$attid);
 			$this->success('删除素材成功！');
 		}else{
 			$this->error('没有找到素材！');
