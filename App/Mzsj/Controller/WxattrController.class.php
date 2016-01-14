@@ -145,4 +145,51 @@ class WxattrController extends MzsjController{
 		$upres = $this->upload->kindupload($size = 10240000,$path = './Upload/wx/',$exts = array('jpg','jpeg','png','amr','mp3','mp4'));
 		exit($upres);
 	}
+
+	/*
+	* 管理图文消息
+	*/
+	public function artmsg()
+	{
+		$this->assign('title','图文素材');
+		$page = I('p') ? I('p') : 1;
+		$lists = M('Wxart')->order('artid DESC')->page($page,20)->select();
+		$count = M('Wxart')->count();
+		$pages = new \Think\Page($count,20);
+		$show = $pages->show();
+		$this->assign('page',$show);
+		$this->assign('lists',$lists);
+		$this->display();
+	}
+	/*
+	* 新增图文素材
+	*/
+	public function addart()
+	{
+		$this->assign('title','添加图文素材');
+		if (IS_POST)
+		{
+			var_dump(I('post.art'));
+		}
+		else
+		{
+			$this->display();
+		}
+	}
+	/*
+	* 修改图文素材
+	*/
+	public function editart()
+	{
+		$this->assign('title','修改图文素材');
+		$this->display();
+	}
+	/*
+	* 删除图文素材
+	*/
+	public function delart()
+	{
+		$this->assign('title','删除图文素材');
+		$this->display();
+	}
 }

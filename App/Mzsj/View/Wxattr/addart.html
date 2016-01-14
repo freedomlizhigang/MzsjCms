@@ -1,0 +1,79 @@
+<extend name="Common:index" />
+<block name="main">
+	<form action="{:U()}" class="form-box" method="post">
+		<div class='form-group'>
+			<p>缩略图：从素材管理中取media_id。</p>
+		</div>
+		<!-- 输出8条，但js控制默认只显示一条 -->
+		<for start="1" end="8">
+		<div class="art_div">
+			<div class="form-group">
+				<label for="art[title]" class="item-label">标题：</label>
+				<input type="text" name="art[{$i}][title]" class="input-text" datatype="*1-30">
+				<span class="Validform_checktip"></span>
+			</div>
+			<div class="form-group">
+				<label for="art[author]" class="item-label">作者：</label>
+				<input type="text" name="art[{$i}][author]" class="input-text" datatype="*2-15">
+				<span class="Validform_checktip"></span>
+			</div>
+			<div class="form-group">
+				<label for="art[digest]" class="item-label">图文消息的摘要，仅有单图文消息才有摘要，多图文此处为空：</label>
+				<textarea name="art[{$i}][digest]" cols="50" rows="5"></textarea>
+			</div>
+			<div class="form-group">
+				<label for="art[content]" class="item-label">图文消息的具体内容，支持HTML标签，必须少于2万字符，小于1M，且此处会去除JS：</label>
+				<textarea name="art[{$i}][content]" class="content_edit" style="width: 96%;" rows="25"></textarea>
+			</div>
+			<div class="form-group">
+				<label for="art[url]" class="item-label">图文页的URL：</label>
+				<input type="text" name="art[{$i}][url]" class="input-text" datatype="*0-0|url">
+				<span class="Validform_checktip"></span>
+			</div>
+			<div class="form-group">
+				<label for="art[content_source_url]" class="item-label">原文地址，点击“阅读原文”后的URL：</label>
+				<input type="text" name="art[{$i}][content_source_url]" class="input-text" datatype="*0-0|url">
+				<span class="Validform_checktip"></span>
+			</div>
+			<div class="form-group">
+				<label for="art[thumb_media_id]" class="item-label">封面图片素材id：</label>
+				<input type="text" name="art[{$i}][thumb_media_id]" class="input-text"></div>
+			<div class="form-group">
+				<label for="art[show_cover_pic]" class="item-label">是否显示封面：</label>
+				<input type="radio" name="art[{$i}][show_cover_pic]" value="0" checked="checked">
+				否
+				<input type="radio" name="art[{$i}][show_cover_pic]" value="1">是</div>
+			<hr>
+		</div>
+		</for>
+		<div class="form-group">
+			<button type="submit" name="dosubmit" class="btn-success">提交</button>
+			<button type="reset" name="reset" class="btn-error">重填</button>
+			<span class="btn-success addart">增加一条</span>
+		</div>
+	</form>
+	<script>
+        $(function(){
+        	var Kitems = ['fullscreen', 'undo', 'redo', 'cut', 'copy', 'paste','plainpaste', 'wordpaste', '|', 'justifyleft', 'justifycenter', 'justifyright','justifyfull', 'insertorderedlist', 'insertunorderedlist', 'indent', 'outdent', 'subscript','superscript', '|', 'selectall', '-','title', 'fontname', 'fontsize', '|', 'textcolor', 'bgcolor', 'bold','italic', 'underline', 'strikethrough', 'removeformat', 'advtable', 'hr', 'emoticons', 'link', 'unlink', '|', 'about'];
+        	$('.art_div').hide().first().show();
+        	$('.addart').bind('click tap',function(){
+        		$('.art_div:hidden').first().show();
+        		return false;
+        	});
+        	// 提交时清空没有数据的内容
+        	$("button[name='dosubmit']").bind('click',function(){
+        		$('.art_div:hidden').remove();
+        	});
+        	// 绑定富文本编辑器
+        	KindEditor.ready(function(K) {
+	                window.editor = K.create('.content_edit', {
+		                items:Kitems
+		       		});
+	        });
+	        // 验证规则
+	        $(".form-box").Validform({
+	            tiptype:3, //在侧边弹出提示信息
+	            ignoreHidden:true //对:hidden的表单元素将不做验证
+	        });
+        });
+	</script></block>

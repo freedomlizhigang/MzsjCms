@@ -57,7 +57,7 @@ body.box {overflow: hidden; padding: 0;}
 .color_f60 {color: #ff6600;}
 .form-box {margin-top: 10px;}
 .form-group {margin-bottom: 10px;}
-.item-label {display: block;margin-right: 5px;height: 30px;line-height: 30px;font-weight: bold;}
+.item-label {display: block;margin-right: 5px;height: 30px;line-height: 30px;}
 .input-text {height: 2em; line-height: 2em; width: 350px; border: #ddd solid 1px; background-color: #FFF; padding: 0 0.5em; margin-bottom: 0.5em;}
 .input-sm {width: 100px;}
 .btn-success {background-color: #4BBD00;padding: 10px 50px;color: #FFF; border:none; font-weight: bold; margin: 0 5px; cursor: pointer;}
@@ -76,7 +76,7 @@ body.box {overflow: hidden; padding: 0;}
 .table-form a:hover {color: green; text-decoration: underline;}
 .addsub {background: url("bg_icon.png") no-repeat scroll 0px 0px transparent; margin: 10px 0px 0px 10px;width: 16px;height: 16px; display: inline-block; float: left;}
 .btn-group {margin-left: 1rem; margin-top: .3rem;}
-.btn-green {color: #4BBD00; font-weight: bold; margin-right: 1em; font-size: 1.2em;}
+.btn-green {color: #4BBD00; font-weight: bold; margin-right: 1em; font-size: 1.2rem;}
 .btn-green:hover {color: #4CDB00;}
 .color_green {color: green;}
 .color_red {color: red;}

@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"json",
+				"json_decode"
+			],
+			[
 				"oldpw",
 				"oldpwdinput"
 			],
@@ -255,22 +259,42 @@
 	[
 		"/D/wamp/www/mzsj",
 		"/D/wamp/www/mzsj/App",
-		"/D/wamp/www/mzsj/App/Index",
-		"/D/wamp/www/mzsj/App/Mzsj"
+		"/D/wamp/www/mzsj/App/Mzsj",
+		"/D/wamp/www/mzsj/App/Mzsj/Controller",
+		"/D/wamp/www/mzsj/App/Mzsj/View",
+		"/D/wamp/www/mzsj/App/Mzsj/View/Wxattr"
 	],
 	"file_history":
 	[
-		"/D/wamp/www/mzsj/App/Index/Controller/WxController.class.php",
+		"/D/wamp/www/mzsj/update.txt",
+		"/D/wamp/www/mzsj/App/Mzsj/Controller/WxmsgController.class.php",
 		"/D/wamp/www/mzsj/App/Mzsj/Controller/WxattrController.class.php",
+		"/D/wamp/www/mzsj/App/Mzsj/View/Wxattr/addart.html",
+		"/D/wamp/www/mzsj/Static/Common/js/Validform.min.js",
+		"/D/wamp/www/mzsj/Static/Common/css/validform.css",
+		"/D/wamp/www/mzsj/App/Mzsj/View/Common/index.html",
+		"/D/wamp/www/mzsj/Static/Mzsj/images/reset.css",
+		"/D/wamp/www/mzsj/App/Mzsj/View/Wxattr/artmsg.html",
+		"/D/wamp/www/mzsj/App/Mzsj/Controller/WxuserController.class.php",
+		"/D/wamp/www/mzsj/App/Mzsj/Controller/WxController.class.php",
+		"/D/wamp/www/mzsj/readme.txt",
+		"/D/wamp/www/mzsj/App/Index/Controller/WxController.class.php",
+		"/D/wamp/www/mzsj/App/Mzsj/View/Wxuser/index.html",
+		"/D/wamp/www/mzsj/App/Common/Common/function.php",
+		"/D/wamp/www/mzsj/App/Mzsj/View/Wxuser/remark.html",
+		"/D/wamp/www/mzsj/App/Common/Api/WxApi.class.php",
+		"/D/wamp/www/mzsj/App/Mzsj/Api/CacheApi.class.php",
+		"/D/wamp/www/mzsj/App/Mzsj/Controller/AttrController.class.php",
+		"/D/wamp/www/mzsj/App/Mzsj/Controller/WxgroupController.class.php",
+		"/D/wamp/www/mzsj/App/Mzsj/View/Wxgroup/index.html",
+		"/D/wamp/www/mzsj/App/Mzsj/View/Wxgroup/addgroup.html",
+		"/D/wamp/www/mzsj/App/Mzsj/View/Wxgroup/editgroup.html",
+		"/D/wamp/www/mzsj/App/Mzsj/Controller/Wxgroup.class.php",
 		"/D/wamp/www/mzsj/App/Mzsj/View/Wxattr/attrnums.html",
 		"/D/wamp/www/mzsj/App/Mzsj/View/Wxattr/index.html",
 		"/D/wamp/www/mzsj/App/Mzsj/View/Wxattr/addattr.html",
-		"/D/wamp/www/mzsj/App/Mzsj/Controller/WxController.class.php",
 		"/D/wamp/www/mzsj/App/Mzsj/View/Attr/index.html",
-		"/D/wamp/www/mzsj/update.txt",
 		"/D/wamp/www/mzsj/deltable.sql",
-		"/D/wamp/www/mzsj/Static/Mzsj/images/reset.css",
-		"/D/wamp/www/mzsj/App/Mzsj/Controller/AttrController.class.php",
 		"/D/wamp/www/mzsj/App/Mzsj/View/Link/editlink.html",
 		"/D/wamp/www/mzsj/App/Mzsj/View/Link/addlink.html",
 		"/D/wamp/www/mzsj/App/Mzsj/View/Content/editcate.html",
@@ -279,7 +303,6 @@
 		"/D/wamp/www/mzsj/App/Mzsj/View/Content/addarticle.html",
 		"/D/wamp/www/mzsj/App/Mzsj/Controller/ContentController.class.php",
 		"/D/wamp/www/mzsj/App/Common/Api/Upload.class.php",
-		"/D/wamp/www/mzsj/App/Common/Api/WxApi.class.php",
 		"/E/soft/FlashFXP4/Cache/~flashfxp/AEB11506_edit.tmp/index.html",
 		"/E/soft/FlashFXP4/Cache/~flashfxp/553ED08E_edit.tmp/reset.css",
 		"/E/soft/FlashFXP4/Cache/~flashfxp/029569C5_edit.tmp/reset.css",
@@ -299,7 +322,6 @@
 		"/D/wamp/www/mzsj/App/Mzsj/View/Wx/wxconfig.html",
 		"/D/wamp/www/mzsj/App/Mzsj/View/Wx/addmsg.html",
 		"/D/wamp/www/mzsj/App/Mzsj/View/Wx/editmsg.html",
-		"/D/wamp/www/mzsj/App/Common/Common/function.php",
 		"/D/wamp/www/mzsj/App/Mzsj/Controller/UserController.class.php",
 		"/D/wamp/www/mzsj/App/Mzsj/Controller/GroupController.class.php",
 		"/D/wamp/www/mzsj/App/Mzsj/Controller/AdminController.class.php",
@@ -310,7 +332,6 @@
 		"/D/wamp/www/mzsj/index.php",
 		"/D/wamp/www/mzsj/mzsj.php",
 		"/D/wamp/www/v9/index.php",
-		"/D/wamp/www/mzsj/App/Mzsj/Api/CacheApi.class.php",
 		"/D/wamp/www/mzsj/App/Mzsj/Controller/IndexController.class.php",
 		"/D/wamp/www/mzsj/App/Mzsj/View/Admin/editpassword (2).html",
 		"/D/wamp/www/mzsj/App/Mzsj/View/Admin/editadmin (2).html",
@@ -327,7 +348,6 @@
 		"/D/wamp/www/mzsj/App/Mzsj/View/Index_index.html",
 		"/D/wamp/www/mzsj/sftp-config.json",
 		"/D/wamp/www/mzsj/mzsj.sql",
-		"/D/wamp/www/mzsj/readme.txt",
 		"/D/wamp/www/mzsj/App/Mzsj/View/Type_addtype.html",
 		"/D/wamp/www/mzsj/App/Mzsj/Model/TypeModel.class.php",
 		"/D/wamp/www/mzsj/App/Mzsj/Model/CategoryModel.class.php",
@@ -373,21 +393,7 @@
 		"/D/wamp/www/mzsj/App/Mzsj/View/Link_editlink.html",
 		"/D/wamp/www/mzsj/App/Mzsj/View/Link_addlink.html",
 		"/D/wamp/www/mzsj/App/Mzsj/View/Index_editsite.html",
-		"/D/wamp/www/mzsj/App/Mzsj/View/Index_addsite.html",
-		"/D/wamp/www/mzsj/App/Mzsj/View/Group_grouppriv.html",
-		"/D/wamp/www/mzsj/App/Mzsj/View/Group_editgroup.html",
-		"/D/wamp/www/mzsj/App/Mzsj/View/Group_addgroup.html",
-		"/D/wamp/www/mzsj/App/Mzsj/View/Content_showart.html",
-		"/D/wamp/www/mzsj/App/Mzsj/View/Content_editcate.html",
-		"/D/wamp/www/mzsj/App/Mzsj/View/Content_editarticle.html",
-		"/D/wamp/www/mzsj/App/Mzsj/View/Content_addarticle.html",
-		"/D/wamp/www/mzsj/App/Mzsj/View/Adminedit_editpassword.html",
-		"/D/wamp/www/mzsj/App/Mzsj/View/Adminedit_editadmin.html",
-		"/D/wamp/www/mzsj/App/Mzsj/View/Admin_editrole.html",
-		"/D/wamp/www/mzsj/App/Mzsj/View/Admin_editpassword.html",
-		"/D/wamp/www/mzsj/App/Mzsj/View/Admin_editadmin.html",
-		"/D/wamp/www/mzsj/App/Mzsj/View/Admin_adminpriv.html",
-		"/D/wamp/www/mzsj/App/Mzsj/View/Admin_addrole.html"
+		"/D/wamp/www/mzsj/App/Mzsj/View/Index_addsite.html"
 	],
 	"find":
 	{
@@ -419,6 +425,23 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"cssctl",
+			"Validform_checktip",
+			"Validform_error",
+			"focus",
+			"form-box",
+			"item-label",
+			"\" + i + \"",
+			"\\\"",
+			"'",
+			" value=\"\"",
+			"\"form-group\"",
+			"clearcache",
+			"cache",
+			"getuserinfo",
+			"config_item('charset')",
+			"config_item",
+			"gettoken",
 			"td",
 			"kindupload",
 			"../img/",
@@ -529,24 +552,7 @@
 			"mkdir",
 			"autoSub",
 			"subName",
-			"getSubPath",
-			"savepath",
-			"url3",
-			"#url3",
-			"info[image]",
-			"image3",
-			"privurl",
-			"session.gc_maxlifetime",
-			"gc_maxlifetime",
-			"maxlifetime",
-			"SessionHandlerInterface",
-			"maxlifetime",
-			"time",
-			"sess_regenerate",
-			"sess_regenerate_destroy",
-			"maxlifetime",
-			"admincache",
-			"msg"
+			"getSubPath"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -554,6 +560,12 @@
 		"regex": false,
 		"replace_history":
 		[
+			"' + i + '",
+			"\\'",
+			"\\\"",
+			"",
+			"'form-group'",
+			"C('DEFAULT_CHARSET')",
 			"",
 			"home",
 			"$this->data",
@@ -636,8 +648,24 @@
 		"selected_items":
 		[
 			[
+				"va",
+				"Static\\Common\\js\\Validform.min.js"
+			],
+			[
+				"val",
+				"Static\\Common\\js\\Validform.min.js"
+			],
+			[
+				"validform",
+				"Static\\Common\\js\\Validform.min.js"
+			],
+			[
 				"reset",
 				"Static\\Mzsj\\images\\reset.css"
+			],
+			[
+				"wxcontroller",
+				"App\\Mzsj\\Controller\\WxController.class.php"
 			],
 			[
 				"upload",
