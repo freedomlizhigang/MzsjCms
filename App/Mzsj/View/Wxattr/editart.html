@@ -4,48 +4,50 @@
 		<div class='form-group'>
 			<p>缩略图：从素材管理中取media_id。</p>
 		</div>
+		<input type="hidden" value="{$info.artid}" name="artid">
+		<input type="hidden" value="{$info.media_id}" name="media_id">
 		<div class="form-group">
 			<label for="title" class="item-label">标题：<span class="color_9"> 这个是整体标题，标识素材用的，与微信无关</span></label>
-			<input type="text" name="title" class="input-text" datatype="*1-30">
+			<input type="text" name="title" class="input-text" value="{$info.title}" datatype="*1-30">
 		</div>
 		<!-- 输出8条，但js控制默认只显示一条 -->
-		<for start="1" end="8">
+		<foreach name="info[content]" item="data" key="k">
 		<div class="art_div">
 			<div class="form-group">
 				<label for="art[title]" class="item-label">标题：</label>
-				<input type="text" name="art[{$i}][title]" class="input-text" datatype="*1-30">
+				<input type="text" name="art[{$k}][title]" value="{$data.title}" class="input-text" datatype="*1-30">
 			</div>
 			<div class="form-group">
 				<label for="art[author]" class="item-label">作者：</label>
-				<input type="text" name="art[{$i}][author]" class="input-text" datatype="*2-15">
+				<input type="text" name="art[{$k}][author]" value="{$data.author}" class="input-text" datatype="*2-15">
 			</div>
 			<div class="form-group">
 				<label for="art[digest]" class="item-label">图文消息的摘要，仅有单图文消息才有摘要，多图文此处为空：</label>
-				<textarea name="art[{$i}][digest]" cols="50" rows="5"></textarea>
+				<textarea name="art[{$k}][digest]" cols="50" rows="5">{$data.digest}</textarea>
 			</div>
 			<div class="form-group">
 				<label for="art[content]" class="item-label">图文消息的具体内容，支持HTML标签，必须少于2万字符，小于1M，且此处会去除JS：</label>
-				<textarea name="art[{$i}][content]" class="content_edit" style="width: 96%;" rows="25" datatype="*"></textarea>
+				<textarea name="art[{$k}][content]" class="content_edit" style="width: 96%;" rows="25" datatype="*">{$data.content}</textarea>
 			</div>
 			<div class="form-group">
 				<label for="art[url]" class="item-label">图文页的URL：</label>
-				<input type="text" name="art[{$i}][url]" class="input-text" datatype="*|url">
+				<input type="text" name="art[{$k}][url]" class="input-text" value="{$data.url}" datatype="*|url">
 			</div>
 			<div class="form-group">
 				<label for="art[content_source_url]" class="item-label">原文地址，点击“阅读原文”后的URL：</label>
-				<input type="text" name="art[{$i}][content_source_url]" class="input-text" datatype="*|url">
+				<input type="text" name="art[{$k}][content_source_url]" value="{$data.content_source_url}" class="input-text" datatype="*|url">
 			</div>
 			<div class="form-group">
 				<label for="art[thumb_media_id]" class="item-label">封面图片素材id：</label>
-				<input type="text" name="art[{$i}][thumb_media_id]" class="input-text" datatype="*"></div>
+				<input type="text" name="art[{$k}][thumb_media_id]" value="{$data.thumb_media_id}" class="input-text" datatype="*"></div>
 			<div class="form-group">
 				<label for="art[show_cover_pic]" class="item-label">是否显示封面：</label>
-				<input type="radio" name="art[{$i}][show_cover_pic]" value="0" checked="checked">
+				<input type="radio" name="art[{$k}][show_cover_pic]" value="0" <if condition="$data[show_cover_pic] == 0"> checked="checked"</if>>
 				否
-				<input type="radio" name="art[{$i}][show_cover_pic]" value="1">是</div>
+				<input type="radio" name="art[{$k}][show_cover_pic]" value="1" <if condition="$data[show_cover_pic] == 1"> checked="checked"</if>>是</div>
 			<hr>
 		</div>
-		</for>
+		</foreach>
 		<div class="form-group">
 			<button type="submit" name="dosubmit" class="btn-success">提交</button>
 			<button type="reset" name="reset" class="btn-error">重填</button>

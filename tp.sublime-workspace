@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"添加图文",
+				"添加图文素材"
+			],
+			[
 				"json",
 				"json_decode"
 			],
@@ -267,18 +271,19 @@
 	"file_history":
 	[
 		"/D/wamp/www/mzsj/update.txt",
-		"/D/wamp/www/mzsj/App/Mzsj/Controller/WxmsgController.class.php",
 		"/D/wamp/www/mzsj/App/Mzsj/Controller/WxattrController.class.php",
+		"/D/wamp/www/mzsj/App/Index/Controller/WxController.class.php",
+		"/D/wamp/www/mzsj/App/Mzsj/View/Wxattr/editart.html",
 		"/D/wamp/www/mzsj/App/Mzsj/View/Wxattr/addart.html",
+		"/D/wamp/www/mzsj/App/Mzsj/View/Wxattr/artmsg.html",
+		"/D/wamp/www/mzsj/App/Mzsj/Controller/WxmsgController.class.php",
 		"/D/wamp/www/mzsj/Static/Common/js/Validform.min.js",
 		"/D/wamp/www/mzsj/Static/Common/css/validform.css",
 		"/D/wamp/www/mzsj/App/Mzsj/View/Common/index.html",
 		"/D/wamp/www/mzsj/Static/Mzsj/images/reset.css",
-		"/D/wamp/www/mzsj/App/Mzsj/View/Wxattr/artmsg.html",
 		"/D/wamp/www/mzsj/App/Mzsj/Controller/WxuserController.class.php",
 		"/D/wamp/www/mzsj/App/Mzsj/Controller/WxController.class.php",
 		"/D/wamp/www/mzsj/readme.txt",
-		"/D/wamp/www/mzsj/App/Index/Controller/WxController.class.php",
 		"/D/wamp/www/mzsj/App/Mzsj/View/Wxuser/index.html",
 		"/D/wamp/www/mzsj/App/Common/Common/function.php",
 		"/D/wamp/www/mzsj/App/Mzsj/View/Wxuser/remark.html",
@@ -392,8 +397,7 @@
 		"/D/wamp/www/mzsj/App/Mzsj/View/Linkage_addlinkage.html",
 		"/D/wamp/www/mzsj/App/Mzsj/View/Link_editlink.html",
 		"/D/wamp/www/mzsj/App/Mzsj/View/Link_addlink.html",
-		"/D/wamp/www/mzsj/App/Mzsj/View/Index_editsite.html",
-		"/D/wamp/www/mzsj/App/Mzsj/View/Index_addsite.html"
+		"/D/wamp/www/mzsj/App/Mzsj/View/Index_editsite.html"
 	],
 	"find":
 	{
@@ -425,6 +429,7 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"$i",
 			"cssctl",
 			"Validform_checktip",
 			"Validform_error",
@@ -551,8 +556,7 @@
 			"uploader",
 			"mkdir",
 			"autoSub",
-			"subName",
-			"getSubPath"
+			"subName"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -647,6 +651,30 @@
 		"last_filter": "",
 		"selected_items":
 		[
+			[
+				"wxcontr",
+				"App\\Index\\Controller\\WxController.class.php"
+			],
+			[
+				"editart",
+				"App\\Mzsj\\View\\Wxattr\\editart.html"
+			],
+			[
+				"addart",
+				"App\\Mzsj\\View\\Wxattr\\addart.html"
+			],
+			[
+				"art",
+				"App\\Mzsj\\View\\Wxattr\\artmsg.html"
+			],
+			[
+				"artmsg",
+				"App\\Mzsj\\View\\Wxattr\\artmsg.html"
+			],
+			[
+				"wxattr",
+				"App\\Mzsj\\View\\Wxattr\\addart.html"
+			],
 			[
 				"va",
 				"Static\\Common\\js\\Validform.min.js"

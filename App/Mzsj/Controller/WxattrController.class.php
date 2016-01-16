@@ -70,7 +70,7 @@ class WxattrController extends MzsjController{
 			$url = "https://api.weixin.qq.com/cgi-bin/material/del_material?access_token=$access_token";
 			$result = $this->wxapi->httpGet($url,json_encode($filedata));
 			$result = json_decode($result,true);
-			if ($result['errcode'] != 0) {$this->error('删除素材失败，'.$result['errmsg']);}
+			if ($result['errcode'] != 0) {$this->error('删除素材失败，'.$result['errcode'].$result['errmsg']);}
 			// 本地文件删除
 			$filepath = SERVER_PATH.$hav['localurl'];
 			if (file_exists($filepath)){unlink($filepath);}
@@ -169,7 +169,33 @@ class WxattrController extends MzsjController{
 		$this->assign('title','添加图文素材');
 		if (IS_POST)
 		{
-			var_dump(I('post.art'));
+			$data = I('post.art');
+			// 拼接数据
+			$str = '{"articles":[';
+			foreach ($data as $v) {
+				$str .= json_encode($v,JSON_UNESCAPED_UNICODE).',';
+			}
+			$str .= ']}';
+			// 存入微信端
+			$token = $this->wxapi->gettoken();
+			$url = "https://api.weixin.qq.com/cgi-bin/material/add_news?access_token=$token";
+			$res = string2array($this->wxapi->httpGet($url,$str));
+			if($res['media_id'] == null){$this->error('添加图文素材失败！');}
+			// 存入本地
+			$l['media_id'] = $res['media_id'];
+			$l['created_at'] = time();
+			$l['title'] = I('post.title');
+			$l['content'] = array2string(I('post.art'));
+			if (M('Wxart')->add($l))
+			{
+				// 记录用户行为
+    			$this->addlog('artid='.$attid);
+				$this->success('添加图文素材成功！',U('artmsg'));
+			}
+			else
+			{
+				$this->error('添加图文素材失败！');
+			}
 		}
 		else
 		{
@@ -182,14 +208,64 @@ class WxattrController extends MzsjController{
 	public function editart()
 	{
 		$this->assign('title','修改图文素材');
-		$this->display();
+		if (IS_POST)
+		{
+			$data = I('post.art');
+			// 更新微信端，因为不确定要更新的是哪个图文，所以全部更新一遍
+			$token = $this->wxapi->gettoken();
+			$url = "https://api.weixin.qq.com/cgi-bin/material/update_news?access_token=$token";
+			foreach ($data as $k => $v) {
+				$k -= 1;
+				$pd = json_encode(array('media_id'=>I('post.media_id'),'index'=>$k,'articles'=>$v),JSON_UNESCAPED_UNICODE);
+				$res = string2array($this->wxapi->httpGet($url,$pd));
+				if($res['errcode'] != 0){$this->error('修改微信图文素材失败！'.$res['errcode'].' - '.$res['errmsg']);}
+			}
+			// 更新本地
+			$l['artid'] = I('post.artid');
+			$l['title'] = I('post.title');
+			$l['content'] = array2string(I('post.art'));
+			if (M('Wxart')->save($l))
+			{
+				// 记录用户行为
+    			$this->addlog('artid='.$attid);
+				$this->success('修改图文素材成功！',U('artmsg'));
+			}
+			else
+			{
+				$this->error('修改图文素材失败！');
+			}
+		}
+		else
+		{
+			$artid = I('artid');
+			$hav = M('Wxart')->where(array('artid'=>$artid))->find();
+			$hav['content'] = string2array($hav['content']);
+			$this->assign('info',$hav);
+			$this->display();
+		}
 	}
 	/*
 	* 删除图文素材
 	*/
 	public function delart()
 	{
-		$this->assign('title','删除图文素材');
-		$this->display();
+		$artid = I('artid');
+		$hav = M('Wxart')->where(array('artid'=>$artid))->find();
+		if ($hav) {
+			// 微信端删除操作
+			$access_token = $this->wxapi->gettoken();
+			$filedata = array('media_id'=>$hav['media_id']);
+			$url = "https://api.weixin.qq.com/cgi-bin/material/del_material?access_token=$access_token";
+			$result = $this->wxapi->httpGet($url,json_encode($filedata));
+			$result = json_decode($result,true);
+			if ($result['errcode'] != 0) {$this->error('删除素材失败，'.$result['errcode'].$result['errmsg']);}
+			// 本地文件删除
+			M('Wxart')->delete($artid);
+			// 记录用户行为
+    		$this->addlog('artid='.$attid);
+			$this->success('删除素材成功！');
+		}else{
+			$this->error('没有找到素材！');
+		}
 	}
 }

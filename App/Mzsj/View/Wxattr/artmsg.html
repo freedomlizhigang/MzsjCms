@@ -3,16 +3,18 @@
 	<table class="table-form table-wxattr">
 		<tr class="tr-header">
 			<th width="40">ID</th>
-			<th width="300">media_id</th>
-			<th width="150">上传时间</th>
+			<th width="200">标题</th>
+			<th width="350">media_id</th>
+			<th width="200">上传时间</th>
 			<th>操作</th>
 		</tr>
 		<volist name="lists" id="msg">
 		<tr>
 			<td>{$msg.artid}</td>
-			<td><textarea cols="23" rows="3" class="noscroll" readonly="readonly">{$msg.media_id}</textarea></td>
+			<td>{$msg.title}</td>
+			<td><textarea cols="40" rows="3" class="noscroll" readonly="readonly">{$msg.media_id}</textarea></td>
 			<td>{$msg.created_at|date='Y-m-d H:i:s',###}</td>
-			<td><a href="{:U('editart',array('artid'=>$msg[artid]))}" class="confirm">修改</a> | <a href="{:U('delattr',array('artid'=>$msg[artid]))}" class="confirm">删除</a></td>
+			<td><a href="{:U('editart',array('artid'=>$msg[artid]))}">修改</a> | <a href="{:U('delart',array('artid'=>$msg[artid]))}" class="confirm">删除</a></td>
 		</tr>
 		</volist>
 		<tr class="tr-btn">
